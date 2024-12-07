@@ -1,0 +1,2049 @@
+<Course
+    release_date="2014-10-01"
+    icon="ic_launcher_javascript"
+	title="JavaScript 技能"
+    full_title="JavaScript 编程技巧"  
+	code_section="编写您自己的JavaScript程序并提高您的编程技能"
+	code_template="从这个空的项目模板开始，创建您自己的程序。">
+	
+    <Files 
+        template="simple_project"
+        project_name="My JavaScript Application">
+    	<CodeFile name="main.js" />    
+    </Files>
+    
+
+	<Lesson
+    	section="从这里开始学习JavaScript编程！在这些交互式课程中，您将逐步学习JavaScript编程技能。"
+	    title="Hello World"
+		example="console.log(&quot;Hello World&quot;)&#59;"
+		description="在本课程中，您将学习如何运行第一个JavaScript程序。">
+
+	    <Exercise
+	        task="按运行以运行下面的JavaScript程序。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log("Hello$code_hint$ World");
+				]]>
+	        </SourceCode>
+	        <Run  success="太好了，您刚刚运行了第一个程序！它显示'_Hello World_'。您可以在下面看到输出。让我们继续。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在修改下面程序中蓝色箭头处的!_log_!语句以打印'_Hi World_'。然后运行。"
+	        level="5" >
+	        <ExpectedOutput
+	            fail="好吧，您的程序无法打印'_Hi World_'。请检查下面的输出。"
+	            hint="提示：只需将!_log_!语句中的引号之间的'_Hello World_'更改为'_Hi World_'。" >
+				<![CDATA[Hi World]]>
+	        </ExpectedOutput>
+	        <CodeHint />
+	        <Run success="太棒了！您已将程序输出更改为'_Hi World_'。" />
+	    </Exercise>
+	    <Exercise
+	        task="恭喜，您已经完成了第一堂JavaScript编程课程！现在您可以自己写一些代码。更改程序打印的文本并根据需要多次运行它。然后继续下一课。" >
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	
+	<Lesson
+	    title="程序结构"
+		example="console.log(&quot;Hello World&quot;)&#59;"
+		description="在本课程中，您将学习JavaScript程序的一般结构，程序如何执行语句以及如何修复语法错误。">
+
+        <Exercise
+	        task="请检查下面最简单的JavaScript程序，该程序在蓝色箭头处只有一个语句。请阅读蓝色箭头处的代码，然后继续。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log("JavaScript");$code_hint$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run success="当您运行程序时，它将执行打印'_JavaScript_'的语句。请检查以下输出。" />
+	    </Exercise>
+        <Exercise
+	        task="我们添加了第二个!_log_!语句，该语句在第一个语句之后执行。读取蓝色箭头处的代码，然后运行。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log("JavaScript");
+console.log("is");$code_hint$
+$space$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run
+	        	success="每个!_log_!语句都会执行，并在新的一行中打印文本。" />
+	    </Exercise>
+	    <Exercise
+	        task="我们在第二条语句后删除了!_&#59;_!。黄色的波浪状下划线显示这是一个警告。请阅读蓝色箭头处的代码，然后运行。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log("JavaScript");
+console.log("is")$code_hint$
+$space$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run
+	        	success="即使出现警告，程序仍会运行。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在，在我们引入到程序中的红色波浪状下划线处修复丢失的!_)_!错误。这种真正的语法错误会阻止JavaScript程序正确运行。"
+	        level="4" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log("JavaScript");
+console.log("is"$code_hint$
+$code_hint_1$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run
+	        	success="做得好，您已经修复了程序！" />
+	    </Exercise>
+	    <Exercise
+	        task="添加第三条!_log_!语句，在'_JavaScript_'和'_is_'下面打印'_cool_'。提示：只需键入!_con_!并使用代码完成即可。" 
+	        level="4">
+	        <ExpectedOutput
+	            fail="不完全。您希望程序以'_JavaScript_'，'_is_'，'_cool_'输出三行。"
+	        	hint="提示：只需添加另一个!_log_!语句，在其他!_log_!语句下方打印'_cool_'即可。" >
+	            <![CDATA[
+JavaScript
+is
+cool
+				]]>
+	        </ExpectedOutput>
+	        <CodeHint_1 />
+	        <Run success="干得好！您可以看到所有语句都一个接一个地执行。" />	            
+	    </Exercise>
+        <Exercise
+	        task="我们在程序中添加了一个代码注释，该注释以两个斜杠开头，并以绿色显示。该注释仅包含说明，但不执行。读取蓝色箭头处的代码，然后继续。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log("JavaScript");
+console.log("is");
+console.log("cool");
+// this is a comment $code_hint$
+$code_hint_1$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+		<Exercise
+	        task="现在在程序的蓝色箭头处添加第二条注释!_// TODO_!。"
+	        level="3" >
+	        <ExpectedCode
+	            fail="在程序中的单独一行中添加!_// TODO_!。">
+				<![CDATA[// TODO]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="不要更改程序输出，只需添加注释即可。">
+	            <![CDATA[
+JavaScript
+is
+cool
+	            ]]>
+	        </ExpectedOutput>
+	        <CodeHint_1 />
+	        <Run
+	        	success="干得好！您可以看到这些评论无济于事。" />
+	    </Exercise>
+		<Exercise
+	        task="恭喜！您已经掌握了JavaScript程序结构课程。现在您可以自己使用代码了。添加更多!_log_!语句并运行。然后继续下一课。" >
+		</Exercise>
+	</Lesson>
+
+	
+	
+	
+	<Lesson
+        section="继续编程基础课程"
+        title="数据类型"
+		example="&quot;Hello&quot; &nbsp;&nbsp;10 &nbsp;&nbsp;3.1415 &nbsp;&nbsp;true"
+		description="在本课程中，您将学习不同类型的数据：字符串，数字和布尔值。">
+
+		<Exercise
+	        task="检查下面的程序。它会显示文本'_hello_'。" 
+	        level="1" >
+			<SourceCode>
+	            <![CDATA[
+$space$
+console.log("hello"$code_hint$);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[
+hello
+				]]>
+	        </ExpectedOutput>
+	        <Run success="文本'_hello_'的打印符合预期。现在我们也打印一个数字。" />
+	    </Exercise>
+		<Exercise
+	        task="我们添加了第二个!_log_!语句，该语句打印数字!_10_!。数字写时不带引号，而文本用引号引起来-在JavaScript中，文本称为字符串（字符）。" 
+	        level="1" >
+			<SourceCode>
+	            <![CDATA[
+$space$
+console.log("hello");
+console.log(10$code_hint$);
+$code_hint_1$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[
+hello
+10
+				]]>
+	        </ExpectedOutput>
+	        <Run success="现在将同时打印文本和数字。" />
+	    </Exercise>
+	    <Exercise
+	        task="扩展程序以在另一行上打印数字!_20_!。" 
+	        level="2"  >
+	        <CodeHint_1 />
+			<ExpectedCode
+	            fail="打印数字!_20_!（不带引号）。">
+				<![CDATA[console.log(20)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="好吧，这个输出是不正确的。">
+	            <![CDATA[
+hello
+10
+20
+				]]>
+	        </ExpectedOutput>
+	        <Run success="完美。除了整数以外，JavaScript还支持浮点数。" />
+	    </Exercise>
+	    <Exercise
+	        task="在另一行中打印数字!_3.1415_!。" 
+	        level="3"  >
+	        <CodeHint_1 />
+			<ExpectedCode
+	            fail="打印数字!_3.1415_!（不带引号）。">
+				<![CDATA[console.log(3.1415)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="好吧，这个输出是不正确的。">
+	            <![CDATA[
+hello
+10
+20
+3.1415
+				]]>
+	        </ExpectedOutput>
+	        <Run success="太好了。您已经了解了字符串，整数和浮点数。还有一种布尔数据类型。" />
+	    </Exercise>
+		<Exercise
+	        task="我们添加了一条!_log_!语句，该语句打印布尔值!_true_!。布尔值可以是!_true_!或!_false_!。" 
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log("hello");
+console.log(10);
+console.log(20);
+console.log(3.1415);
+console.log(true$code_hint$);
+$code_hint_1$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[
+hello
+10
+20
+3.1415
+true	            
+				]]>
+	        </ExpectedOutput>
+	        <Run success="该程序现在也显示!_true_!。" />
+	    </Exercise>
+	    <Exercise
+	        task="使程序也输出布尔值!_false_!。" 
+	        level="3"  >
+	        <CodeHint_1 />
+			<ExpectedCode
+	            fail="打印布尔值!_false_!。">
+				<![CDATA[console.log(false)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="好吧，这个输出是不正确的。">
+	            <![CDATA[
+hello
+10
+20
+3.1415
+true
+false	            
+	            ]]>
+	        </ExpectedOutput>
+	        <Run success="做得好！" />
+	    </Exercise>
+	    <Exercise
+	        task="恭喜，您在本课中已经学到了一些有关数据类型的知识！请多玩一些代码。然后继续学习有关运算符的课。">
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+    <Lesson
+        title="操作符"
+		example="10 + 20"
+		description="在本课程中，您将学习如何使用运算符对数据进行计算。">
+
+		<Exercise
+	        task="检查该程序，该程序使用!_+_!运算符来计算!_10 + 20_!。" 
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log(10 + 20$code_hint$);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[30]]>
+	        </ExpectedOutput>
+	        <Run success="程序将计算并打印!_10 + 20_!的结果。" />
+	    </Exercise>
+		<Exercise
+	        task="现在让程序计算并打印!_100 + 40_!。" 
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log($code_hint$);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="让程序计算!_100 + 40_!并使用!_log_!语句打印结果。">
+				<![CDATA[console.log(100+40)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="好吧，那不是!_100 + 40_!。">
+	            <![CDATA[140]]>
+	        </ExpectedOutput>
+	        <Run success="正确！让我们学习其他算术运算符：加法运算符!_+_!，减法运算符!_-_!，乘法运算符!_*_!，除法运算符!_/_!和余数运算符!_%_!。" />
+	    </Exercise>
+	    <Exercise
+	        task="打印!_100 - 40_!。"
+	        level="2">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="让程序计算!_100 - 40_!并打印结果。">
+				<![CDATA[console.log(100-40)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="好吧，那不是!_100 - 40_!。">
+	            <![CDATA[60]]>
+	        </ExpectedOutput>
+	        <Run success="正确！" />
+	    </Exercise>
+	    <Exercise
+	        task="打印!_100 * 40_!。"
+	        level="2">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="让程序计算#59并打印结果。">
+				<![CDATA[console.log(100*40)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="好吧，这不是!_40_!的!_100_!倍。">
+	            <![CDATA[4000]]>
+	        </ExpectedOutput>
+	        <Run success="正确的！" />
+		</Exercise>
+	    <Exercise
+	        task="打印!_100 / 40_!。"
+	        level="2">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="让程序计算!_100 / 40_!并打印结果。">
+				<![CDATA[console.log(100/40)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="好吧，这不是!_100_!除以!_40_!。">
+	            <![CDATA[2.5]]>
+	        </ExpectedOutput>
+	        <Run success="正确！" />
+		</Exercise>
+	    <Exercise
+	        task="检查该程序，它使用字符串连接运算符，在JavaScript中也是!_+_!。如果!_+_!运算符的一个操作数是字符串，则结果将是两个操作数的字符串表示形式的并置。"
+	        level="1">
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log("Result: " + 10$code_hint$);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[Result: 10]]>
+	        </ExpectedOutput>
+	        <Run success="输出是由'_Result:_'和!_10_!组合而成的字符串。" />
+		</Exercise>
+	    <Exercise
+	        task="现在使用字符串连接运算符打印'_Pi=3.1415_'，其中!_3.1415_!作为数字给出。"
+	        level="4">
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log($code_hint$);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="使用字符串串联运算符打印!_&quot;Pi=&quot;+3.1415_!。">
+				<![CDATA[console.log("Pi="+3.1415)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="您应该打印!_Pi=3.1415_!。"
+	            hint="提示：!_3.1415_!应该打印为不带引号的数字。">
+	            <![CDATA[Pi=3.1415]]>
+	        </ExpectedOutput>
+	        <Run success="做得好！" />
+		</Exercise>
+		<Exercise
+		    task="恭喜！您已经学会了如何使用运算符。现在您自己尝试其他计算。然后在下一课中学习关系运算符。">
+		</Exercise>
+	</Lesson>
+
+
+
+
+
+    <Lesson
+        title="关系运算符"
+		example="10 &lt; 20"
+		description="在本课程中，您将学习使用关系和相等运算符来比较数据。">
+
+		<Exercise
+	        task="检查下面的JavaScript程序。它检查!_10_!是否小于!_20_!并打印结果。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log(10 < 20$code_hint$);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+				<![CDATA[true]]>
+	        </ExpectedOutput>
+	        <Run success="比较的结果是一个布尔值，它是!_true_!或!_false_!。" />
+	    </Exercise>
+		<Exercise
+	        task="现在比较!_10_!是否大于!_20_!并打印结果。"
+	        level="2" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log($code_hint$);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="使用!_&gt;_!运算符。">
+				<![CDATA[console.log(10 > 20)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="嗯，那是错的。">
+				<![CDATA[false]]>
+	        </ExpectedOutput>
+	        <Run success="正确！" />
+	    </Exercise>
+		<Exercise
+	        task="比较!_10_!是否等于!_20_!并打印结果。使用相等运算符!_==_!。"
+	        level="2" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="使用!_==_!运算符。">
+				<![CDATA[console.log(10 == 20)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="嗯，那是错的。">
+				<![CDATA[false]]>
+	        </ExpectedOutput>
+	        <Run success="正确！" />
+	    </Exercise>
+		<Exercise
+	        task="比较!_10_!是否等于!_20_!并打印结果。使用不等式运算符!_!=_!。"
+	        level="2" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="使用!_!=_!运算符。">
+				<![CDATA[console.log(10 != 20)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="嗯，那是错的。">
+				<![CDATA[true]]>
+	        </ExpectedOutput>
+	        <Run success="正确！" />
+		</Exercise>
+		<Exercise
+	        task="比较!_10_!是否小于或等于!_20_!。使用!_&lt; =_!运算符。"
+	        level="2" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="使用!_&lt; =_!运算符。">
+				<![CDATA[console.log(10 <= 20)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="嗯，那是错的。">
+				<![CDATA[true]]>
+	        </ExpectedOutput>
+	        <Run success="正确！" />
+		</Exercise>
+		<Exercise
+	        task="比较!_10_!是否大于或等于!_20_!。使用!_&gt; =_!运算符。"
+	        level="2" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="使用!_&gt; =_!运算符。">
+				<![CDATA[console.log(10 >= 20)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="嗯，那是错的。">
+				<![CDATA[false]]>
+	        </ExpectedOutput>
+	        <Run success="正确！您现在知道相等运算符和关系运算符。让我们混淆一下。" />
+		</Exercise>
+		<Exercise
+	        task="比较!_123_!加!_456_!是否小于!_987_!减去!_654_!。"
+	        level="4" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log($code_hint$);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="使用!_+_!，!_-_!和!_&#60; _!运算符的组合。">
+				<![CDATA[console.log(123 + 456 < 987 - 654)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="不，那是错的。">
+				<![CDATA[false]]>
+	        </ExpectedOutput>
+	        <Run success="太棒了！您已经学习了如何在JavaScript中结合数字和关系运算符。" />
+		</Exercise>
+		<Exercise
+		    task="恭喜！您已经完成了关系运算符的课程。现在，您可以自己尝试一些比较。然后继续。">
+		</Exercise>
+	</Lesson>
+
+
+
+
+    <Lesson
+        section="使用变量来存储和操作数据"
+        title="变量"
+		example="var i = 10&#59;"
+		description="在本课程中，您将学习程序如何将数据存储在变量中。">
+
+	    <Exercise
+	        task="检查下面的JavaScript程序。它声明一个值为!_10_!的变量!_i_!并输出此变量的值。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var i = 10;$code_hint$
+console.log(i);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+				<![CDATA[10]]>
+	        </ExpectedOutput>
+	        <Run success="正如您所看到的，变量可以保存可以稍后访问的值。" />
+	    </Exercise>
+     	<Exercise
+	        task="更改变量!_i_!的初始值，以便程序打印!_20_!。"
+	        level="2" >
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不，那不是!_20_!。"
+	            hint="提示：将变量声明更改为!_int i = 20_!。" >
+				<![CDATA[20]]>
+	        </ExpectedOutput>
+	        <ExpectedCode
+	            fail="用!_log_!语句打印变量!_i_!。">
+				<![CDATA[console.log(i)]]>
+	        </ExpectedCode>
+	        <Run success="完美！" />
+	    </Exercise>
+	    <Exercise
+	        task="检查这个程序。我们添加了变量!_j_!和!_k_!。!_k_!的值是从!_i_!和!_j_!的总和中得出的。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var i = 20;$code_hint_2$
+console.log(i);
+var j = 10;
+console.log(j);
+var k = i + j;$code_hint$
+console.log(k);
+$code_hint_1$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+				<![CDATA[
+20
+10
+30
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="程序将打印出!_i_!和!_j_!相加的结果。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在声明一个变量!_x_!，该变量以!_i_!和!_j_!的乘积初始化，并打印结果。"
+	        level="3" >
+	        <ExpectedOutput
+	            fail="不，那是错的。">
+				<![CDATA[
+20
+10
+30
+200
+				]]>
+	        </ExpectedOutput>
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="将!_i * j_!分配给新的变量!_x_!。">
+				<![CDATA[x = i * j]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="用!_log_!语句打印变量!_x_!。">
+				<![CDATA[console.log(x)]]>
+	        </ExpectedCode>
+	        <Run success="很好！" />
+	    </Exercise>
+	    <Exercise
+	        task="将变量!_i_!的初始值更改为!_500_!。"
+	        level="2" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="不，那是错的。将!_i_!更改为!_500_!。">
+				<![CDATA[
+500
+10
+510
+5000
+				]]>
+	        </ExpectedOutput>
+	        <Run success="太好了！您可以看到强大的变量。" />
+	    </Exercise>
+	    <Exercise
+	        task="恭喜！现在您可以自己多玩一些代码。然后继续学习如何在程序执行期间随时更改变量值。">
+	    </Exercise>
+	</Lesson>
+
+    
+    
+    
+    <Lesson
+        title="变量修改"
+		example="i++&#59;"
+		description="在本课程中，您将学习如何操作变量中的数据。">
+    
+	    <Exercise
+	        task="检查下面的JavaScript程序。它在执行期间会更改变量!_i_!的值。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var i = 1;
+console.log(i);
+i = 2;$code_hint$
+console.log(i);
+$code_hint_1$
+				]]>
+	        </SourceCode>
+			<CodeHint />	        
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+				<![CDATA[
+1
+2
+				]]>
+	        </ExpectedOutput>
+	        <Run success="!_log_!语句在执行时会打印!_i_!的当前实际值。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在，在现有代码之后将变量!_i_!的值更改为!_3_!，并打印出来。"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedOutput
+	            fail="输出应该是!_1_!，!_2_!，!_3_!。">
+				<![CDATA[
+1
+2
+3
+				]]>
+	        </ExpectedOutput>
+	        <ExpectedCode
+	            fail="将值!_3_!分配到!_i_!。">
+				<![CDATA[i = 3]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            count="3"
+	            fail="将变量!_i_!打印三遍。" >
+				<![CDATA[console.log(i)]]>
+	        </ExpectedCode>
+	        <Run success="干得好。让我们混合起来。" />
+	    </Exercise>
+	    <Exercise
+	        task="检查该程序，通过使用加法将!_i_!的值增加!_1_!。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var i = 1;$code_hint_2$
+console.log(i);
+i = i + 1;$code_hint$
+console.log(i);
+$code_hint_1$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+				<![CDATA[
+1
+2
+				]]>
+	        </ExpectedOutput>
+	        <Run success="语句!_i = i + 1_!首先计算!_i + 1_!，然后将结果分配回!_i_!。因此它使i增加!_1_!。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在再次以相同的方式将!_i_!的值增加!_1_!并打印出来。"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedOutput
+	            fail="输出应该是!_1_!，!_2_!，!_3_!。">
+				<![CDATA[
+1
+2
+3
+				]]>
+	        </ExpectedOutput>
+	        <ExpectedCode
+	            count="3"
+	            fail="将变量!_i_!打印三遍。" >
+				<![CDATA[console.log(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            count="2"
+	            fail="通过使用!_+_!运算符并返回该值，将!_i_!增加到!_1_!。" >
+				<![CDATA[i = i + 1]]>
+	        </ExpectedCode>
+	        <Run success="做得好。" />
+	    </Exercise>
+	    <Exercise
+	        task="更改!_i_!的初始值，以便程序打印!_10_!，!_11_!，!_12_!。"
+	        level="4" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="输出应该是!_10_!，!_11_!，!_12_!。">
+				<![CDATA[
+10
+11
+12
+				]]>
+	        </ExpectedOutput>
+	        <ExpectedCode
+	            count="3"
+	            fail="将变量!_i_!打印三遍。" >
+				<![CDATA[console.log(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            count="2"
+	            fail="通过使用!_+_!运算符并通过将值赋回来将!_i_!增加到!_1_!。" >
+				<![CDATA[i = i + 1]]>
+	        </ExpectedCode>
+	        <Run success="太好了。由于通常需要将变量增加!_1_!，所以它有一个捷径。" />
+	    </Exercise>
+	    <Exercise
+	        task="检查该程序。它使用!_++_!运算符将!_i_!增加!_1_!。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var i = 10;
+console.log(i);
+i++;$code_hint$
+console.log(i);
+i++;
+console.log(i);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+				<![CDATA[
+10
+11
+12
+				]]>
+	        </ExpectedOutput>
+	        <Run success="!_++_!运算符增加了变量的值。还有一个!_--_!运算符。" />
+	    </Exercise>
+	    <Exercise
+	        task="将!_++_!运算符更改为!_--_!运算符，然后看看会发生什么。"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不，那是错的。">
+				<![CDATA[
+10
+9
+8
+				]]>
+	        </ExpectedOutput>
+	        <Run success="太棒了！!_--_!运算符减小了变量值。" />
+	    </Exercise>
+	    <Exercise
+	        task="恭喜！现在您可以自己多玩一些代码。然后继续下一课。">
+	    </Exercise>
+	</Lesson>
+
+
+
+
+
+	<Lesson
+		section="使用控制流语句来控制程序执行的操作"
+        title="if语句"
+		example="if (i &lt; 10) {}"
+		description="在本课程中，您将学习如何使用if语句，该语句仅在满足特定条件的情况下才允许执行代码的特定部分。">
+
+	    <Exercise
+	        task="检查此if语句。仅在条件为true时才执行该语句的主体。猜猜程序打印什么？"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var i = 5;$code_hint_2$
+if (i < 10)$code_hint$
+{
+	console.log("i is less than 10");
+}
+$code_hint_1$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[
+i is less than 10
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="它打印出'_i is less than 10_'。因为条件为真，所以执行了!_log_!语句。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在添加第二个if语句，如果!_i_!大于!_0_!，则打印'_i is greater than 0_'。"
+	        level="2">
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="添加!_if (i > 0)_!。">
+	            <![CDATA[if (i > 0)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="这不是预期的输出。">
+	            <![CDATA[
+i is less than 10
+i is greater than 0
+	            ]]>
+	        </ExpectedOutput>
+	        <Run success="做得好。"/>
+	    </Exercise>
+	    <Exercise
+	        task="现在将!_i_!的初始值更改为!_100_!。"
+	        level="2">
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="将!_i_!设置为!_100_!。">
+	            <![CDATA[i = 100]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="这不是预期的输出。">
+	            <![CDATA[
+i is greater than 0
+	            ]]>
+	        </ExpectedOutput>
+	        <Run success="太棒了。您可以看到第一个!_log_!语句不再执行，因为现在条件为假。让我们混合起来。"/>
+	    </Exercise>
+	    <Exercise
+	        task="如果变量!_i_!为偶数，则添加if语句以打印'_i is even_'。在条件中使用余数运算符!_i % 2_!。"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="添加!_if (i % 2 == 0)_!以检查!_i_!是否为偶数。">
+	            <![CDATA[if (i % 2 == 0]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="如果if条件为真，则打印'_i is even_'。">
+	            <![CDATA[console.log("i is even")]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="程序应输出'_i is even_'。">
+	            <![CDATA[
+i is greater than 0
+i is even
+	            ]]>
+	        </ExpectedOutput>
+	        <Run  success="很好！" />
+	    </Exercise>
+	    <Exercise
+	        task="恭喜！您已经掌握了if语句。您现在可以尝试更多的if语句。然后继续学习if-else语句。">
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	<Lesson
+	    title="If-Else语句"
+		example="if (i &lt; 10) {} else {}"
+		description="在本课程中，您将学习如何使用if-else语句。" >
+	    
+	    <Exercise
+	        task="检查下面的if-else语句。如果条件不成立，则执行else部分。猜猜程序打印什么？"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var a = 2000;
+var b = 1000;
+if (a < b)
+{
+	console.log("a is less than b");
+}
+else$code_hint$
+{
+	console.log("a is not less than b");
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[a is not less than b]]>
+	        </ExpectedOutput>
+	        <Run  success="执行其他部分是因为!_a_!不小于!_b_!，并且程序将打印'_a is not less than b_'。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在使用if-else语句查找!_a_!和!_b_!的最小值并将其分配给变量!_min_!。"
+	        level="4" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var a = 2000;$code_hint_2$
+var b = 1000;
+var min;
+if (a < b)
+{
+	// TODO: assign min
+	$code_hint$
+}
+else
+{
+	// TODO: assign min
+	
+}
+console.log("The minimum of a and b is: " + min);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="如果!_a_!小于!_b_!，则将!_a_!分配给!_min_!。">
+	            <![CDATA[min = a]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="如果!_a_!不小于!_b_!，则在其他部分将!_b_!分配给!_min_!。">
+	            <![CDATA[min = b]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="嗯，那不是正确的输出。">
+	            <![CDATA[The minimum of a and b is: 1000]]>
+	        </ExpectedOutput>
+	        <Run  success="很好！" />
+	    </Exercise>
+	    <Exercise
+	        task="将!_a_!的初始值更改为!_100_!。"
+	        level="2" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="用!_100_!初始化!_a_!。">
+	            <![CDATA[a = 100]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="嗯，那不是正确的输出。">
+	            <![CDATA[The minimum of a and b is: 100]]>
+	        </ExpectedOutput>
+	        <Run  success="很好！" />
+	    </Exercise>
+	    <Exercise 
+	        task="恭喜！您已经在本课中学习了如何使用if-else语句。现在再玩一些代码。然后继续下一课。">
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	
+    <Lesson
+        title="While 循环"
+		example="while (i &lt; 10) i++&#59;"
+		description="在本课程中，您将学习while循环如何允许在特定条件为真的情况下连续执行语句。">
+
+	    <Exercise
+	        task="请检查while循环。只要!_i_!小于或等于!_5_!，就会执行循环。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var i = 0;$code_hint_2$
+while (i <= 5$code_hint$)
+{
+	console.log(i);$code_hint_1$
+	i++;$code_hint_3$
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="在每次循环迭代中，主体中的语句先打印!_i_!，然后再将其加1。猜猜程序将打印什么？"
+	        level="1" >
+	        <CodeHint_1 />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[
+0
+1
+2
+3
+4
+5
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="程序将打印从!_0_!到!_5_!的数字。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在让程序打印从!_0_!到!_10_!的数字。"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="打印变量!_i_!。">
+	            <![CDATA[console.log(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="使用while循环。">
+	            <![CDATA[while (]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="程序应打印数字!_0_!至!_10_!。"
+	            hint="提示：更改条件以检查!_i_!是否小于或等于!_10_!。" >
+	            <![CDATA[
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+				]]>
+	        </ExpectedOutput>
+	        <Run success="很好！" />
+		</Exercise>
+	    <Exercise
+	        task="现在让程序打印从!_10_!到!_20_!的数字。"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="打印变量!_i_!。">
+	            <![CDATA[console.log(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="使用while循环。">
+	            <![CDATA[while (]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="程序应打印从!_10_!到!_20_!的数字。"
+	            hint="提示：将!_i_!的初始值更改为!_10_!，并将while条件更改为!_i_!小于或等于!_20_!。" >
+	            <![CDATA[
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+				]]>
+	        </ExpectedOutput>
+	        <Run success="太好了。让我们混合起来。" />
+		</Exercise>
+	    <Exercise
+	        task="使程序打印从!_10_!到!_1_!的数字。"
+	        level="4" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="打印变量!_i_!。">
+	            <![CDATA[console.log(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="使用while循环。">
+	            <![CDATA[while (]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="程序应将数字!_10_!向下打印到!_1_!。" 
+	            hint="提示：用!_10_!初始化变量!_i_!。然后在while循环中减小它，使其大于或等于!_1_!。可以使用!_--_!运算符。" >
+	            <![CDATA[
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+				]]>
+	        </ExpectedOutput>
+	        <Run success="干得好。您会看到while循环有多么强大。但是它们可以做得更多。" />
+		</Exercise>
+	    <Exercise
+	        task="使用while循环来计算从!_1_!到!_1000_!的所有数字的总和。使它仅输出总和，而不输出中间值。"
+	        level="5" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var sum = 0;
+// Use a while loop to calculate the sum of 1 to 1000
+$code_hint$
+console.log(sum);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="在变量!_sum_!中计算结果并打印出来。">
+	            <![CDATA[console.log(sum)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="使用while循环将变量!_i_!从!_1_!迭代到!_1000_!。">
+	            <![CDATA[while (]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="那不是正确的结果。"
+	            hint="提示：在每个循环迭代中将每个数字添加到!_sum_!，例如!_sum = sum + i_!。">
+	            <![CDATA[500500]]>
+	        </ExpectedOutput>
+	        <Run  success="太棒了！这是正确的结果。" />
+	    </Exercise>
+	    <Exercise
+	        task="恭喜！您已经完成了while循环的课程。现在再玩一些代码。然后继续进行有关for循环的课程。">
+	    </Exercise>
+	</Lesson>
+
+    
+    
+    
+    
+	<Lesson
+        title="For 循环"
+		example="for (var i = 0; i &lt; 10; i++) {}"
+		description="在本课程中，您将学习for循环。">
+
+	    <Exercise
+	        task="检查这个for循环，这是while循环的快捷方式。首先它声明一个变量!_i_!。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+for (var i = 0$code_hint$; i <= 5$code_hint_1$; i++$code_hint_3$)
+{
+	console.log(i);$code_hint_2$
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="在!_i_!小于或等于!_5_!时执行for循环。"
+	        level="1" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="for循环的主体在每次循环迭代中执行，并显示!_i_!。"
+	        level="1" >
+	        <CodeHint_2 />
+	    </Exercise>
+	    <Exercise
+	        task="每次迭代后!_i_!增加。猜猜程序打印什么？"
+	        level="1" >
+	        <CodeHint_3 />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[
+0
+1
+2
+3
+4
+5
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="它打印从!_0_!到!_5_!的数字。使用while循环也可以这样做。但是for循环更短。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在让程序打印!_0_!到!_10_!的数字。"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="打印变量!_i_!。">
+	            <![CDATA[console.log(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="使用for循环。">
+	            <![CDATA[for (var]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="程序应打印数字!_0_!至!_10_!。"
+	            hint="提示：更改循环条件以检查!_i_!是否小于或等于!_10_!。" >
+	            <![CDATA[
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+				]]>
+	        </ExpectedOutput>
+	        <Run success="很好。" />
+		</Exercise>
+	    <Exercise
+	        task="现在使程序打印从!_10_!到!_20_!的数字。"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="打印变量!_i_!。">
+	            <![CDATA[console.log(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="使用for循环。">
+	            <![CDATA[for (var]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="程序应打印数字!_10_!至!_20_!。"
+	            hint="提示：更改!_i_!的初始值以及循环条件。" >
+	            <![CDATA[
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+				]]>
+	        </ExpectedOutput>
+	        <Run success="太好了。让我们混合起来。" />
+		</Exercise>
+	    <Exercise
+	        task="编写一个for循环，将数字从!_10_!向下打印到!_1_!。"
+	        level="4" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+// for (initialization; condition; increment)
+$code_hint$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="使用for循环迭代变量!_var i_!。">
+	            <![CDATA[for (var]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="在每次循环迭代之后，使用!_--_!运算符减小变量。">
+	            <![CDATA[--]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="在每次循环迭代中打印变量。">
+	            <![CDATA[console.log(]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="输出应该是从!_10_!到!_1_!的数字。">
+	            <![CDATA[
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="太棒了！这是正确的。" />
+	    </Exercise>
+	    <Exercise
+	        task="恭喜！您已经在本课中学习了如何使用循环。自己写一些代码，然后继续下一课。">
+	    </Exercise>
+	</Lesson>
+    
+	
+    
+	
+	
+	<Lesson
+	    section="使用数组存储值"
+        title="数组"
+		example="var a = [ 1, 2, 3 ];"
+		description="在本课程中，您将学习如何将值存储在数组中。">
+
+	    <Exercise
+	        task="检查该程序，该程序定义了一个新的数组，该数组包含整数!_4_!，!_8_!和!_2_!。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var a = [ 4, 8, 2 ]$code_hint$;
+console.log(a[0]$code_hint_2$);
+$code_hint_3$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="!_a[0]_!访问数组的第一个元素，其索引为!_0_!。"
+	        level="1" >
+	        <CodeHint_2 />
+	        <Run  success="太好了！数组的第一个元素是值!_4_!。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在也以索引号!_1_!打印第二个数组元素。"
+	        level="3" >
+	        <CodeHint_3 />
+	         <ExpectedCode
+	            fail="使用!_a[1]_!访问索引1处的数组元素并进行打印。">
+	            <![CDATA[a[1]]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="这不是预期的输出。">
+	            <![CDATA[
+4
+8
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="干得好！让我们使用一个for循环来接下来打印所有值。" />
+	    </Exercise>
+	    <Exercise
+	        task="此for循环将变量!_i_!从!_0_!迭代到!_a.length_!，该变量保存数组的元素数。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var a = [ 4, 8, 2 ]$code_hint_2$;
+for (var i = 0; i < a.length$code_hint$; i++)
+{
+	$code_hint_1$
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="在for循环内，打印索引为!_i_!的元素。"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="使用代码!_console.log(a[i])_!在索引!_i_!处打印数组元素。">
+	            <![CDATA[console.log(a[i])]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="这不是预期的输出。">
+	            <![CDATA[
+4
+8
+2
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="太棒了！让我们混合一下。" />
+	    </Exercise>
+	    <Exercise
+	        task="用数组!_[ 5, 7, 3, 9 ]_!初始化!_a_!。"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="这不是预期的输出。">
+	            <![CDATA[
+5
+7
+3
+9
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="漂亮！" />
+	    </Exercise>
+	    <Exercise
+	        task="此程序将创建一个包含!_4_!个元素的空数组。每个元素的默认值均为!_0_!。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var a = new Array(4$code_hint$);
+console.log(a[0]);
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run  success="将打印第一个数组元素的默认值!_0_!。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在，我们在程序执行过程中通过赋值将第一个元素的值设置为!_5_!。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var a = new Array(4);
+a[0] = 5;$code_hint$
+console.log(a[0]);
+$code_hint_1$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run  success="第一个数组元素的值现在是!_5_!。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在将索引号为!_1_!的元素的值设置为!_7_!，然后打印该元素。"
+	        level="1" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="使用!_a[1] = 7_!。">
+	            <![CDATA[a[1] = 7]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="还打印!_a[1]_!。">
+	            <![CDATA[console.log(a[1])]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="这不是预期的输出。">
+	            <![CDATA[
+5
+7
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="做得好！" />
+	    </Exercise>
+	    <Exercise
+	        task="恭喜！您已经学会了如何将值存储在数组中。自己写一些代码，然后继续下一课。" >
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	<Lesson
+	    section="使用函数对执行特定任务的语句进行分组"
+        title="Functions"
+		example="function foo() {}"
+		description="在本课程中，您将学习如何使用函数。函数是语句的集合，这些语句被组合在一起以执行操作。">
+
+	    <Exercise
+	        task="签出该程序。它声明一个函数!_foo_!。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+foo();$code_hint$
+$code_hint_2$
+
+function foo()$code_hint_1$
+{
+	console.log("Inside foo");
+}
+
+$code_hint_3$
+				]]>
+	        </SourceCode>
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="执行程序时将调用功能!_foo_!。猜猜程序是做什么的？"
+	        level="1" >
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[Inside foo]]>
+	        </ExpectedOutput>
+	        <Run  success="程序将调用功能!_foo_!，然后输出'_Inside foo_'。" />
+	    </Exercise>
+		<Exercise
+	        task="添加第二个函数调用!_foo()_!。"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="添加第二个呼叫!_foo()_!。">
+	            <![CDATA[
+Inside foo
+Inside foo
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="太好了！让我们混合吧。" />
+	    </Exercise>
+	    <Exercise
+	        task="添加另一个打印'_Inside bar_'的功能!_bar_!。"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="添加!_function bar()_!。">
+	            <![CDATA[function bar(]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="在两次拨打!_foo_!之后，立即拨打!_bar_!。"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="致电!_bar()_!。">
+	            <![CDATA[bar()]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="输出应该是三行'_Inside foo_'，'_Inside foo_'和'_Inside bar_'。">
+	            <![CDATA[
+Inside foo
+Inside foo
+Inside bar
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="太好了。您已经了解了函数如何对语句进行分组。当定义参数时，它们甚至更强大。" />
+	    </Exercise>
+	    <Exercise
+	        task="检查下面的!_print_!函数。它具有参数!_str_!。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+print("Hello"$code_hint$);
+$code_hint_3$
+
+function print(str$code_hint_1$)
+{
+	console.log(str$code_hint_2$);
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="函数的调用为此参数传递一个字符串值。"
+	        level="1" >
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="在函数内部，可以像访问变量一样访问参数值。猜猜程序打印什么？"
+	        level="1" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[Hello]]>
+	        </ExpectedOutput>
+	        <Run  success="打印出作为参数传递的字符串值'_Hello_'。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在再次调用!_print_!，并传递字符串'_World_'。"
+	        level="2" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="致电!_print_!，并通过'_World_'。">
+	            <![CDATA[print("World")]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="输出应该是'_Hello_'，'_World_'。">
+	            <![CDATA[
+Hello
+World
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="干得好。一个函数也可以使用多个参数。" />
+	    </Exercise>
+	    <Exercise
+	        task="检查下面的!_printSum_!函数。它使用两个数字作为参数并打印总和。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+printSum(10, 20);$code_hint_1$
+$code_hint_2$
+
+function printSum(a, b$code_hint$)
+{
+	console.log(a + b);
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="函数调用还传递两个数字，每个参数一个。"
+	        level="1" >
+	        <CodeHint_1 />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[30]]>
+	        </ExpectedOutput>
+	        <Run  success="程序将打印所传递的参数!_10_!和!_20_!的总和。" />
+	    </Exercise>
+	    <Exercise
+	        task="再次调用!_printSum_!来同时打印!_100_!和!_200_!的总和。"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="输出应该是!_30_!，!_300_!。">
+	            <![CDATA[
+30
+300
+	            ]]>
+	        </ExpectedOutput>
+	        <Run  success="太好了。函数不仅可以执行语句，还可以返回一个值。" />
+	    </Exercise>
+	    <Exercise
+	        task="检查下面的!_sum_!函数。它使用两个整数作为参数并返回总和。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var x = sum(10, 20);$code_hint_1$
+console.log(x);
+$code_hint_3$
+
+function sum(a, b)
+{
+	return a + b;$code_hint$
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="对!_sum_!的调用返回传递给函数内部return语句的值。"
+	        level="1" >
+	        <CodeHint_1 />
+	        <ExpectedOutput
+	            fail="不要更改程序，只需运行它。">
+	            <![CDATA[30]]>
+	        </ExpectedOutput>
+	        <Run  success="程序将打印!_sum_!调用的返回值。" />
+	    </Exercise>
+	    <Exercise
+	        task="再次调用!_sum_!以计算!_100_!和!_200_!的总和并打印结果。"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="致电!_sum_!，并通过!_100_!和!_200_!。">
+	            <![CDATA[sum(100, 200)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="输出应该是!_30_!，!_300_!。">
+	            <![CDATA[
+30
+300
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="太棒了。让我们混合一下。" />
+	    </Exercise>
+	    <Exercise
+	        task="编写一个!_mult_!函数，该函数将两个数字作为参数，并返回两个数字的乘积。"
+	        level="4" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+console.log(mult(10, 20));
+console.log(mult(100, 200));
+	
+$code_hint$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="添加!_function mult(a, b)_!。">
+	            <![CDATA[function mult(]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="在!_mult_!函数中添加!_return_!语句。">
+	            <![CDATA[return]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="使用!_mult_!函数来计算结果。">
+	            <![CDATA[console.log(mult(10, 20))]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="使用!_mult_!函数计算结果。">
+	            <![CDATA[console.log(mult(100, 200))]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="那不是正确的输出。">
+	            <![CDATA[
+200
+20000
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="很好！" />
+	    </Exercise>
+	    <Exercise
+	        task="恭喜！您已经在本课中学习了如何使用函数。自己写一些代码，然后继续下一课。" >
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	
+	<Lesson
+	    section="使用面向对象的编程"
+        title="对象"
+		example="var rect = { width: 50, height:  50 }"
+		description="在本课程中，您将学习对象。JavaScript对象是具有属性和方法的复杂变量。">
+
+	    <Exercise
+	        task="签出该程序。它将创建一个新对象!_rect_!。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var rect$code_hint$ = { width: 10, height$code_hint_1$: 20 };
+
+console.log(rect.width)$code_hint_2$;
+$code_hint_3$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="对象具有属性!_width_!和!_height_!。"
+	        level="1" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="程序将打印对象的!_width_!属性。"
+	        level="1" >
+	        <CodeHint_2 />
+	        <Run  success="!_width_!属性的值是!_10_!。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在也打印对象的!_height_!属性。"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="使用!_console.log(rect.height)_!访问和打印属性值。">
+	            <![CDATA[console.log(rect.height)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="那不是正确的输出。">
+	            <![CDATA[
+10
+20
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="做得好！" />
+	    </Exercise>
+	    <Exercise
+	        task="现在，我们在程序执行期间将!_width_!属性的值更改为!_100_!，然后再打印。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+var rect = { width: 10, height: 20 };
+
+console.log(rect.width);
+console.log(rect.height);
+
+rect.width = 100;$code_hint$
+console.log(rect.width);
+$code_hint_1$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run  success="将打印属性的新值!_100_!。" />
+	    </Exercise>
+	    <Exercise
+	        task="现在将!_height_!属性的值更改为!_200_!并进行打印。"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            start_line="6"
+	            fail="使用!_rect.height = 200_!更改属性值。">
+	            <![CDATA[rect.height = 200]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="6"
+	            fail="使用!_console.log(rect.height)_!访问和打印属性值。">
+	            <![CDATA[console.log(rect.height)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="那不是正确的输出。">
+	            <![CDATA[
+10
+20
+100
+200
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="很好！" />
+	    </Exercise>
+	    <Exercise
+	        task="恭喜！您已经在本课中学习了如何创建和修改具有属性的对象。自己写一些代码，然后继续下一课。" >
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	
+	<Lesson
+        title="构造函数"
+		example="var rect = new rectangle()"
+		description="在本课程中，您将学习使用构造函数创建对象。">
+
+	    <Exercise
+	        task="检查该程序。它定义了构造函数!_rectangle_!。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+function rectangle$code_hint$(width$code_hint_1$, height)
+{ 
+	this.width = width$code_hint_4$;
+	this.height = height; 
+}
+
+var rect$code_hint_5$ = new rectangle$code_hint_2$(10$code_hint_3$, 20);
+console.log(rect.width$code_hint_6$);
+$code_hint_7$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="构造函数将!_width_!和!_height_!作为参数。"
+	        level="1" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="!_new_!关键字用于调用构造函数并创建一个新对象。"
+	        level="1" >
+	        <CodeHint_2 />
+	    </Exercise>
+	    <Exercise
+	        task="值!_10_!和!_20_!作为!_width_!和!_height_!参数传递。"
+	        level="1" >
+	        <CodeHint_3 />
+	    </Exercise>
+	    <Exercise
+	        task="在构造函数中，!_this_!关键字用于使用各自的参数值初始化属性!_width_!和!_height_!。"
+	        level="1" >
+	        <CodeHint_4 />
+	    </Exercise>
+	    <Exercise
+	        task="新创建的对象存储在变量!_rect_!中。"
+	        level="1" >
+	        <CodeHint_5 />
+	    </Exercise>
+	    <Exercise
+	        task="最后，将打印对象的!_width_!属性。猜猜程序将打印什么内容？"
+	        level="1" >
+	        <CodeHint_6 />
+	        <Run  success="将打印值!_10_!，该值作为!_width_!传递给构造函数。" />
+	    </Exercise>
+	    <Exercise
+	        task="还打印对象的!_height_!属性。"
+	        level="3" >
+	        <CodeHint_7 />
+	        <ExpectedCode
+	            fail="使用!_console.log(rect.height)_!访问和打印属性值。">
+	            <![CDATA[console.log(rect.height)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="那不是正确的输出。">
+	            <![CDATA[
+10
+20
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="干得好！让我们接下来使用构造函数创建更多对象。" />
+	    </Exercise>
+	    <Exercise
+	        task="创建另一个宽度/高度为!_100_! /!_200_!的!_rectangle_!对象，并将其分配给变量!_rect2_!。"
+	        level="4" >
+	        <ExpectedCode
+	            fail="使用!_var rect2 = new rectangle_!创建对象。">
+	            <![CDATA[var rect2 = new rectangle]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="使用!_var rect2 = new rectangle(100, 200)_!传递宽度和高度。">
+	            <![CDATA[var rect2 = new rectangle(100, 200)]]>
+	        </ExpectedCode>
+	        <CodeHint_7 />
+	    </Exercise>
+	    <Exercise
+	        task="还要打印!_rect2_!的!_width_!和!_height_!属性副词。"
+	        level="3" >
+	        <CodeHint_7 />
+	        <ExpectedCode
+	            fail="使用!_console.log(rect2.width)_!访问和打印属性值。">
+	            <![CDATA[console.log(rect2.width)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="使用!_console.log(rect2.height)_!访问和打印属性值。">
+	            <![CDATA[console.log(rect2.height)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="那不是正确的输出。">
+	            <![CDATA[
+10
+20
+100
+200
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="太棒了！!_rectangle_!构造函数使创建新的矩形对象变得容易。" />
+	    </Exercise>
+	    <Exercise
+	        task="恭喜！您已经学会了如何使用构造函数方法创建新对象。自己写一些代码，然后继续下一课。" >
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	<Lesson
+        title="方法"
+		example="this.area = function() {}"
+		description="在本课程中，您将学习如何定义对象方法。对象是状态和行为的捆绑。属性定义状态，方法定义行为。">
+
+	    <Exercise
+	        task="检查该程序，该程序定义了构造函数!_rectangle_!。在构造函数内部，我们定义了对象方法!_area_!。"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+function rectangle(width, height)
+{ 
+	this.width = width;
+	this.height = height;
+	
+	this.area$code_hint$ = function()
+	{
+		return$code_hint_2$ this.width$code_hint_1$ * this.height;
+	};
+	$code_hint_4$
+}
+
+var rect = new rectangle(10, 20);
+console.log(rect.area()$code_hint_3$);
+$code_hint_5$
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="在对象方法内部，我们可以使用!_this_!关键字访问对象!_width_!和!_height_!属性。"
+	        level="1" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="对象方法将计算矩形区域，并像函数一样使用!_return_!语句将其返回。"
+	        level="1" >
+	        <CodeHint_2 />
+	    </Exercise>
+	    <Exercise
+	        task="我们现在可以在新创建的!_rectangle_!对象!_rect_!上调用!_area()_!方法。"
+	        level="1" >
+	        <CodeHint_3 />
+	        <Run  success="程序将打印出我们矩形对象的计算区域!_200_!。" />
+	    </Exercise>
+	    <Exercise
+	        task="定义另一种方法!_aspectRatio_!，该方法计算矩形的长宽比，宽度除以高度。"
+	        level="4" >
+	        <CodeHint_4 />
+	        <ExpectedCode
+	            fail="添加代码!_this.aspectRatio = function() {}_!来定义该方法。">
+	            <![CDATA[this.aspectRatio = function()]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="在!_aspectRatio_!方法内部，使用!_return this.width / this.height;_!计算并返回宽高比。">
+	            <![CDATA[return this.width / this.height]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="调用!_rect_!对象的方法!_aspectRatio_!，并打印结果。"
+	        level="4" >
+	        <CodeHint_5 />
+	        <ExpectedCode
+	            fail="使用!_console.log(rect.aspectRatio());_!计算并打印纵横比。">
+	            <![CDATA[rect.aspectRatio()]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="那不是正确的输出。">
+	            <![CDATA[
+200
+0.5
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="太棒了！该程序现在计算并打印矩形的区域!_200_!和长宽比!_0.5_!。" />
+	    </Exercise>
+	    <Exercise
+	        task="恭喜！您已经学会了如何定义方法。自己写一些代码，然后继续下一课。" >
+	    </Exercise>
+	</Lesson>
+	
+</Course>

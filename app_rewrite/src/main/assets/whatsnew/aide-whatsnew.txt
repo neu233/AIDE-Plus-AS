@@ -1,0 +1,10 @@
+Improved Android 11 support
+ZeroAicy扩展
+1. 支持aapt2[支持资源混淆]，R8，，Zip优化，v3签名
+2. 改进gradle解析器，支持compileOnly runtimeOnly libgdxNatives 仅支持显示声明，其中runtimeOnly依赖的jar中可以包含 classes%d.dex 按照依赖声明顺序依次打包，libgdxNatives为libgdx原生依赖库打包
+3. 改进class解析器，支持Java8 API，
+4. 改进代码分析器，支持Java8部分语法[接口 静态方法 与 默认方法]
+5. 更新jks实现，可以创建jks以及使用jks签名文件，且支持在gradle中配置签名
+6. 更改安卓Gradle模板，签名配置，混淆配置自行修改
+7. 改进项目服务，支持大项目加载[依赖material最新版不卡顿]
+8. 优化依赖解析器，支持纯pom依赖，支持pom依赖排除规则

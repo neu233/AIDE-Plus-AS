@@ -1,0 +1,4948 @@
+<Course
+    release_date="2014-03-04"
+	title="@string/course_android"
+	full_title="@string/course_android_long_title"
+	code_section="@string/course_android_code_section"
+	code_template="@string/course_android_code_template"
+	explore_section="@string/course_android_explore_section" >
+
+    <Files 
+        template="simple_project"
+        project_name="My Android App"
+        package_name="myapp" >
+    	<CodeFile name="MainActivity.java" />    
+        <CodeFile name="main.xml" />    
+    </Files>
+
+
+
+    <Sample
+		id="API Demos 23"
+        title="@string/course_android_sample_api_demos" 
+		description="@string/course_android_sample_api_demos_text"
+        project_dir="ApiDemos"
+        release_date="2015-11-27">
+
+        <CodeFile name="ApiDemos.java" />
+    </Sample>
+
+    <Sample
+		id="Displaying Bitmaps"
+        title="@string/course_android_sample_bitmaps"
+        description="@string/course_android_sample_bitmaps_text"
+        project_dir="DisplayingBitmapsSample"
+        release_date="2014-08-15" >
+
+        <CodeFile name="ImageGridActivity.java" />
+    </Sample>
+
+    <Sample
+		id="Immersive Mode"
+        title="@string/course_android_sample_immersive_mode" 
+        description="@string/course_android_sample_immersive_mode_text"
+        project_dir="ImmersiveModeSample"
+        release_date="2014-08-15">
+
+        <CodeFile name="MainActivity.java" />
+    </Sample>
+
+    <Sample
+		id="Custom Choice List"
+        title="@string/course_android_sample_custom_choice_list"
+        description="@string/course_android_sample_custom_choice_list_text"
+        project_dir="CustomChoiceListSample"
+        release_date="2014-08-15" >
+
+        <CodeFile name="MainActivity.java" />
+    </Sample>
+
+
+
+	<Lesson
+	    id="Android Hello World"
+	    title="@string/course_android_hello_world"
+    	section="@string/course_android_hello_world_section"
+		example="android:text=&quot;Hello World&quot;"
+		description="@string/course_android_hello_world_description">
+
+	    <Files 
+	        template="simple_project"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	        <CodeFile name="main.xml" />    
+	    </Files>
+
+	    <Exercise
+	        task="@string/course_android_hello_world_1_task"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello$code_hint$ World" />
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run
+	            file="main.xml"  
+	            success="@string/course_android_hello_world_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_hello_world_2_task '_Hi_World_'"
+	        designer_task="@string/course_android_hello_world_2_designer_task '_Hello_World_' '_Hi_World_'"
+	        code_file="main.xml"
+	        level="4" >
+	        <ExpectedCode
+	            fail="@string/course_android_hello_world_2_fail_1 !_android:text_! '_Hi_World_'">
+				<![CDATA[android:text="Hi World"]]>
+	        </ExpectedCode>
+	        <CodeHint />
+	        <Run  
+	            file="main.xml"  
+	            success="@string/course_android_hello_world_2_success '_Hi_World_'" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_hello_world_3_task"
+	        code_file="main.xml" >
+	        <Run file="main.xml" />
+	    </Exercise>
+	</Lesson>
+
+
+
+
+	<Lesson
+	    id="Android App Basics"
+	    title="@string/course_android_app_basics"
+		example="class MainActivity"
+		description="@string/course_android_app_basics_description">
+
+	    <Files 
+	        template="simple_project"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	        <CodeFile name="AndroidManifest.xml" />    
+	        <CodeFile name="MainActivity.java" />    
+	        <CodeFile name="main.xml" />    
+	    </Files>
+
+	    <Exercise
+	        task="@string/course_android_app_basics_1_task"
+	        code_file="AndroidManifest.xml"
+	        level="1" >
+	        <SourceCode code_file="AndroidManifest.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="$package_name$"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk 
+        android:minSdkVersion="11" 
+        android:targetSdkVersion="17" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Holo.Light"
+            android:name=".MainActivity"$code_hint$ >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+
+public class MainActivity$code_hint_2$ extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate$code_hint_1$(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main$code_hint$);
+    }
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView$code_hint_2$
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World"$code_hint$ />
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run
+	            file="main.xml"    
+	            success="@string/course_android_app_basics_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_app_basics_2_task !_activity_! !_MainActivity_!"
+	        code_file="AndroidManifest.xml"
+	        level="1" >
+	        <CodeHint />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_app_basics_3_task !_MainActivity_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <CodeHint_2 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_app_basics_4_task !_onCreate_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <CodeHint_1 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_app_basics_5_task !_setContentView()_! !_main.xml_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <CodeHint />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_app_basics_6_task !_TextView_! !_android:text_! '_Hello_World_'"
+	        code_file="main.xml"
+	        level="1" >
+	        <CodeHint_2 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_app_basics_7_task '_Hi_World_'"
+	        designer_task="@string/course_android_app_basics_7_designer_task '_Hello_World_' '_Hi_World_'"
+	        code_file="main.xml"
+	        level="4" >
+	        <ExpectedCode
+	            fail="@string/course_android_app_basics_7_fail_1 !_android:text_! '_Hi_World_'">
+				<![CDATA[android:text="Hi World"]]>
+	        </ExpectedCode>
+	        <CodeHint />
+	        <Run
+	            file="main.xml"  
+	            success="@string/course_android_app_basics_7_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_app_basics_8_task !_android:textSize_! !_30sp_! !_TextView_! !_textsi_!"
+	        designer_task="@string/course_android_app_basics_8_designer_task '_Hi_World_' !_30sp_!"
+	        code_file="main.xml"
+	        level="4" >
+	        <ExpectedCode
+	            fail="@string/course_android_app_basics_8_fail_1 !_android:textSize=&quot;30sp&quot;_! !_TextView_!">
+				<![CDATA[android:textSize="30sp"]]>
+	        </ExpectedCode>
+	        <CodeHint_2 />
+	        <Run  
+	            file="main.xml"  
+	            success="@string/course_android_app_basics_8_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_app_basics_9_task !_60sp_!"
+	        designer_task="@string/course_android_app_basics_9_designer_task '_Hi_World_' !_60sp_!"
+	        code_file="main.xml"
+	        level="4" >
+	        <ExpectedCode
+	            fail="@string/course_android_app_basics_9_fail_1 !_android:textSize=&quot;60sp&quot;_! !_TextView_!">
+				<![CDATA[android:textSize="60sp"]]>
+	        </ExpectedCode>
+	        <Run 
+	            file="main.xml"  
+	            success="@string/course_android_app_basics_9_success" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_app_basics_10_task !_android:text_! !_android:textSize_!"
+	        code_file="main.xml" >
+		    <Run file="main.xml" />
+	    </Exercise>
+	</Lesson>
+
+
+
+
+	<Lesson
+	    id="Android Widgets"
+	    title="@string/course_android_widgets"
+	    section="@string/course_android_widgets_section"
+		example="&lt; Button /&gt;"
+		description="@string/course_android_widgets_description">
+
+	    <Files 
+	        template="simple_project"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	        <CodeFile name="main.xml" />    
+	    </Files>
+
+	    <Exercise
+	        task="@string/course_android_widgets_1_task"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="Hi World" />
+    
+    $code_hint$
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run 
+	            file="main.xml" 
+	            success="@string/course_android_widgets_1_success" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_widgets_2_task !_Button_! !_TextView_! !_&lt;_Bu_!"
+	        designer_task="@string/course_android_widgets_2_designer_task '_Hi_World_'"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint />
+			<ExpectedCode
+				start_line="13"
+	            fail="@string/course_android_widgets_2_fail_1 !_&lt;_Button_/&gt;_! !_TextView_!">
+				<![CDATA[<Button]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_widgets_3_task !_Button_! !_android:layout__width_! !_android:layout__height_! !_wrap__content_!"
+	        code_file="main.xml"
+	        level="3" >
+			<CodeHint />
+			<ExpectedCode
+				start_line="13"
+	            fail="@string/course_android_widgets_3_fail_1 !_android:layout__width=&quot;wrap__content&quot;_! !_Button_!">
+				<![CDATA[android:layout_width="wrap_content"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="13"
+	            fail="@string/course_android_widgets_3_fail_2 !_android:layout__height=&quot;wrap__content&quot;_! !_Button_!">
+				<![CDATA[android:layout_height="wrap_content"]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_widgets_4_task '_Exit_' !_android:text_! !_Button_!"
+	        code_file="main.xml"
+	        level="3" >
+			<CodeHint />
+	        <ExpectedCode
+				start_line="13"
+	            fail="@string/course_android_widgets_4_fail_1 !_android:text=&quot;Exit&quot;_! !_Button_!">
+				<![CDATA[android:text="Exit"]]>
+	        </ExpectedCode>
+	        <Run
+	            file="main.xml" 
+	            success="@string/course_android_widgets_4_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_widgets_5_task"
+	        designer_task="@string/course_android_widgets_5_designer_task '_Exit_'"
+	        code_file="main.xml"
+	        level="3" >
+			<ExpectedCode
+				start_line="19"
+	            fail="@string/course_android_widgets_5_fail_1">
+				<![CDATA[<Button]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="20"
+	            fail="@string/course_android_widgets_5_fail_2 !_android:layout__width=&quot;wrap__content&quot;_! !_Button_!">
+				<![CDATA[android:layout_width="wrap_content"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="20"
+	            fail="@string/course_android_widgets_5_fail_3 !_android:layout__height=&quot;wrap__content&quot;_! !_Button_!">
+				<![CDATA[android:layout_height="wrap_content"]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_widgets_6_task '_Help_'"
+	        designer_task="@string/course_android_widgets_6_designer_task '_Help_'"
+	        code_file="main.xml"
+	        level="3" >
+	        <ExpectedCode
+				start_line="20"
+	            fail="@string/course_android_widgets_6_fail_1 !_android:text_! '_Help_'">
+				<![CDATA[android:text="Help"]]>
+	        </ExpectedCode>
+	        <Run
+	            file="main.xml" 
+	            success="@string/course_android_widgets_6_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_widgets_7_task"
+	        code_file="main.xml" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+	<Lesson
+	    id="Android Linear Layouts"
+	    title="@string/course_android_linear_layouts"
+		example="&lt; LinearLayout /&gt;"
+		description="@string/course_android_linear_layouts_description">
+
+	    <Files 
+        	template="simple_project"
+        	project_name="My Android App"
+        	package_name="myapp" >
+        	<CodeFile name="main.xml" />    
+    	</Files>
+
+	    <Exercise
+	        task="@string/course_android_linear_layouts_1_task"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center$code_hint_1$"
+    android:orientation="vertical$code_hint$" >
+
+    <Button $code_hint_4$
+        android:layout_width="wrap_content$code_hint_3$"
+        android:layout_height="wrap_content"
+        android:text="1" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2" />
+
+    <Button
+        android:layout_width="wrap_content$code_hint_2$"
+        android:layout_height="wrap_content"
+        android:text="3" />
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run  
+	            file="main.xml"
+	            success="@string/course_android_linear_layouts_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_linear_layouts_2_task !_android:orientation_! !_LinearLayout_! !_horizontal_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_linear_layouts_2_fail_1 !_android:orientation=&quot;horizontal&quot;_! !_LinearLayout_!">
+				<![CDATA[android:orientation="horizontal"]]>
+	        </ExpectedCode>
+	        <Run
+	            file="main.xml"  
+	            success="@string/course_android_linear_layouts_2_success !_LinearLayout_! !_android:orientation_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_linear_layouts_3_task !_android:gravity_! !_LinearLayout_! !_bottom_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_linear_layouts_3_fail_1 !_android:gravity=&quot;bottom&quot;_! !_LinearLayout_!">
+				<![CDATA[android:gravity="bottom"]]>
+	        </ExpectedCode>
+	        <Run  
+	            file="main.xml"
+	            success="@string/course_android_linear_layouts_3_success !_android:gravity_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_linear_layouts_4_task !_android:layout__width_! !_Button_! !_match__parent_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            start_line="18"
+	            fail="@string/course_android_linear_layouts_4_fail_1 !_android:layout__width=&quot;match__parent&quot;_! !_Button_!">
+				<![CDATA[android:layout_width="match_parent"]]>
+	        </ExpectedCode>
+	        <Run  
+	            file="main.xml"
+	            success="@string/course_android_linear_layouts_4_success !_android:layout__width_! !_match__parent_! !_LinearLayout_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_linear_layouts_5_task !_android:layout__width_! !_Button_! !_wrap__content_! !_match__parent_! !_Button_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            start_line="18"
+	            fail="@string/course_android_linear_layouts_5_fail_1 !_android:layout__width=&quot;wrap__content&quot;_! !_Button_!">
+				<![CDATA[android:layout_width="wrap_content"]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="7"
+	            end_line="12"
+	            fail="@string/course_android_linear_layouts_5_fail_2 !_android:layout__width=&quot;match__parent&quot;_! !_Button_!">
+				<![CDATA[android:layout_width="match_parent"]]>
+	        </ExpectedCode>
+	        <Run  
+	            file="main.xml"
+	            success="@string/course_android_linear_layouts_5_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_linear_layouts_6_task !_android:layout__width_! !_Button_! !_wrap__content_! !_android:layout__weight_! !_1.0_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint_4 />
+	        <ExpectedCode
+	            start_line="7"
+	            end_line="12"
+	            fail="@string/course_android_linear_layouts_6_fail_1 !_android:layout__width=&quot;wrap__content&quot;_! !_Button_!">
+				<![CDATA[android:layout_width="wrap_content"]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="7"
+	            end_line="15"
+	            fail="@string/course_android_linear_layouts_6_fail_2 !_android:layout__weight=&quot;1.0&quot;_! !_Button_!">
+				<![CDATA[android:layout_weight="1.0"]]>
+	        </ExpectedCode>
+	        <Run  
+	            file="main.xml"
+	            success="@string/course_android_linear_layouts_6_success !_android:layout__weight=&quot;1.0&quot;_!" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_linear_layouts_7_task !_android:layout__width_! !_android:layout__height_! !_android:layout__weight_! !_android:gravity_! !_android:orientation_!"
+	        code_file="main.xml" >
+	        <Run file="main.xml" />
+	    </Exercise>
+	</Lesson>
+
+
+
+
+
+	<Lesson
+	    id="Android Nested Layouts"
+	    title="@string/course_android_nested_layouts"
+		example="&lt; LinearLayout &gt; &lt;/ LinearLayout &gt;"
+		description="@string/course_android_nested_layouts_description">
+
+	    <Files 
+        	template="simple_project"
+        	project_name="My Android App"
+        	package_name="myapp" >
+        	<CodeFile name="main.xml" />    
+    	</Files>
+
+	    <Exercise
+	        task="@string/course_android_nested_layouts_1_task"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Android is the best?" 
+        android:textSize="20dp" />
+        
+    $code_hint$
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run 
+	            file="main.xml"
+	            success="@string/course_android_nested_layouts_1_success '_Yes_' '_No_'" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_nested_layouts_2_task !_LinearLayout_! !_TextView_! !_LinearLayout_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            start_line="12"
+	            fail="@string/course_android_nested_layouts_2_fail_1 !_LinearLayout_!">
+				<![CDATA[<LinearLayout]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_nested_layouts_3_task !_android:layout__width_! !_android:layout__height_! !_LinearLayout_! !_wrap__content_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            start_line="12"
+	           	fail="@string/course_android_nested_layouts_3_fail_1 !_android:layout__height=&quot;wrap__content&quot;_!">
+				<![CDATA[android:layout_height="wrap_content"]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="12"
+	           	fail="@string/course_android_nested_layouts_3_fail_2 !_android:layout__width=&quot;wrap__content&quot;_!">
+				<![CDATA[android:layout_width="wrap_content"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_nested_layouts_4_task !_android:orientation_! !_LinearLayout_! !_horizontal_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            start_line="12"
+	           	fail="@string/course_android_nested_layouts_4_fail_1 !_android:orientation=&quot;horizontal&quot;_!">
+				<![CDATA[android:orientation="horizontal"]]>
+	        </ExpectedCode>
+	        <Run 
+	            file="main.xml"
+	            success="@string/course_android_nested_layouts_4_success !_LinearLayout_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_nested_layouts_5_task '_Yes_' !_LinearLayout_! !_wrap__content_!"
+	        code_file="main.xml"
+	        level="5">
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Android is the best?" 
+        android:textSize="20dp" />
+        
+    <LinearLayout
+    	android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+    	$code_hint$
+    </LinearLayout>
+    
+</LinearLayout>
+				]]>
+			</SourceCode>
+	        <CodeHint />
+			<ExpectedCode
+				start_line="15"
+	            fail="@string/course_android_nested_layouts_5_fail_1 !_&lt;_Button_/&gt;_! !_LinearLayout_!">
+				<![CDATA[<Button]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="15"
+	            count="2"
+	            fail="@string/course_android_nested_layouts_5_fail_2 !_LinearLayout_!">
+				<![CDATA[</LinearLayout>]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="15"
+	           	fail="@string/course_android_nested_layouts_5_fail_3 '_Yes_'">
+				<![CDATA[android:text="Yes"]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="15"
+	           	fail="@string/course_android_nested_layouts_5_fail_4 !_android:layout__height=&quot;wrap__content&quot;_!">
+				<![CDATA[android:layout_height="wrap_content"]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="15"
+	           	fail="@string/course_android_nested_layouts_5_fail_5 !_android:layout__width=&quot;wrap__content&quot;_!">
+				<![CDATA[android:layout_width="wrap_content"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_nested_layouts_6_task '_No_' '_Yes_' !_LinearLayout_!"
+	        code_file="main.xml"
+	        level="5">
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Android is the best?" 
+        android:textSize="20dp" />
+        
+    <LinearLayout
+    	android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <Button
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="Yes" />
+        	
+    	$code_hint$
+    </LinearLayout>
+    
+</LinearLayout>
+				]]>
+			</SourceCode>
+	        <CodeHint />
+			<ExpectedCode
+				start_line="18"
+	            fail="@string/course_android_nested_layouts_6_fail_1 !_&lt;_Button_/&gt;_! !_LinearLayout_!">
+				<![CDATA[<Button]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="18"
+	            count="2"
+	            fail="@string/course_android_nested_layouts_6_fail_2 !_LinearLayout_!">
+				<![CDATA[</LinearLayout>]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="18"
+	           	fail="@string/course_android_nested_layouts_6_fail_3 '_No_'">
+				<![CDATA[android:text="No"]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="18"
+	           	fail="@string/course_android_nested_layouts_6_fail_4 !_android:layout__height=&quot;wrap__content&quot;_!">
+				<![CDATA[android:layout_height="wrap_content"]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="18"
+	           	fail="@string/course_android_nested_layouts_6_fail_5 !_android:layout__width=&quot;wrap__content&quot;_!">
+				<![CDATA[android:layout_width="wrap_content"]]>
+	        </ExpectedCode>
+	        <Run  
+	            file="main.xml"
+	            success="@string/course_android_nested_layouts_6_success !_LinearLayout_!" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_nested_layouts_7_task"
+	        code_file="main.xml" >
+	        <Run file="main.xml" />
+	    </Exercise>
+	</Lesson>
+
+
+
+
+	<Lesson
+	    id="Android Margins and Paddings"
+	    title="@string/course_android_margins_and_paddings"
+		example="android:padding=&quot;10dp&quot;"
+		description="@string/course_android_margins_and_paddings_description">
+
+	    <Files 
+        	template="simple_project"
+        	project_name="My Android App"
+        	package_name="myapp" >
+        	<CodeFile name="main.xml" />    
+    	</Files>
+
+	    <Exercise
+	        task="@string/course_android_margins_and_paddings_1_task"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="center"
+	android:orientation="vertical">
+
+	<TextView$code_hint$
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Android is the best?"
+		android:textSize="20dp"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="horizontal">
+
+		<Button
+			android:text="Yes"
+			android:layout_height="wrap_content"$code_hint_1$
+			android:layout_width="wrap_content"/>
+
+		<Button
+			android:text="No"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"$code_hint_2$/>
+
+	</LinearLayout>
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run  
+	            file="main.xml"
+	            success="@string/course_android_margins_and_paddings_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_margins_and_paddings_2_task !_android:layout__margin_! !_20dp_! !_TextView_!"
+	        designer_task="@string/course_android_margins_and_paddings_2_designer_task !_20dp_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            start_line="9"
+	            end_line="15"
+	           	fail="@string/course_android_margins_and_paddings_2_fail_1 !_android:layout__margin=&quot;20dp&quot;_! !_TextView_!">
+				<![CDATA[android:layout_margin="20dp"]]>
+	        </ExpectedCode>
+	        <Run 
+	            file="main.xml"
+	            success="@string/course_android_margins_and_paddings_2_success !_android:layout__margin_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_margins_and_paddings_3_task !_android:layout__marginRight_! !_30dp_! '_Yes_' !_Button_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            start_line="20"
+	            end_line="27"
+	           	fail="@string/course_android_margins_and_paddings_3_fail_1 !_android:layout__marginRight=&quot;30dp&quot;_!">
+				<![CDATA[android:layout_marginRight="30dp"]]>
+	        </ExpectedCode>
+	        <Run 
+	            file="main.xml"
+	            success="@string/course_android_margins_and_paddings_3_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_margins_and_paddings_4_task !_android:padding_! !_20dp_! '_Yes_' !_Button_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            start_line="20"
+	            end_line="27"
+	           	fail="@string/course_android_margins_and_paddings_4_fail_1 !_android:padding=&quot;20dp&quot;_!">
+				<![CDATA[android:padding="20dp"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_margins_and_paddings_5_task !_android:padding_! !_20dp_! '_No_' !_Button_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            start_line="27"
+	            end_line="33"
+	           	fail="@string/course_android_margins_and_paddings_5_fail_1 !_android:padding=&quot;20dp&quot;_!">
+				<![CDATA[android:padding="20dp"]]>
+	        </ExpectedCode>
+	        <Run 
+	            file="main.xml"
+	            success="@string/course_android_margins_and_paddings_5_success" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_margins_and_paddings_6_task"
+	        code_file="main.xml" >
+	        <Run file="main.xml" />
+	    </Exercise>
+	</Lesson>
+
+
+
+
+	<Lesson
+	    id="Android Text Fields"
+	    title="@string/course_android_text_fields"
+		example="&lt; EditText /&gt;"
+		description="@string/course_android_text_fields_description">
+
+	    <Files 
+        	template="simple_project"
+        	project_name="My Android App"
+        	package_name="myapp" >
+        	<CodeFile name="main.xml" />    
+    	</Files>
+
+		<Exercise
+	        task="@string/course_android_text_fields_1_task"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="left"
+	android:padding="20dp"
+	android:orientation="vertical">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Compose email:"
+		android:textSize="20dp"
+		android:layout_marginBottom="20dp"/>
+
+	$code_hint$
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run 
+	            file="main.xml" 
+	            success_duration="2"
+	            success="@string/course_android_text_fields_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_text_fields_2_task !_EditText_! !_TextView_! !_android:layout__width=&quot;match__parent&quot;_!"
+	        level="2"
+	        code_file="main.xml">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_text_fields_2_fail_1 !_&lt;_EditText_/&gt;_!">
+				<![CDATA[<EditText]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="16"
+	            fail="@string/course_android_text_fields_2_fail_2 !_android:layout__width=&quot;match__parent&quot;_! !_EditText_!">
+				<![CDATA[android:layout_width="match_parent"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="16"
+	            fail="@string/course_android_text_fields_2_fail_3 !_android:layout__height=&quot;wrap__content&quot;_! !_EditText_!">
+				<![CDATA[android:layout_height="wrap_content"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_text_fields_3_task !_android:hint_! '_Subject_' !_EditText_!"
+	        level="2"
+	        code_file="main.xml">
+			<CodeHint />
+			<ExpectedCode
+				start_line="16"
+	            fail="@string/course_android_text_fields_3_fail_1 !_android:hint=&quot;Subject&quot;_! !_EditText_!">
+				<![CDATA[android:hint="Subject"]]>
+	        </ExpectedCode>
+	        <Run 
+	            file="main.xml"
+	            success_duration="2"
+	            success="@string/course_android_text_fields_3_success"/>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_text_fields_4_task !_android:inputType_! !_textEmailSubject_! !_EditText_!"
+	        level="2"
+	        code_file="main.xml">
+	        <CodeHint />
+			<ExpectedCode
+				start_line="16"
+	            fail="@string/course_android_text_fields_4_fail_1 !_android:inputType=&quot;textEmailSubject&quot;_! !_EditText_!">
+				<![CDATA[android:inputType="textEmailSubject"]]>
+	        </ExpectedCode>
+	        <Run 
+	            file="main.xml"
+	            success_duration="2"
+	            success="@string/course_android_text_fields_4_success"/>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_text_fields_5_task !_EditText_! !_android:layout__width=&quot;match__parent&quot;_!"
+	        level="2"
+	        code_file="main.xml">
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="left"
+	android:padding="20dp"
+	android:orientation="vertical">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Compose email:"
+		android:textSize="20dp"
+		android:layout_marginBottom="20dp"/>
+
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:inputType="textEmailSubject"
+		android:hint="Subject"/>
+	
+	$code_hint$
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            count="2"
+	            fail="@string/course_android_text_fields_5_fail_1 !_&lt;_EditText_/&gt;_!">
+				<![CDATA[<EditText]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="22"
+	            fail="@string/course_android_text_fields_5_fail_2 !_android:layout__width=&quot;match__parent&quot;_! !_EditText_!">
+				<![CDATA[android:layout_width="match_parent"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="22"
+	            fail="@string/course_android_text_fields_5_fail_3 !_android:layout__height=&quot;wrap__content&quot;_! !_EditText_!">
+				<![CDATA[android:layout_height="wrap_content"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_text_fields_6_task !_android:hint_! '_Email_' !_android:inputType_! !_textEmailAddress_!"
+	        level="3"
+	        code_file="main.xml">
+			<CodeHint />
+			<ExpectedCode
+				start_line="22"
+	            fail="@string/course_android_text_fields_6_fail_1 !_android:hint=&quot;Email&quot;_! !_EditText_!">
+				<![CDATA[android:hint="Email"]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+				start_line="22"
+	            fail="@string/course_android_text_fields_6_fail_2 !_android:inputType=&quot;textEmailAddress&quot;_! !_EditText_!">
+				<![CDATA[android:inputType="textEmailAddress"]]>
+	        </ExpectedCode>
+	        <Run 
+	            file="main.xml"
+	            success_duration="2"
+	            success="@string/course_android_text_fields_6_success"/>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_text_fields_7_task !_EditText_! !_android:layout__width=&quot;match__parent&quot;_! !_android:layout__height=&quot;100dp&quot;_! !_android:gravity=&quot;top&quot;_!"
+	        level="2"
+	        code_file="main.xml">
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="left"
+	android:padding="20dp"
+	android:orientation="vertical">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Compose email:"
+		android:textSize="20dp"
+		android:layout_marginBottom="20dp"/>
+
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:inputType="textEmailSubject"
+		android:hint="Subject"/>
+	
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:inputType="textEmailAddress"
+		android:hint="Email"/>
+	
+	$code_hint$
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            count="3"
+	            fail="@string/course_android_text_fields_7_fail_1 !_&lt;_EditText_/&gt;_!">
+				<![CDATA[<EditText]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="27"
+	            fail="@string/course_android_text_fields_7_fail_2 !_android:layout__width=&quot;match__parent&quot;_! !_EditText_!">
+				<![CDATA[android:layout_width="match_parent"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="27"
+	            fail="@string/course_android_text_fields_7_fail_3 !_android:layout__height=&quot;100dp&quot;_! !_EditText_!">
+				<![CDATA[android:layout_height="100dp"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="27"
+	            fail="@string/course_android_text_fields_7_fail_4 !_android:gravity=&quot;top&quot;_! !_EditText_!">
+				<![CDATA[android:gravity="top"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_text_fields_8_task !_android:hint_! '_Message_' !_android:inputType_! !_textMultiLine_!"
+	        level="3"
+	        code_file="main.xml">
+			<CodeHint />
+			<ExpectedCode
+				start_line="27"
+	            fail="@string/course_android_text_fields_8_fail_1 !_android:hint=&quot;Message&quot;_! !_EditText_!">
+				<![CDATA[android:hint="Message"]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+				start_line="27"
+	            fail="@string/course_android_text_fields_8_fail_2 !_android:inputType=&quot;textMultiLine&quot;_! !_EditText_!">
+				<![CDATA[android:inputType="textMultiLine"]]>
+	        </ExpectedCode>
+	        <Run 
+	            file="main.xml"
+	            success_duration="2"
+	            success="@string/course_android_text_fields_8_success"/>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_text_fields_9_task"
+	        code_file="MainActivity.java" >
+	        <Run file="main.xml" />
+	    </Exercise>
+	</Lesson>
+
+
+
+
+	<Lesson
+	    id="Android Strings"
+	    title="@string/course_android_strings"
+	    section="@string/course_android_strings_section"
+		example="&lt; string name=&quot;hello&quot; &gt;"
+		description="@string/course_android_strings_description"
+		release_date="2014-03-15">
+
+	    <Files 
+	        template="simple_project"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	        <CodeFile name="main.xml" />    
+	    	<CodeFile name="strings.xml" />    
+	    </Files>
+
+	    <Exercise
+	        task="@string/course_android_strings_1_task"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="Hi World"$code_hint$ />
+    
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="strings.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">$project_name$</string>
+
+</resources>
+				]]>
+	        </SourceCode>
+	        <Run 
+	            file="main.xml" 
+	            success="@string/course_android_strings_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_strings_2_task !_android:text_!"
+	        level="1"
+	        code_file="main.xml" >
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_strings_3_task !_strings.xml_! !_hi__text_! '_Hi_World_'"
+	        level="1"
+	        code_file="strings.xml" >
+	        <SourceCode code_file="strings.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<resources>$code_hint_1$
+
+    <string name="app_name">$project_name$</string>
+    
+    <string name="hi_text">Hi World</string>$code_hint$
+	$code_hint_2$
+</resources>
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_strings_4_task !_android:text_! !_@string/hi__text_!"
+	        level="4"
+	        code_file="main.xml" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_strings_4_fail_1 !_android:text=&quot;@string/hi__text&quot;_!">
+				<![CDATA[android:text="@string/hi_text"]]>
+	        </ExpectedCode>
+	        <Run
+	            file="main.xml" 
+	            success="@string/course_android_strings_4_success"/>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_strings_5_task !_hello__text_! '_Hello_World_'"
+	        level="3"
+	        code_file="strings.xml" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_android_strings_5_fail_1 !_&lt;_string_name=&quot;hello__text&quot;_&gt;Hello_World_&lt;_/string_&gt;_!">
+				<![CDATA[<string name="hello_text">Hello World</string>]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_strings_6_task !_TextView_! !_hello__text_!"
+	        level="4"
+	        code_file="main.xml" >
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="@string/hi_text" />
+
+    <TextView$code_hint$ 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp" />
+    
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            start_line="14"
+	            fail="@string/course_android_strings_6_fail_1 !_android:text=&quot;@string/hello__text&quot;_!">
+				<![CDATA[android:text="@string/hello_text"]]>
+	        </ExpectedCode>
+	        <Run
+	            file="main.xml" 
+	            success="@string/course_android_strings_6_success"/>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_strings_7_task"
+	        level="1"
+	        code_file="strings.xml" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_strings_8_task"
+	        code_file="main.xml" >
+	        <Run file="main.xml" />
+	    </Exercise>
+	</Lesson>
+
+
+
+
+	<Lesson
+	    id="Android Images"
+	    title="@string/course_android_images"
+		example="android:background=&quot;@drawable/my_background&quot;"
+		description="@string/course_android_images_description"
+		release_date="2014-07-01">
+
+	    <Files 
+	        template="simple_project_graphics"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	        <CodeFile name="main.xml" />    
+	    </Files>
+
+	    <Exercise
+	        task="@string/course_android_images_1_task"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	$code_hint$android:gravity="center"
+	android:orientation="vertical" >
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:text="Welcome to my App"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="wrap_content"
+		$code_hint_2$android:layout_margin="20dp" />
+
+
+	$code_hint_1$
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run 
+	            file="main.xml"  
+	            success="@string/course_android_images_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_images_2_task !_android:background_! !_@drawable/my__background_! !_LinearLayout_!"
+	        designer_task="@string/course_android_images_2_designer_task !_@drawable/my__background_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint />
+			<ExpectedCode
+				end_line="8"
+	            fail="@string/course_android_images_2_fail_1 !_android:background=&quot;@drawable/my__background&quot;_!">
+				<![CDATA[android:background="@drawable/my_background"]]>
+	        </ExpectedCode>
+	        <Run 
+	            file="main.xml"  
+	            success="@string/course_android_images_2_success !_my__background.jpg_!" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_images_3_task !_android:textColor_! !_#FFFFFF_! !_TextView_!"
+	        designer_task="@string/course_android_images_3_designer_task !_#FFFFFF_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint_2 />
+			<ExpectedCode
+				start_line="9"
+	            fail="@string/course_android_images_3_fail_1 !_android:textColor=&quot;#FFFFFF&quot;_!">
+				<![CDATA[android:textColor="#FFFFFF"]]>
+	        </ExpectedCode>
+	        <Run 
+	            file="main.xml"  
+	            success="@string/course_android_images_3_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_images_4_task !_ImageView_! !_TextView_! !_android:layout__width_! !_android:layout__height_! !_wrap__content_!"
+	        designer_task="@string/course_android_images_4_designer_task"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint_1 />
+			<ExpectedCode
+				start_line="14"
+	            fail="@string/course_android_images_4_fail_1 !_&lt;_ImageView_/&gt;_! !_TextView_!">
+				<![CDATA[<ImageView]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+				start_line="14"
+	            fail="@string/course_android_images_4_fail_2 !_android:layout__width=&quot;wrap__content&quot;_! !_ImageView_!">
+				<![CDATA[android:layout_width="wrap_content"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="14"
+	            fail="@string/course_android_images_4_fail_3 !_android:layout__height=&quot;wrap__content&quot;_! !_ImageView_!">
+				<![CDATA[android:layout_height="wrap_content"]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_images_5_task !_android:src_! !_@drawable/my__android__robot__! !_ImageView_!"
+	        designer_task="@string/course_android_images_5_designer_task !_@drawable/my__android__robot__!"
+	        code_file="main.xml"
+	        level="3" >
+			<SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/my_background"
+	android:gravity="center"
+	android:orientation="vertical" >
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:text="Welcome to my App"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="wrap_content"
+		android:textColor="#FFFFFF"
+		android:layout_margin="20dp" />
+
+	<ImageView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:src="$code_hint$@android:drawable/ic_delete" />
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+			<ExpectedCode
+				start_line="15"
+	            fail="@string/course_android_images_5_fail_1 !_android:src=&quot;@drawable/my__android__robot&quot;_!">
+				<![CDATA[android:src="@drawable/my_android_robot"]]>
+	        </ExpectedCode>
+	        <Run 
+	            file="main.xml"  
+	            success="@string/course_android_images_5_success !_my__android__robot.png_!" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_images_6_task"
+	        designer_task="@string/course_android_images_6_designer_task"
+	        level="3" 
+	        code_file="main.xml" >
+	        <Run 
+	            file="main.xml"  
+	            success="@string/course_android_images_6_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_images_7_task"
+	        code_file="main.xml" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+	<Lesson
+	    id="Android Buttons"
+	    title="@string/course_android_buttons"
+	    section="@string/course_android_buttons_section"
+		example="&lt; Button /&gt;"
+		description="@string/course_android_buttons_description">
+
+	    <Exercise
+	        task="@string/course_android_buttons_1_task"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="Hi World" />
+    
+    $code_hint$
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_android_buttons_1_success" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_buttons_2_task !_Button_! !_TextView_!"
+	        designer_task="@string/course_android_buttons_2_designer_task"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint />
+			<ExpectedCode
+				start_line="13"
+	            fail="@string/course_android_buttons_2_fail_1 !_&lt;_Button_/&gt;_! !_TextView_!">
+				<![CDATA[<Button]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_buttons_3_task !_Button_! !_android:layout__width_! !_android:layout__height_! !_wrap__content_!"
+	        code_file="main.xml"
+	        level="3" >
+			<CodeHint />
+			<ExpectedCode
+				start_line="13"
+	            fail="@string/course_android_buttons_3_fail_1 !_android:layout__width=&quot;wrap__content&quot;_! !_Button_!">
+				<![CDATA[android:layout_width="wrap_content"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="13"
+	            fail="@string/course_android_buttons_3_fail_2 !_android:layout__height=&quot;wrap__content&quot;_! !_Button_!">
+				<![CDATA[android:layout_height="wrap_content"]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_buttons_4_task '_Exit_' !_android:text_! !_Button_!"
+	        code_file="main.xml"
+	        level="3" >
+			<CodeHint />
+	        <ExpectedCode
+				start_line="13"
+	            fail="@string/course_android_buttons_4_fail_1 !_android:text=&quot;Exit&quot;_! !_Button_!">
+				<![CDATA[android:text="Exit"]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_buttons_4_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_buttons_5_task !_android:onClick_! !_Button_! !_onExitButtonClick_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+				start_line="13"
+	            fail="@string/course_android_buttons_5_fail_1 !_android:onClick=&quot;onExitButtonClick&quot;_! !_Button_!">
+				<![CDATA[android:onClick="onExitButtonClick"]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_buttons_6_task !_onExitButtonClick_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    /** Called when the new exit button is clicked. */
+    public void onExitButtonClick$code_hint_1$(View view) 
+    {
+        $code_hint$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint_1 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_buttons_7_task !_onExitButtonClick_! !_finish()_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint />
+	        <ExpectedCode
+				start_line="20"
+	            fail="@string/course_android_buttons_7_fail_1 !_finish()_! !_onExitButtonClick_!">
+				<![CDATA[finish()]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_buttons_7_success '_Exit_'" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_buttons_8_task '_Drop_' '_Exit_'"
+	        code_file="main.xml"
+	        level="5" >
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="Hi World" />
+    
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onExitButtonClick"
+    	android:text="Exit" />
+   	
+    $code_hint$
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+			<ExpectedCode
+				start_line="19"
+	            fail="@string/course_android_buttons_8_fail_1 !_&lt;_Button_/&gt;_! '_Exit_'">
+				<![CDATA[<Button]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+				start_line="19"
+	            fail="@string/course_android_buttons_8_fail_2 !_android:text=&quot;Drop&quot;_! !_Button_!">
+				<![CDATA[android:text="Drop"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="19"
+	            fail="@string/course_android_buttons_8_fail_3 !_android:layout__width=&quot;wrap__content&quot;_! !_Button_!">
+				<![CDATA[android:layout_width="wrap_content"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+				start_line="19"
+	            fail="@string/course_android_buttons_8_fail_4 !_android:layout__height=&quot;wrap__content&quot;_! !_Button_!">
+				<![CDATA[android:layout_height="wrap_content"]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_buttons_8_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_buttons_9_task !_android:onClick_! '_Drop_' !_onDropButtonClick_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+				start_line="19"
+	            fail="@string/course_android_buttons_9_fail_1 !_android:onClick=&quot;onDropButtonClick&quot;_! !_Button_!">
+				<![CDATA[android:onClick="onDropButtonClick"]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_buttons_10_task !_onDropButtonClick_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+import android.view.animation.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    /** Called when the new exit button is clicked. */
+    public void onExitButtonClick(View view) 
+    {
+        finish();
+	}
+
+    /** Called when the new drop button is clicked. */
+    public void onDropButtonClick$code_hint$(View view) 
+    {
+    	// Do some fancy animation...
+        TranslateAnimation animation = new TranslateAnimation(0, 0, 0, 1000);
+		animation.setDuration(1000);
+		view.startAnimation(animation);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run success="@string/course_android_buttons_10_success '_Drop_'" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_buttons_11_task"
+	        code_file="MainActivity.java" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+	<Lesson
+	    id="Android Toasts"
+	    title="@string/course_android_toasts"
+		example="Toast.makeText()"
+		description="@string/course_android_toasts_description">
+
+	    <Exercise
+	        task="@string/course_android_toasts_1_task"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="center"
+	android:orientation="vertical">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Android is the best?"
+		android:textSize="20dp"
+		android:layout_margin="20dp"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="horizontal">
+
+		<Button$code_hint$
+			android:text="Yes"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_marginRight="30dp"
+			android:padding="20dp"/>
+
+		<Button
+			android:text="No"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:padding="20dp"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run  success="@string/course_android_toasts_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_toasts_2_task !_android:onClick_! !_onYesButtonClick_! '_Yes_'"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+				start_line="21"
+				end_line="29"
+	            fail="@string/course_android_toasts_2_fail_1 !_android:onClick=&quot;onYesButtonClick&quot;_! !_Button_!">
+				<![CDATA[android:onClick="onYesButtonClick"]]>
+	        </ExpectedCode>
+
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_toasts_3_task !_onYesButtonClick_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    public void onYesButtonClick$code_hint$(View view) 
+    {
+    	// This Java code shows a toast
+    	Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT$code_hint_1$).show();
+	}
+	
+	$code_hint_2$
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run 
+	            success_duration="2"
+	            success="@string/course_android_toasts_3_success '_Yes_'" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_toasts_4_task !_Toast.LENGTH__SHORT_! !_Toast.LENGTH__LONG_!"
+	        code_file="MainActivity.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_toasts_4_fail_1 !_Toast.LENGTH__SHORT_! !_Toast.LENGTH__LONG_!">
+				<![CDATA[Toast.LENGTH_LONG]]>
+	        </ExpectedCode>
+	        <Run 
+	            success_duration="2"
+	            success="@string/course_android_toasts_4_success '_No_'" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_toasts_5_task !_android:onClick_! !_onNoButtonClick_! '_No_'"
+	        code_file="main.xml"
+	        level="3" >
+	        <ExpectedCode
+				start_line="29"
+				end_line="36"
+	            fail="@string/course_android_toasts_5_fail_1 !_android:onClick=&quot;onNoButtonClick&quot;_! !_Button_!">
+				<![CDATA[android:onClick="onNoButtonClick"]]>
+	        </ExpectedCode>
+
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_toasts_6_task !_onNoButtonClick_! '_Wrong!_' !_onYesButtonClick_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_android_toasts_6_fail_1 !_public_void_onNoButtonClick(View_view)_!">
+				<![CDATA[public void onNoButtonClick(View view)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_android_toasts_6_fail_2 !_Toast.makeText(this,_&quot;Wrong!&quot;,_Toast.LENGTH__LONG).show();_!">
+				<![CDATA[Toast.makeText(this, "Wrong!", Toast.LENGTH_LONG).show();]]>
+	        </ExpectedCode>
+	        <Run 
+	            success_duration="2"
+	            success="@string/course_android_toasts_6_success '_Yes_' '_No_'" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_toasts_7_task"
+	        code_file="main.xml" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+
+	<Lesson
+	    id="Android View IDs"
+	    title="@string/course_android_view_ids"
+		example="android:id=&quot;@+id/button1&quot;"
+		description="@string/course_android_view_ids_description">
+
+	    <Exercise
+	        task="@string/course_android_view_ids_1_task"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="center"
+	android:orientation="vertical">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Android is the best?"
+		android:textSize="20dp"
+		android:layout_margin="20dp"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="horizontal">
+
+		<Button
+			android:text="Yes"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_marginRight="30dp"
+			android:padding="20dp"/>
+
+		<Button
+			android:text="No"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:padding="20dp"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run  success="@string/course_android_view_ids_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_view_ids_2_task !_TextView_! !_LinearLayout_!"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="center"
+	android:orientation="vertical">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Android is the best?"
+		android:textSize="20dp"
+		android:layout_margin="20dp"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="horizontal">
+
+		<Button$code_hint_1$
+			android:text="Yes"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_marginRight="30dp"
+			android:padding="20dp"/>
+
+		<Button
+			android:text="No"$code_hint_2$
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:padding="20dp"/>
+
+	</LinearLayout>
+	
+	<TextView$code_hint$
+		android:text="TODO: Show the result"
+		android:layout_marginTop="20dp"
+		android:textSize="20dp"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content" />
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run success="@string/course_android_view_ids_2_success !_TextView_!"/>
+		</Exercise>
+		<Exercise
+		    task="@string/course_android_view_ids_3_task !_TextView_! !_android:id_! !_@+id/mainTextView1_!"
+		    designer_task="@string/course_android_view_ids_3_designer_task !_mainTextView1_!"
+		    code_file="main.xml"
+		    level="2">
+	        <CodeHint />
+		    <ExpectedCode
+				start_line="35"
+	            fail="@string/course_android_view_ids_3_fail_1 !_android:id=&quot;@+id/mainTextView1&quot;_! !_TextView_!">
+				<![CDATA[android:id="@+id/mainTextView1"]]>
+	        </ExpectedCode>
+		</Exercise>  
+	    <Exercise
+	        task="@string/course_android_view_ids_4_task !_android:onClick_! !_onYesButtonClick_! '_Yes_'"
+	        code_file="main.xml"
+	        level="3" >
+		    <CodeHint_1 />
+	        <ExpectedCode
+				start_line="21"
+				end_line="29"
+	            fail="@string/course_android_view_ids_4_fail_1 !_android:onClick=&quot;onYesButtonClick&quot;_! !_Button_!">
+				<![CDATA[android:onClick="onYesButtonClick"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_view_ids_5_task !_onYesButtonClick_! !_TextView_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    public void onYesButtonClick$code_hint$(View view) 
+    {
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_view_ids_6_task !_TextView_! !_R.id.mainTextView1_! !_findViewById_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        $code_hint_3$
+    }
+    
+    public void onYesButtonClick(View view) 
+    {
+    	TextView textView = (TextView) findViewById(R.id.mainTextView1$code_hint$);
+    	$code_hint_1$
+	}
+	
+	$code_hint_2$
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_view_ids_7_task !_setText_! '_Correct!_' !_TextView_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+				start_line="21"
+	            fail="@string/course_android_view_ids_7_fail_1 !_textView.setText(&quot;Correct!&quot;)_! !_onYesButtonClick_!">
+				<![CDATA[textView.setText("Correct!")]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_view_ids_7_success '_Yes_'" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_view_ids_8_task !_android:onClick_! !_onNoButtonClick_! '_No_'"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+				start_line="29"
+				end_line="36"
+	            fail="@string/course_android_view_ids_8_fail_1 !_android:onClick=&quot;onNoButtonClick&quot;_! !_Button_!">
+				<![CDATA[android:onClick="onNoButtonClick"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_view_ids_9_task !_onNoButtonClick_! '_Wrong!_' !_onYesButtonClick_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_android_view_ids_9_fail_1 !_public_void_onNoButtonClick(View_view)_!">
+				<![CDATA[public void onNoButtonClick(View view)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_android_view_ids_9_fail_2 !_textView.setText(&quot;Wrong!&quot;)_! !_onNoButtonClick_!">
+				<![CDATA[textView.setText("Wrong!")]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_view_ids_10_task !_onCreate_! !_TextView_! !_findViewById_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            end_line="20"
+	            fail="@string/course_android_view_ids_10_fail_1 !_TextView_! !_findViewById(R.id.mainTextView1)_! !_onCreate_!">
+				<![CDATA[findViewById(R.id.mainTextView1)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            end_line="22"
+	            fail="@string/course_android_view_ids_10_fail_2 !_textView.setText(&quot;&quot;)_! !_onCreate_!">
+				<![CDATA[.setText("")]]>
+	        </ExpectedCode>
+	        <Run 
+	            success="@string/course_android_view_ids_10_success '_Yes_' '_No_'" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_view_ids_11_task"
+	        code_file="MainActivity.java" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+
+	<Lesson
+	    id="Android Event Listeners"
+	    title="@string/course_android_event_listeners"
+		example="button.setOnClickListener()"
+		description="@string/course_android_event_listeners_description">
+
+		<Exercise
+	        task="@string/course_android_event_listeners_1_task"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        $code_hint$
+    }
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="center"
+	android:orientation="vertical">
+
+	<Button$code_hint_1$
+		android:text="Button"
+		android:textSize="20dp"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content" />
+
+	<TextView$code_hint$
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Press the button"
+		android:textSize="20dp"
+		android:layout_marginTop="20dp"/>
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run  success="@string/course_android_event_listeners_1_success" />
+	    </Exercise>
+		<Exercise
+		    task="@string/course_android_event_listeners_2_task !_TextView_! !_android:id_! !_@+id/mainTextView1_!"
+		    designer_task="@string/course_android_event_listeners_2_designer_task !_mainTextView1_!"
+		    code_file="main.xml"
+		    level="3">
+	        <CodeHint />
+		    <ExpectedCode
+				start_line="16"
+	            fail="@string/course_android_event_listeners_2_fail_1 !_android:id=&quot;@+id/mainTextView1&quot;_! !_TextView_!">
+				<![CDATA[android:id="@+id/mainTextView1"]]>
+	        </ExpectedCode>
+		</Exercise>  
+		<Exercise
+		    task="@string/course_android_event_listeners_3_task !_mainButton1_! !_Button_!"
+		    designer_task="@string/course_android_event_listeners_3_designer_task !_mainButton_!"
+		    code_file="main.xml"
+		    level="3">
+		    <CodeHint_1 />
+		    <ExpectedCode
+				end_line="16"
+	            fail="@string/course_android_event_listeners_3_fail_1 !_android:id=&quot;@+id/mainButton1&quot;_! !_Button_!">
+				<![CDATA[android:id="@+id/mainButton1"]]>
+	        </ExpectedCode>
+		</Exercise>  
+	    <Exercise
+	        task="@string/course_android_event_listeners_4_task !_onCreate_! !_TextView_! !_findViewById_! !_TextView_textView_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+		    <CodeHint />
+	        <ExpectedCode
+	            start_line="17"
+	            fail="@string/course_android_event_listeners_4_fail_1 !_TextView_textView_=_(TextView)_findViewById(R.id.mainTextView1)_! !_onCreate_!">
+				<![CDATA[TextView textView = (TextView) findViewById(R.id.mainTextView1)]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_event_listeners_5_task !_Button_! !_findViewById_! !_Button_button_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint />
+	        <ExpectedCode
+	            start_line="17"
+	            fail="@string/course_android_event_listeners_5_fail_1 !_Button_button_=_(Button)_findViewById(R.id.mainButton1)_! !_onCreate_!">
+				<![CDATA[Button button = (Button) findViewById(R.id.mainButton1)]]>
+	        </ExpectedCode>
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_event_listeners_6_task !_setOnClickListener_! !_onClick_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+import android.view.View.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+        final TextView textView = (TextView) findViewById(R.id.mainTextView1);
+        Button button = (Button) findViewById(R.id.mainButton1);
+        
+        button.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick$code_hint$(View p1)
+				{
+					// TODO: Implement this method
+					$code_hint_1$
+				}
+			});
+		$code_hint_2$
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_event_listeners_7_task !_onClick_! !_TextView_! '_Clicked_' !_setText()_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_event_listeners_7_fail_1 !_textView.setText(&quot;Clicked&quot;)_! !_onClick_!">
+				<![CDATA[textView.setText("Clicked")]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_event_listeners_7_success"/>
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_event_listeners_8_task !_OnLongClickListener_! !_Button_! !_setOnLongClickListener()_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_android_event_listeners_8_fail_1 !_button.setOnLongClickListener(new_OnLongClickListener()_{});_!">
+				<![CDATA[button.setOnLongClickListener(new OnLongClickListener()]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_android_event_listeners_8_fail_2 !_onLongClick_!">
+				<![CDATA[public boolean onLongClick(View]]>
+	        </ExpectedCode>
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_event_listeners_9_task !_onLongClick_! !_TextView_! '_Long_Clicked_' !_setText()_!"
+	        code_file="MainActivity.java"
+	        level="3" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+import android.view.View.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+        final TextView textView = (TextView) findViewById(R.id.mainTextView1);
+        Button button = (Button) findViewById(R.id.mainButton1);
+        
+        button.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View p1)
+				{
+					// TODO: Implement this method
+					textView.setText("Clicked");
+				}
+			});
+			
+		button.setOnLongClickListener(new OnLongClickListener() {
+
+				@Override
+				public boolean onLongClick(View p1)
+				{
+					// TODO: Implement this method
+					$code_hint$
+					return false;$code_hint_1$
+				}
+			});
+    }
+				}				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_event_listeners_9_fail_1 !_textView.setText(&quot;Long_Clicked&quot;)_! !_onLongClick_!">
+				<![CDATA[textView.setText("Long Clicked")]]>
+	        </ExpectedCode>
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_event_listeners_10_task !_onLongClick_! !_true_!"
+	        code_file="MainActivity.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_event_listeners_10_fail_1 !_return_true_! !_onLongClick_!">
+				<![CDATA[return true]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_event_listeners_10_success"/>
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_event_listeners_11_task"
+	        code_file="MainActivity.java" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+
+	<Lesson
+	    id="Android List Views"
+	    title="@string/course_android_list_views"
+	    section="@string/course_android_list_views_section"
+		example="&lt; ListView /&gt;"
+		description="@string/course_android_list_views_description">
+
+		<Exercise
+	        task="@string/course_android_list_views_1_task"
+	        code_file="main.xml"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+    }
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+	$code_hint$
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run  
+	            success="@string/course_android_list_views_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_list_views_2_task !_ListView_! !_android:layout__width=&quot;match__parent&quot;_! !_android:layout__height=&quot;match__parent&quot;_!"
+	        level="3"
+	        code_file="main.xml">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_list_views_2_fail_1 !_&lt;_ListView_/&gt;_!">
+				<![CDATA[<ListView]]>
+	        </ExpectedCode>
+			<ExpectedCode
+	            fail="@string/course_android_list_views_2_fail_2 !_android:layout__width=&quot;match__parent&quot;_! !_ListView_!">
+				<![CDATA[android:layout_width="match_parent"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+	            fail="@string/course_android_list_views_2_fail_3 !_android:layout__height=&quot;match__parent&quot;_! !_ListView_!">
+				<![CDATA[android:layout_height="match_parent"]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_list_views_2_success !_ListView_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_list_views_3_task !_ListView_! !_android:id_! !_@+id/mainListView1_!"
+	        code_file="main.xml"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_list_views_3_fail_1 !_android:id=&quot;@+id/mainListView1&quot;_! !_ListView_!">
+				<![CDATA[android:id="@+id/mainListView1"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_list_views_4_task !_ListView_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+        String[] companies$code_hint$ = new String[] { "Google", "Apple", "Facebook",
+        	"Blackberry", "Samsung", "Twitter", "Intel", "HTC", "Asus" };
+        
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_list_views_5_task !_ListView_! !_ListAdapter_! !_this_! !_android.R.layout.simple_list__item__1_! !_companies_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+        String[] companies = new String[] { "Google", "Apple", "Facebook",
+        	"Blackberry", "Samsung", "Twitter", "Intel", "HTC", "Asus" };
+        	
+        ListAdapter adapter = new ArrayAdapter<String>($code_hint$);
+        $code_hint_1$
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_list_views_5_fail_1 !_ListAdapter_adapter_=_new_ArrayAdapter_&lt;_String_&gt;_(this,_android.R.layout.simple__list__item__1,_companies)_!">
+				<![CDATA[ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, companies)]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_list_views_6_task !_ListView_! !_findViewById_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_list_views_6_fail_1 !_ListView_listView_=_(ListView)_findViewById(R.id.mainListView1)_!">
+				<![CDATA[findViewById(R.id.mainListView1)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_android_list_views_6_fail_2 !_ListView_listView_=_(ListView)_findViewById(R.id.mainListView1)_!">
+				<![CDATA[ListView]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_list_views_7_task !_setAdapter()_! !_ListView_! !_adapter_!"
+	        code_file="MainActivity.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_list_views_7_fail_1 !_listView.setAdapter(adapter)_!">
+				<![CDATA[.setAdapter(adapter)]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_list_views_7_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_list_views_8_task !_OnItemClickListener_! !_setOnItemClickListener()_! !_ListView_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+import android.widget.*;
+import android.widget.AdapterView.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+        String[] companies = new String[] { "Google", "Apple", "Facebook",
+        	"Blackberry", "Samsung", "Twitter", "Intel", "HTC", "Asus" };
+        	
+        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, companies);
+        ListView listView = (ListView) findViewById(R.id.mainListView1);
+		listView.setAdapter(adapter);
+		
+		listView.setOnItemClickListener$code_hint$(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> l, View v, int position, long id)
+				{
+					$code_hint_1$
+				}
+			});
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_list_views_9_task !_onItemClick_! !_l.getItemAtPosition(position)_! !_String_s_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_list_views_9_fail_1 !_String_s_=_(String)_l.getItemAtPosition(position)_! !_onItemClick_!">
+				<![CDATA[String s = (String) l.getItemAtPosition(position)]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_list_views_10_task !_s_!"
+	        code_file="MainActivity.java"
+	        level="4">
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_list_views_10_fail_1 !_Toast.makeText(MainActivity.this,_s,_Toast.LENGTH_SHORT).show()_! !_onItemClick_!">
+				<![CDATA[Toast.makeText(]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_android_list_views_10_fail_2 !_Toast.makeText(MainActivity.this,_s,_Toast.LENGTH_SHORT).show()_! !_onItemClick_!">
+				<![CDATA[.show()]]>
+	        </ExpectedCode>
+	        <Run
+	            success_duration="2" 
+	            success="@string/course_android_list_views_10_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_list_views_11_task"
+	        code_file="MainActivity.java" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+	<Lesson
+	    id="Android Custom List Views"
+	    title="@string/course_android_custom_list_views"
+		example="&lt; ListView /&gt;"
+		description="@string/course_android_custom_list_views_description">
+
+	    <Files 
+	        template="simple_project"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	    	<CodeFile name="MainActivity.java" />    
+	        <CodeFile name="main.xml" />    
+	    	<CodeFile name="entry.xml" />    
+	    </Files>
+
+		<Exercise
+	        task="@string/course_android_custom_list_views_1_task"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+        String[] companies = new String[] { "Google", "Apple", "Facebook",
+        	"Blackberry", "Samsung", "Twitter", "Intel", "HTC", "Asus" };
+        	
+        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, companies);
+        
+        ListView listView = (ListView) findViewById(R.id.mainListView1);
+		listView.setAdapter(adapter);
+        
+    }
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+	<ListView
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:id="@+id/mainListView1"/> 
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="entry.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+	$code_hint$
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_android_custom_list_views_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_views_2_task !_TextView_! !_android:layout__width=&quot;wrap__content&quot;_! !_android:layout__height=&quot;wrap__content&quot;_!"
+	        level="3"
+	        code_file="entry.xml">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_custom_list_views_2_fail_1 !_&lt;_TextView_/&gt;_!">
+				<![CDATA[<TextView]]>
+	        </ExpectedCode>
+			<ExpectedCode
+	            fail="@string/course_android_custom_list_views_2_fail_2 !_android:layout__width=&quot;wrap__content&quot;_! !_TextView_!">
+				<![CDATA[android:layout_width="wrap_content"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+	            fail="@string/course_android_custom_list_views_2_fail_3 !_android:layout__height=&quot;wrap__content&quot;_! !_TextView_!">
+				<![CDATA[android:layout_height="wrap_content"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+		    task="@string/course_android_custom_list_views_3_task !_TextView_! !_android:id_! !_@+id/entryTextView1_!"
+		    code_file="entry.xml"
+		    level="2">
+			<CodeHint />
+		    <ExpectedCode
+	            fail="@string/course_android_custom_list_views_3_fail_1 !_android:id=&quot;@+id/entryTextView1&quot;_! !_TextView_!">
+				<![CDATA[android:id="@+id/entryTextView1"]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_custom_list_views_4_task !_(this,_R.layout.entry,_R.id.entryTextView1,_companies)_! !_ListAdapter_! !_R.layout.entry_! !_R.id.entryTextView1_! !_companies_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+        String[] companies = new String[] { "Google", "Apple", "Facebook",
+        	"Blackberry", "Samsung", "Twitter", "Intel", "HTC", "Asus" };
+        	
+        ListAdapter adapter = new ArrayAdapter<String>($code_hint$);
+        
+        ListView listView = (ListView) findViewById(R.id.mainListView1);
+		listView.setAdapter(adapter);
+        
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_custom_list_views_4_fail_1 !_ListAdapter_adapter_=_new_ArrayAdapter_&lt;_String_&gt;_(this,_R.layout.entry,_R.id.entryTextView1,_companies)_!">
+				<![CDATA[ListAdapter adapter = new ArrayAdapter<String>(this, R.layout.entry, R.id.entryTextView1, companies)]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_custom_list_views_4_success" />
+	    </Exercise>
+	    <Exercise
+		    task="@string/course_android_custom_list_views_5_task !_TextView_! !_android:padding_! !_10dp_! !_android:textSize_! !_25sp_! !_android:textStyle_! !_bold_!"
+		    code_file="entry.xml"
+		    level="2">
+	        <CodeHint />
+		    <ExpectedCode
+	            fail="@string/course_android_custom_list_views_5_fail_1 !_android:padding=&quot;10dp&quot;_! !_TextView_!">
+				<![CDATA[android:padding="10dp"]]>
+	        </ExpectedCode>
+	    	<ExpectedCode
+	            fail="@string/course_android_custom_list_views_5_fail_2 !_android:textSize=&quot;25sp&quot;_! !_TextView_!">
+				<![CDATA[android:textSize="25sp"]]>
+	        </ExpectedCode>
+		    <ExpectedCode
+	            fail="@string/course_android_custom_list_views_5_fail_3 !_android:textStyle=&quot;bold&quot;_! !_TextView_!">
+				<![CDATA[android:textStyle="bold"]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_custom_list_views_5_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_views_6_task"
+	        code_file="MainActivity.java" >
+	    </Exercise>
+	</Lesson>
+
+
+
+	<Lesson
+	    id="Android Custom List Adapters"
+	    title="@string/course_android_custom_list_adapters"
+	    release_date="2014-04-22"
+		example="class MyAdapter extends ArrayAdapter"
+		description="@string/course_android_custom_list_adapters_description">
+
+	    <Files 
+	        template="simple_project"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	    	<CodeFile name="MainActivity.java" />    
+	        <CodeFile name="main.xml" />    
+	    	<CodeFile name="entry.xml" />    
+	    </Files>
+
+		<Exercise
+	        task="@string/course_android_custom_list_adapters_1_task"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+        String[] companies = new String[] { "Google", "Apple", "Facebook",
+        	"Blackberry", "Samsung", "Twitter", "Intel", "HTC", "Asus" };
+        	
+        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, companies);
+        
+        ListView listView = (ListView) findViewById(R.id.mainListView1);
+		listView.setAdapter(adapter);
+        
+    }
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+	<ListView
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:id="@+id/mainListView1"/> 
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="entry.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="center_vertical"
+	android:orientation="horizontal">
+
+	$code_hint$
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_android_custom_list_adapters_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_2_task !_TextView_! !_android:layout__width=&quot;wrap__content&quot;_! !_android:layout__height=&quot;wrap__content&quot;_! !_android:padding=&quot;10dp&quot;_! !_android:textSize=&quot;25sp&quot;_!"
+	        level="3"
+	        code_file="entry.xml">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_2_fail_1 !_&lt;_TextView_/&gt;_!">
+				<![CDATA[<TextView]]>
+	        </ExpectedCode>
+			<ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_2_fail_2 !_android:layout__width=&quot;wrap__content&quot;_! !_TextView_!">
+				<![CDATA[android:layout_width="wrap_content"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_2_fail_3 !_android:layout__height=&quot;wrap__content&quot;_! !_TextView_!">
+				<![CDATA[android:layout_height="wrap_content"]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_2_fail_4 !_android:padding=&quot;10dp&quot;_! !_TextView_!">
+				<![CDATA[android:padding="10dp"]]>
+	        </ExpectedCode>
+	    	<ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_2_fail_5 !_android:textSize=&quot;25sp&quot;_! !_TextView_!">
+				<![CDATA[android:textSize="25sp"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+		    task="@string/course_android_custom_list_adapters_3_task !_TextView_! !_android:id_! !_@+id/entryTextView1_!"
+		    code_file="entry.xml"
+		    level="2">
+			<CodeHint />
+		    <ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_3_fail_1 !_android:id=&quot;@+id/entryTextView1&quot;_! !_TextView_!">
+				<![CDATA[android:id="@+id/entryTextView1"]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_4_task !_ImageView_! !_TextView_! !_android:layout__width=&quot;35dp&quot;_! !_android:layout__height=&quot;35dp&quot;_! !_android:layout__marginLeft=&quot;10dp&quot;_!"
+	        level="3"
+	        code_file="entry.xml">
+	    	<SourceCode code_file="entry.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="center_vertical"
+	android:orientation="horizontal">
+
+	$code_hint$
+	
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:id="@+id/entryTextView1"
+		android:padding="10dp"
+		android:textSize="25sp" />
+	
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_4_fail_1 !_&lt;_ImageView_/&gt;_!">
+				<![CDATA[<ImageView]]>
+	        </ExpectedCode>
+			<ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_4_fail_2 !_android:layout__width=&quot;35dp&quot;_! !_ImageView_!">
+				<![CDATA[android:layout_width="35dp"]]>
+	        </ExpectedCode>
+			<ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_4_fail_3 !_android:layout__height=&quot;30dp&quot;_! !_ImageView_!">
+				<![CDATA[android:layout_height="35dp"]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_4_fail_4 !_android:layout__marginLeft=&quot;10dp&quot;_! !_ImageView_!">
+				<![CDATA[android:layout_marginLeft="10dp"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+		    task="@string/course_android_custom_list_adapters_5_task !_ImageView_! !_android:id_! !_@+id/entryImageView1_!"
+		    code_file="entry.xml"
+		    level="2">
+			<CodeHint />
+		    <ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_5_fail_1 !_android:id=&quot;@+id/entryImageView1&quot;_! !_ImageView_!">
+				<![CDATA[android:id="@+id/entryImageView1"]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_6_task"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.content.*;
+import android.os.*;
+import android.widget.*;
+import android.view.*;
+import android.graphics.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+        String[] companies = new String[] { "Google", "Apple", "Facebook",
+        	"Blackberry", "Samsung", "Twitter", "Intel", "HTC", "Asus" };
+        	
+        ListAdapter adapter = new MyAdapter(this, companies);$code_hint_1$
+        
+        ListView listView = (ListView) findViewById(R.id.mainListView1);
+		listView.setAdapter(adapter);
+        
+    }
+    
+    class MyAdapter extends ArrayAdapter<String>$code_hint$
+    {
+		public MyAdapter(Context context, String[] values) 
+		{
+			super(context, R.layout.entry, values);
+		}
+		
+		$code_hint_2$
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_7_task !_companies_!"
+	        level="1"
+	        code_file="MainActivity.java" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_8_task !_MyAdapter_! !_public_View_getView(int_position,_View_convertView,_ViewGroup_parent)_! !_getView_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_8_fail_1 !_public_View_getView(int_position,_View_convertView,_ViewGroup_parent)_{}_!">
+				<![CDATA[public View getView(int position, View convertView, ViewGroup parent)]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_9_task !_getView_! !_entry.xml_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.content.*;
+import android.os.*;
+import android.widget.*;
+import android.view.*;
+import android.graphics.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+        String[] companies = new String[] { "Google", "Apple", "Facebook",
+        	"Blackberry", "Samsung", "Twitter", "Intel", "HTC", "Asus" };
+        	
+        ListAdapter adapter = new MyAdapter(this, companies);
+        
+        ListView listView = (ListView) findViewById(R.id.mainListView1);
+		listView.setAdapter(adapter);
+        
+    }
+    
+    class MyAdapter extends ArrayAdapter<String>
+    {
+		public MyAdapter(Context context, String[] values) 
+		{
+			super(context, R.layout.entry, values);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			LayoutInflater inflater = LayoutInflater.from(getContext());
+			View view = inflater.inflate(R.layout.entry, parent, false);$code_hint$
+			
+			String text = getItem(position);$code_hint_1$
+	
+			$code_hint_2$
+			
+			return view;
+		}
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_10_task !_getItem()_!"
+	        level="1"
+	        code_file="MainActivity.java" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_11_task !_TextView_! !_TextView_textView_=_(TextView)_view.findViewById(R.id.entryTextView1);_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_11_fail_1 !_TextView_textView_=_(TextView)_view.findViewById(R.id.entryTextView1);_!">
+				<![CDATA[TextView textView = (TextView) view.findViewById(R.id.entryTextView1);]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_12_task !_TextView_! !_textView.setText(text);_!"
+	        code_file="MainActivity.java"
+	        level="4" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_12_fail_1 !_textView.setText(text);_!">
+				<![CDATA[textView.setText(text);]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_custom_list_adapters_12_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_13_task !_ImageView_! !_ImageView_imageView_=_(ImageView)_view.findViewById(R.id.entryImageView1);_!"
+	        code_file="MainActivity.java"
+	        level="3" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.content.*;
+import android.os.*;
+import android.widget.*;
+import android.view.*;
+import android.graphics.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+        String[] companies = new String[] { "Google", "Apple", "Facebook",
+        	"Blackberry", "Samsung", "Twitter", "Intel", "HTC", "Asus" };
+        	
+        ListAdapter adapter = new MyAdapter(this, companies);
+        
+        ListView listView = (ListView) findViewById(R.id.mainListView1);
+		listView.setAdapter(adapter);
+        
+    }
+    
+    class MyAdapter extends ArrayAdapter<String>
+    {
+		public MyAdapter(Context context, String[] values) 
+		{
+			super(context, R.layout.entry, values);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			LayoutInflater inflater = LayoutInflater.from(getContext());
+			View view = inflater.inflate(R.layout.entry, parent, false);
+			
+			String text = getItem(position);
+	
+			TextView textView = (TextView) view.findViewById(R.id.entryTextView1);
+			textView.setText(text);
+	
+			$code_hint$
+			
+			return view;
+		}
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_13_fail_1 !_ImageView_imageView_=_(ImageView)_view.findViewById(R.id.entryImageView1);_!">
+				<![CDATA[ImageView imageView = (ImageView) view.findViewById(R.id.entryImageView1);]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_14_task !_ImageView_! !_imageView.setImageResource(android.R.drawable.ic__menu__info__details);_! !_android.R.drawable.ic__menu__info__details_!"
+	        code_file="MainActivity.java"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_14_fail_1 !_imageView.setImageResource(android.R.drawable.ic__menu__info__details);_!">
+				<![CDATA[imageView.setImageResource(android.R.drawable.ic_menu_info_details);]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_custom_list_adapters_14_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_15_task !_if_(&quot;Google&quot;.equals(text))_imageView.setImageResource(android.R.drawable.ic__menu__gallery);_! '_Google_'"
+	        code_file="MainActivity.java"
+	        level="3" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.content.*;
+import android.os.*;
+import android.widget.*;
+import android.view.*;
+import android.graphics.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+        
+        String[] companies = new String[] { "Google", "Apple", "Facebook",
+        	"Blackberry", "Samsung", "Twitter", "Intel", "HTC", "Asus" };
+        	
+        ListAdapter adapter = new MyAdapter(this, companies);
+        
+        ListView listView = (ListView) findViewById(R.id.mainListView1);
+		listView.setAdapter(adapter);
+        
+    }
+    
+    class MyAdapter extends ArrayAdapter<String>
+    {
+		public MyAdapter(Context context, String[] values) 
+		{
+			super(context, R.layout.entry, values);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			LayoutInflater inflater = LayoutInflater.from(getContext());
+			View view = inflater.inflate(R.layout.entry, parent, false);
+			
+			String text = getItem(position);
+	
+			TextView textView = (TextView) view.findViewById(R.id.entryTextView1);
+			textView.setText(text);
+	
+			ImageView imageView = (ImageView) view.findViewById(R.id.entryImageView1);
+			imageView.setImageResource(android.R.drawable.ic_menu_info_details);
+			
+			$code_hint$
+			
+			return view;
+		}
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_custom_list_adapters_15_fail_1 !_if_(&quot;Google&quot;.equals(text))_imageView.setImageResource(android.R.drawable.ic__menu__gallery);_!">
+				<![CDATA[if ("Google".equals(text)) imageView.setImageResource(android.R.drawable.ic_menu_gallery);]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_custom_list_adapters_15_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_custom_list_adapters_16_task"
+	        code_file="MainActivity.java" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+
+	<Lesson
+	    id="Android Options Menu"
+	    title="@string/course_android_options_menu"
+	    section="@string/course_android_options_menu_section"
+		example="&lt; Menu &gt;"
+		description="@string/course_android_options_menu_description">
+
+	    <Files 
+	        template="simple_project"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	    	<CodeFile name="MainActivity.java" />    
+	        <CodeFile name="main.xml" />    
+	    	<CodeFile name="main_menu.xml" />    
+		</Files>
+
+		<Exercise
+	        task="@string/course_android_options_menu_1_task"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+</LinearLayout>
+				]]>
+			</SourceCode>
+	        <SourceCode code_file="main_menu.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<menu$code_hint$ xmlns:android="http://schemas.android.com/apk/res/android" >
+
+</menu>
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_android_options_menu_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_options_menu_2_task"
+	        code_file="main_menu.xml"
+	        level="1" >
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_options_menu_3_task '_About_'"
+	        code_file="main_menu.xml"
+	        level="1" >
+	        <SourceCode code_file="main_menu.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<item
+        android:title="About"$code_hint$ />
+    
+    $code_hint_1$
+</menu>
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_options_menu_4_task !_onCreateOptionsMenu_! !_Activity_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    @Override
+	public boolean onCreateOptionsMenu$code_hint$(Menu menu)
+	{
+		// TODO: Implement this method
+		return super.onCreateOptionsMenu(menu);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_options_menu_5_task !_onCreateOptionsMenu_! !_R.menu.main__menu_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		// Inflate main_menu.xml 
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu$code_hint$, menu);
+		return true;
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run success="@string/course_android_options_menu_5_success"/>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_options_menu_6_task '_Exit_'"
+	        code_file="main_menu.xml"
+	        level="2" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            count="2"
+	            fail="@string/course_android_options_menu_6_fail_1 !_&lt;_item_/&gt;_!">
+				<![CDATA[<item]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            start_line="6"
+	            fail="@string/course_android_options_menu_6_fail_2 !_android:title=&quot;Exit&quot;_!">
+				<![CDATA[android:title="Exit"]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_options_menu_6_success"/>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_options_menu_7_task '_About_' !_android:id_! !_@+id/mainMenuAbout_!"
+	        code_file="main_menu.xml"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            end_line="7"
+	            fail="@string/course_android_options_menu_7_fail_1 !_android:id=&quot;@+id/mainMenuAbout&quot;_! '_About_'">
+				<![CDATA[android:id="@+id/mainMenuAbout"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_options_menu_8_task !_onOptionsItemSelected_! !_Activity_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		// Inflate main_menu.xml 
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected$code_hint$(MenuItem item)
+	{
+		// TODO: Implement this method
+		return super.onOptionsItemSelected(item);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_options_menu_9_task !_onOptionsItemSelected_! !_item.getItemId()_! !_R.id.mainMenuAbout_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		// Inflate main_menu.xml 
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case R.id.mainMenuAbout$code_hint$:
+				Toast.makeText(this, "This is my app!!!", Toast.LENGTH_SHORT).show();
+				return true;
+			$code_hint_1$
+		}
+		return super.onOptionsItemSelected(item);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run
+	            success_duration="2"
+	            success="@string/course_android_options_menu_9_success '_About_'" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_options_menu_10_task !_mainMenuExit_! '_Exit_'"
+	        code_file="main_menu.xml"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_options_menu_10_fail_1 !_android:id=&quot;@+id/mainMenuExit&quot;_! '_Exit_'">
+				<![CDATA[android:id="@+id/mainMenuExit"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_options_menu_11_task !_R.id.mainMenuExit_! !_finish()_! !_true_!"
+	        code_file="MainActivity.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_options_menu_11_fail_1 !_case_R.id.mainMenuExit:_!">
+				<![CDATA[case R.id.mainMenuExit:]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_android_options_menu_11_fail_2 !_finish()_!">
+				<![CDATA[finish()]]>
+	        </ExpectedCode>
+	        <Run 
+	            success_duration="2"
+	            success="@string/course_android_options_menu_11_success '_Exit_'" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_options_menu_12_task"
+	        code_file="MainActivity.java" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+
+	<Lesson
+	    id="Android Action Bar"
+	    title="@string/course_android_action_bar"
+		example="getActionBar()"
+		description="@string/course_android_action_bar_description">
+
+		<Files 
+	        template="simple_project"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	    	<CodeFile name="MainActivity.java" />    
+	        <CodeFile name="main.xml" />    
+	    	<CodeFile name="main_menu.xml" />    
+		</Files>
+
+		<Exercise
+	        task="@string/course_android_action_bar_1_task"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="left"
+	android:padding="20dp"
+	android:orientation="vertical">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Compose email:"
+		android:textSize="20dp"
+		android:layout_marginBottom="20dp"/>
+	
+	<EditText
+		android:inputType="textEmailSubject"
+		android:hint="Subject"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+	
+	<EditText
+		android:hint="Email"
+		android:inputType="textEmailAddress"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+	
+	<EditText
+		android:hint="Message"
+		android:inputType="textMultiLine"
+		android:layout_width="match_parent"
+		android:gravity="top"
+		android:layout_height="100dp" />
+</LinearLayout>
+
+				]]>
+			</SourceCode>
+	        <SourceCode code_file="main_menu.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<menu$code_hint$ xmlns:android="http://schemas.android.com/apk/res/android" >
+
+</menu>
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_android_action_bar_1_success '_Send_'" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_action_bar_2_task"
+	        code_file="main_menu.xml"
+	        level="1" >
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_action_bar_3_task '_Send_'"
+	        code_file="main_menu.xml"
+	        level="1" >
+	        <SourceCode code_file="main_menu.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<item$code_hint_1$
+        android:title="Send"$code_hint$ />
+        
+</menu>
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_action_bar_4_task !_android:showAsAction_! !_ifRoom|withText_!"
+	        code_file="main_menu.xml"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_action_bar_4_fail_1 !_android:showAsAction=&quot;ifRoom|withText&quot;_!">
+				<![CDATA[android:showAsAction="ifRoom|withText"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_action_bar_5_task !_android:icon_! !_@android:drawable/ic__menu__send_!"
+	        code_file="main_menu.xml"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_action_bar_5_fail_1 !_android:icon=&quot;@android:drawable/ic__menu__send&quot;_!">
+				<![CDATA[android:icon="@android:drawable/ic_menu_send"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_action_bar_6_task !_onCreateOptionsMenu_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    @Override
+	public boolean onCreateOptionsMenu$code_hint$(Menu menu)
+	{
+		// TODO: Implement this method
+		return super.onCreateOptionsMenu(menu);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_action_bar_7_task !_onCreateOptionsMenu_! !_R.menu.main__menu_!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		// Inflate main_menu.xml 
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu$code_hint$, menu);
+		return true;
+	}
+	
+	$code_hint_1$
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run success="@string/course_android_action_bar_7_success"/>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_action_bar_8_task !_android:id_! !_@+id/mainMenuSend_! '_Send_'"
+	        code_file="main_menu.xml"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_action_bar_8_fail_1 !_android:id=&quot;@+id/mainMenuSend&quot;_! '_Send_'">
+				<![CDATA[android:id="@+id/mainMenuSend"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_action_bar_9_task !_public_boolean_onOptionsItemSelected(MenuItem_item)_! !_Activity_! !_onOp_!"
+	        level="4"
+	        code_file="MainActivity.java">
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_action_bar_9_fail_1 !_public_boolean_onOptionsItemSelected(MenuItem_item)_!">
+				<![CDATA[public boolean onOptionsItemSelected(MenuItem item)]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_action_bar_10_task !_item.getItemId()_! !_R.id.mainMenuSend_! '_Sending..._' !_Toast.makeText(...)_!"
+	        level="5"
+	        code_file="MainActivity.java">
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.widget.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		// Inflate main_menu.xml 
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		// TODO: Implement this method
+		$code_hint$
+		return super.onOptionsItemSelected(item);
+	}
+				}				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_action_bar_10_fail_1 !_item.getItemId()_! !_R.id.mainMenuSend_!">
+				<![CDATA[item.getItemId()]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_android_action_bar_10_fail_2 !_item.getItemId()_! !_R.id.mainMenuSend_!">
+				<![CDATA[R.id.mainMenuSend]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_android_action_bar_10_fail_3 !_Toast.makeText(this,_&quot;Sending...&quot;,_Toast.LENGTH_LONG).show()_!">
+				<![CDATA[Toast.makeText(]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_android_action_bar_10_fail_4 !_Toast.makeText(this,_&quot;Sending...&quot;,_Toast.LENGTH_LONG).show()_!">
+				<![CDATA[.show()]]>
+	        </ExpectedCode>
+	        <Run 
+	            success_duration="2"
+	            success="@string/course_android_action_bar_10_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_action_bar_11_task"
+	        code_file="MainActivity.java" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+	<Lesson
+	    id="Android App Manifest"
+		title="@string/course_android_manifest"
+	    section="@string/course_android_manifest_section"
+		example="AndroidManifest.xml"
+		description="@string/course_android_manifest_description">
+
+	    <Files 
+	        template="simple_project"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	        <CodeFile name="AndroidManifest.xml" />    
+	        <CodeFile name="MainActivity.java" />    
+	    	<CodeFile name="main.xml" />    
+	    </Files>
+
+		<Exercise
+	        task="@string/course_android_manifest_1_task"
+	        code_file="AndroidManifest.xml"
+	        level="1" >
+	    	<SourceCode code_file="AndroidManifest.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="$package_name$"$code_hint_3$
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk 
+        android:minSdkVersion="11" 
+        android:targetSdkVersion="17" />
+
+    <application$code_hint_4$
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity$code_hint$
+            android:label="@string/app_name"$code_hint_1$
+            android:theme="@android:style/Theme.Holo.Light"$code_hint_2$
+            android:name=".MainActivity" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World" />
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_android_manifest_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_manifest_2_task"
+	        code_file="AndroidManifest.xml"
+	        level="1" >
+	        <CodeHint_3 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_manifest_3_task !_application_!"
+	        code_file="AndroidManifest.xml"
+	        level="1" >
+	        <CodeHint_4 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_manifest_4_task !_activity_! !_MainActivity_!"
+	        code_file="AndroidManifest.xml"
+	        level="1" >
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_manifest_5_task !_android:label_! !_activity_! '_My_cool_App_'"
+	        code_file="AndroidManifest.xml"
+	        level="3">
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            start_line="14"
+	            fail="@string/course_android_manifest_5_fail_1 !_android:label=&quot;My_cool_App&quot;_! !_activity_!">
+				<![CDATA[android:label="My cool App"]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_manifest_5_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_manifest_6_task !_android:theme_! !_activity_! !_@android:style/Theme.Holo_!"
+	        code_file="AndroidManifest.xml"
+	        level="3">
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            start_line="14"
+	            fail="@string/course_android_manifest_6_fail_1 !_android:theme=&quot;@android:style/Theme.Holo&quot;_! !_activity_!">
+				<![CDATA[android:theme="@android:style/Theme.Holo"]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_manifest_6_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_manifest_7_task"
+	        code_file="AndroidManifest.xml" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+
+	<Lesson
+	    id="Android Intents"
+	    title="@string/course_android_intents"
+		example="new Intent(Intent.ACTION_VIEW)"
+		release_date="2014-10-17"
+		description="@string/course_android_intents_description">
+
+	    <Files 
+	        template="simple_project"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	    	<CodeFile name="MainActivity.java" />    
+	    	<CodeFile name="main.xml" />    
+	    </Files>
+
+		<Exercise
+	        task="@string/course_android_intents_1_task"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.content.*;
+import android.net.*;
+import android.os.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+    }
+    
+    public void onGoogleButtonClick$code_hint$(View view)
+    {
+    	Uri uri = Uri.parse("http://www.google$code_hint_3$.com")$code_hint_1$;
+    	$code_hint_2$
+    }
+    
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onGoogleButtonClick"
+        android:text="www.google.com" />
+
+</LinearLayout>
+				]]>
+			</SourceCode>
+	        <Run success="@string/course_android_intents_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_intents_2_task !_onGoogleButtonClick_!"
+	        level="1" >
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_intents_3_task !_onGoogleButtonClick_! !_Uri_!"
+	        level="1" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_intents_4_task !_Intent_! !_Intent_intent_=_new_Intent(Intent.ACTION__VIEW,_uri);_!"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_android_intents_4_fail_1 !_Intent_intent_=_new_Intent(Intent.ACTION__VIEW,_uri);_!">
+				<![CDATA[Intent intent = new Intent(Intent.ACTION_VIEW, uri)]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_intents_5_task !_startActivity(intent);_!"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_android_intents_5_fail_1 !_startActivity(intent);_!">
+				<![CDATA[startActivity(intent)]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_intents_5_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_intents_6_task '_www.android.com_' !_Uri_!"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_android_intents_6_fail_1 !_Uri.parse(&quot;http://www.android.com&quot;)_!">
+				<![CDATA[Uri.parse("http://www.android.com")]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_intents_6_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_intents_7_task" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+	<Lesson
+	    id="Android Share Intents"
+	    title="@string/course_android_share_intents"
+		example="new Intent(Intent.ACTION_SEND)"
+		release_date="2014-10-17"
+		description="@string/course_android_share_intents_description">
+
+	    <Files 
+	        template="simple_project"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	    	<CodeFile name="MainActivity.java" />    
+	    	<CodeFile name="main.xml" />    
+	    </Files>
+
+		<Exercise
+	        task="@string/course_android_share_intents_1_task"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.content.*;
+import android.net.*;
+import android.os.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+    }
+    
+    public void onShareButtonClick$code_hint$(View view)
+    {
+    	$code_hint_1$
+    }
+    
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onShareButtonClick"
+        android:text="Share..." />
+
+</LinearLayout>
+				]]>
+			</SourceCode>
+	        <Run success="@string/course_android_share_intents_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_share_intents_2_task !_onShareButtonClick_!"
+	        level="1" >
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_share_intents_3_task !_Intent_! !_Intent_intent_=_new_Intent(Intent.ACTION__SEND);_! !_ACTION_SEND_!"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_share_intents_3_fail_1 !_Intent_intent_=_new_Intent(Intent.ACTION__SEND);_!">
+				<![CDATA[Intent intent = new Intent(Intent.ACTION_SEND)]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_share_intents_4_task !_intent.setType(&quot;text/plain&quot;);_!"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_share_intents_4_fail_1 !_intent.setType(&quot;text/plain&quot;);_!">
+				<![CDATA[intent.setType("text/plain");]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_share_intents_5_task !_intent.putExtra(Intent.EXTRA__TEXT,_&quot;This_is_my_text_to_send&quot;);_! '_This_is_my_text_to_send_'"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_share_intents_5_fail_1 !_intent.putExtra(Intent.EXTRA__TEXT,_&quot;This_is_my_text_to_send&quot;);_!">
+				<![CDATA[intent.putExtra(Intent.EXTRA_TEXT, "This is my text to send")]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_share_intents_6_task !_startActivity(intent);_!"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_share_intents_6_fail_1 !_startActivity(intent);_!">
+				<![CDATA[startActivity(intent)]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_share_intents_6_success '_This_is_my_text_to_send_'" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_share_intents_7_task" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+
+	<Lesson
+	    id="Android Activities"
+	    title="@string/course_android_activities"
+		example="&lt; Activity/&gt;"
+		description="@string/course_android_activities_description">
+
+	    <Files 
+	        template="simple_project_2"
+	        project_name="My Android App"
+	        package_name="myapp" >
+	    	<CodeFile name="MainActivity.java" />    
+	        <CodeFile name="SubActivity.java" />    
+	    	<CodeFile name="main.xml" />    
+	    	<CodeFile name="sub.xml" />    
+	    	<CodeFile name="AndroidManifest.xml" />    
+	    </Files>
+
+		<Exercise
+	        task="@string/course_android_activities_1_task"
+	        code_file="MainActivity.java"
+	        level="1" >
+	    	<SourceCode code_file="AndroidManifest.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="$package_name$"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk 
+        android:minSdkVersion="11" 
+        android:targetSdkVersion="17" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Holo.Light"
+            android:name=".MainActivity" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        $code_hint$
+    </application>
+
+</manifest>
+				]]>
+	        </SourceCode>
+	    	<SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    public void onComposeButtonClick(View view) 
+    {
+    	
+	}
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onComposeButtonClick"
+        android:text="Compose email" />
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="sub.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="left"
+    android:orientation="vertical" >
+    
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="SubActivity.java">
+	            <![CDATA[
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_android_activities_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_activities_2_task"
+	        code_file="sub.xml"
+	        level="1">
+	        <SourceCode code_file="sub.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout $code_hint$
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="left"
+    android:padding="20dp"
+    android:orientation="vertical" >
+    
+    <EditText
+		android:inputType="textEmailSubject"
+		android:hint="Subject"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+	
+	<EditText
+		android:hint="Email"
+		android:inputType="textEmailAddress"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_activities_3_task !_SubActivity_!"
+	        code_file="SubActivity.java"
+	        level="1">
+	        <SourceCode code_file="SubActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+
+public class SubActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set sub.xml as user interface layout
+        setContentView(R.layout.sub$code_hint$);
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_activities_4_task !_activity_!"
+	        code_file="AndroidManifest.xml"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            count="2"
+	            fail="@string/course_android_activities_4_fail_1 !_&lt;activity_/&gt;_! !_application_!">
+				<![CDATA[<activity]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_activities_5_task !_android:label_! !_activity_! '_Compose_email_'"
+	        code_file="AndroidManifest.xml"
+	        level="3">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_activities_5_fail_1 !_android:label=&quot;Compose_email&quot;_! !_activity_!">
+				<![CDATA[android:label="Compose email"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_activities_6_task !_android:theme_! !_activity_! !_@android:style/Theme.Holo.Light_!"
+	        code_file="AndroidManifest.xml"
+	        level="3">
+	        <CodeHint />
+	        <ExpectedCode
+	            count="2"
+	            fail="@string/course_android_activities_6_fail_1 !_android:theme=&quot;@android:style/Theme.Holo.Light&quot;_! !_activity_!">
+				<![CDATA[android:theme="@android:style/Theme.Holo.Light"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_activities_7_task !_android:name_! !_activity_! !_.SubActivity_! !_SubActivity_!"
+	        code_file="AndroidManifest.xml"
+	        level="3">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_activities_7_fail_1 !_android:name=&quot;.SubActivity&quot;_! !_activity_!">
+				<![CDATA[android:name=".SubActivity"]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_activities_8_task !_onComposeButtonClick_! !_this_! !_SubActivity.class_! !_Intent_!"
+	        code_file="MainActivity.java"
+	        level="3">
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.content.*;
+import android.os.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    public void onComposeButtonClick(View view) 
+    {
+    	Intent intent = new Intent($code_hint$);
+    	$code_hint_1$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_android_activities_8_fail_1 !_Intent_intent_=_new_Intent(this,_SubActivity.class)_!">
+				<![CDATA[Intent intent = new Intent(this, SubActivity.class)]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_activities_9_task !_startActivity()_! !_intent_!"
+	        code_file="MainActivity.java"
+	        level="3">
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_activities_9_fail_1 !_startActivity(intent)_!">
+				<![CDATA[startActivity(intent)]]>
+	        </ExpectedCode>
+	        <Run
+	            success_duration="2" 
+	            success="@string/course_android_activities_9_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_android_activities_10_task"
+	        code_file="AndroidManifest.xml" >
+	    </Exercise>
+	</Lesson>
+
+
+
+
+
+	<Lesson
+	    id="Android Alert Dialogs"
+	    title="@string/course_android_alert_dialogs"
+	    section="@string/course_android_alert_dialogs_section"
+		example="AlertDialog dialog&#59;"
+		description="@string/course_android_alert_dialogs_description">
+
+		<Exercise
+	        task="@string/course_android_alert_dialogs_1_task"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    public void onButtonClick(View view)
+    {
+    }
+}
+				]]>
+	        </SourceCode>
+	        <SourceCode code_file="main.xml">
+	            <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClick"
+        android:text="Show dialog" />
+
+</LinearLayout>
+				]]>
+	        </SourceCode>
+	        <Run  success="@string/course_android_alert_dialogs_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_alert_dialogs_2_task"
+	        code_file="MainActivity.java" 
+	        level="1">
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    public void onButtonClick(View view)
+    {
+    }
+}
+
+class MyDialogFragment$code_hint$ extends DialogFragment
+{
+	$code_hint_1$
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_alert_dialogs_3_task !_public_Dialog_onCreateDialog(Bundle_savedInstanceState)_!"
+	        code_file="MainActivity.java" 
+	        level="3">
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_alert_dialogs_3_fail_1 !_public_Dialog_onCreateDialog(Bundle_savedInstanceState)_{}_!">
+				<![CDATA[public Dialog onCreateDialog(Bundle savedInstanceState)]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_alert_dialogs_4_task !_AlertDialog.Builder_!"
+	        code_file="MainActivity.java" 
+	        level="1">
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    public void onButtonClick(View view)
+    {
+    	$code_hint_3$
+    }
+}
+
+class MyDialogFragment extends DialogFragment
+{
+	@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState)
+	{
+		AlertDialog.Builder builder$code_hint$ = new AlertDialog.Builder(getActivity());
+		$code_hint_2$
+		return builder.create();$code_hint_1$
+	}
+	
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_alert_dialogs_5_task !_create()_!"
+	        code_file="MainActivity.java" 
+	        level="1">
+	        <CodeHint_1 />
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_alert_dialogs_6_task !_setTitle_! '_My_Dialog_'"
+	        code_file="MainActivity.java" 
+	        level="3">
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_android_alert_dialogs_6_fail_1 !_builder.setTitle(&quot;My_Dialog&quot;)_!">
+				<![CDATA[.setTitle("My Dialog")]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_alert_dialogs_7_task !_setMessage_! '_This_is_my_message_'"
+	        code_file="MainActivity.java" 
+	        level="3">
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_android_alert_dialogs_7_fail_1 !_builder.setMessage(&quot;This_is_my_message&quot;)_!">
+				<![CDATA[.setMessage("This is my message")]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_android_alert_dialogs_8_task !_onButtonClick_! !_MyDialogFragment_!"
+	        code_file="MainActivity.java" 
+	        level="3">
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_android_alert_dialogs_8_fail_1 !_DialogFragment_fragment_=_new_MyDialogFragment()_!">
+				<![CDATA[new MyDialogFragment()]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_alert_dialogs_9_task !_show()_! !_getFragmentManager()_! !_&quot;mydialog&quot;_!"
+	        code_file="MainActivity.java" 
+	        level="3">
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_android_alert_dialogs_9_fail_1 !_fragment.show(getFragmentManager(),_&quot;mydialog&quot;)_!">
+				<![CDATA[.show(getFragmentManager(), "mydialog")]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_alert_dialogs_9_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_alert_dialogs_10_task !_setPositiveButton()_! '_Ok_'"
+	        code_file="MainActivity.java" 
+	        level="1">
+	        <SourceCode code_file="MainActivity.java">
+	            <![CDATA[
+package $package_name$;
+
+import android.app.*;
+import android.os.*;
+import android.view.*;
+import android.content.*;
+
+public class MainActivity extends Activity
+{
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
+        // Set main.xml as user interface layout
+        setContentView(R.layout.main);
+    }
+    
+    public void onButtonClick(View view)
+    {
+    	MyDialogFragment f = new MyDialogFragment();
+		f.show(getFragmentManager(), "mydialog");
+    }
+}
+
+class MyDialogFragment extends DialogFragment
+{
+	@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setTitle("My Dialog");
+		builder.setMessage("This is my message");
+		builder.setPositiveButton$code_hint$("Ok", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface p1, int p2)
+				{
+					// TODO: Implement this method
+				}
+			});
+		$code_hint_1$
+		return builder.create();
+	}
+	
+				}				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run success="@string/course_android_alert_dialogs_10_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_android_alert_dialogs_11_task !_setNegativeButton()_! '_Cancel_'"
+	        code_file="MainActivity.java" 
+	        level="3">
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_android_alert_dialogs_11_fail_1 !_builder.setNegativeButton(&quot;Cancel&quot;,_new_DialogInterface.OnClickListener()_{})_!">
+				<![CDATA[builder.setNegativeButton("Cancel",]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_android_alert_dialogs_11_success" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_android_alert_dialogs_12_task"
+	        code_file="MainActivity.java" >
+	    </Exercise>
+	</Lesson>
+
+
+</Course>
+

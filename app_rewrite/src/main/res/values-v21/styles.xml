@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+	
+	<!-- 主题 -->
+	<style name="MyAppThemeLight" parent="@style/Base.MyAppThemeLight" />
+    <style name="MyAppThemeDark" parent="@style/Base.MyAppThemeDark" />
+	
+	<style name="Base.MyAppThemeLight" parent="@style/Base.V21.MyAppThemeLight" />
+    <style name="Base.MyAppThemeDark" parent="@style/Base.V21.MyAppThemeDark" />
+
+	<style name="Base.V21.MyAppThemeDark" parent="@android:style/Theme.Material">
+        <item name="android:windowBackground">@color/app_background</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:actionBarTabStyle">@style/TabViewStyle</item>
+		<!-- ActionBar Tab内Text禁用全部大写 -->
+		<item name="android:actionBarTabTextStyle">@style/TabTextStyle</item>
+		
+        <item name="android:popupMenuStyle">@style/Widget.Material.PopupMenu</item>
+        <item name="android:dialogTheme">@style/DialogThemeDark</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogThemeDark</item>
+        <item name="android:colorPrimary">@color/primary_material</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark_material</item>
+        <item name="android:colorAccent">@color/accent_material</item>
+        <item name="android:actionOverflowMenuStyle">@style/Widget.Material.PopupMenu.Overflow</item>
+        <item name="android:navigationBarColor">@color/primary_material</item>
+        <item name="android:colorEdgeEffect">?android:colorAccent</item>
+        <item name="color_app_background">@color/app_background</item>
+        <item name="color_browser_label">@color/browser_label</item>
+        <item name="color_browser_label_gray">@color/browser_label_gray</item>
+        <item name="color_key">@color/quickkey</item>
+        <item name="color_list_separator">@color/list_separator</item>
+        <item name="color_selected_item">@color/selected_list_item</item>
+        <item name="color_split_separator">?android:colorAccent</item>
+        <item name="drawable_header">@drawable/browser_header_material</item>
+        <item name="drawable_keybar">@drawable/quickkeybar</item>
+        <item name="drawable_popup">@drawable/popup</item>
+        <item name="icon_add">@drawable/ic_vectoric_add</item>
+        <item name="icon_close_keys">@drawable/ic_vectoric_close</item>
+        <item name="icon_copy">@drawable/ic_vectoric_copy</item>
+        <item name="icon_cut">@drawable/ic_vectoric_cut</item>
+        <item name="icon_delete">@drawable/ic_vectoric_delete</item>
+        <item name="icon_design">@drawable/ic_vectoric_design</item>
+        <item name="icon_edit">@drawable/ic_vectoric_edit</item>
+        <item name="icon_expand">@drawable/ic_vectoric_expand</item>
+        <item name="icon_fix">@drawable/ic_vectoric_fix</item>
+        <item name="icon_goto">@drawable/ic_vectoric_goto</item>
+        <item name="icon_help">@drawable/ic_vectoric_help</item>
+        <item name="icon_manage">@drawable/ic_vectoric_manage</item>
+        <item name="icon_more">@drawable/ic_vectoric_more</item>
+        <item name="icon_open_keys">@drawable/ic_vectoric_more</item>
+        <item name="icon_paste">@drawable/ic_vectoric_paste</item>
+        <item name="icon_redo">@drawable/ic_vectoric_redo</item>
+        <item name="icon_run">@drawable/ic_vectoric_run</item>
+        <item name="icon_stepover">@drawable/ic_vectoric_stepover</item>
+        <item name="icon_undo">@drawable/ic_vectoric_undo</item>
+        <item name="icon_view">@drawable/ic_vectoric_view</item>
+        <item name="theme_name">Material</item>
+        <item name="color_split_separator_bottom">@drawable/color_split_separator_bottom</item>
+        <item name="popup_complete">@drawable/popup_complete_dark</item>
+    </style>
+    <style name="Base.V21.MyAppThemeLight" parent="@android:style/Theme.Material.Light">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="android:windowBackground">@color/app_background_light</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:actionBarTabStyle">@style/TabViewStyleLight</item>
+		<!-- ActionBar Tab内Text禁用全部大写 -->
+		<item name="android:actionBarTabTextStyle">@style/TabTextStyleLight</item>
+		
+        <item name="android:popupMenuStyle">@style/Widget.Material.Light.PopupMenu</item>
+        <item name="android:dialogTheme">@style/DialogThemeLight</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogThemeLight</item>
+        <item name="android:colorPrimary">@color/primary_material_light</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark_material_light</item>
+        <item name="android:colorAccent">@color/accent_material_light</item>
+        <item name="android:actionOverflowMenuStyle">@style/Widget.Material.Light.PopupMenu.Overflow</item>
+        <item name="android:colorEdgeEffect">?android:colorAccent</item>
+        <item name="color_app_background">@color/app_background_light</item>
+        <item name="color_browser_label">@color/browser_label_light</item>
+        <item name="color_browser_label_gray">@color/browser_label_gray_light</item>
+        <item name="color_key">@color/quickkey_light</item>
+        <item name="color_list_separator">@color/list_separator_light</item>
+        <item name="color_page_separator">@color/page_separator</item>
+        <item name="color_selected_item">@color/selected_list_item_light</item>
+        <item name="color_split_separator">?android:colorAccent</item>
+        <item name="drawable_header">@drawable/browser_header_material_light</item>
+        <item name="drawable_keybar">@drawable/quickkeybar_material_light</item>
+        <item name="drawable_popup">@drawable/popup_material_light</item>
+        <item name="icon_add">@drawable/ic_vectoric_add</item>
+        <item name="icon_close_keys">@drawable/ic_vectoric_close</item>
+        <item name="icon_copy">@drawable/ic_vectoric_copy</item>
+        <item name="icon_cut">@drawable/ic_vectoric_cut</item>
+        <item name="icon_delete">@drawable/ic_vectoric_delete</item>
+        <item name="icon_design">@drawable/ic_vectoric_design</item>
+        <item name="icon_edit">@drawable/ic_vectoric_edit</item>
+        <item name="icon_expand">@drawable/ic_vectoric_expand</item>
+        <item name="icon_fix">@drawable/ic_vectoric_fix</item>
+        <item name="icon_goto">@drawable/ic_vectoric_goto</item>
+        <item name="icon_help">@drawable/ic_vectoric_help</item>
+        <item name="icon_manage">@drawable/ic_vectoric_manage</item>
+        <item name="icon_more">@drawable/ic_vectoric_more</item>
+        <item name="icon_open_keys">@drawable/ic_vectoric_more</item>
+        <item name="icon_paste">@drawable/ic_vectoric_paste</item>
+        <item name="icon_redo">@drawable/ic_vectoric_redo</item>
+        <item name="icon_run">@drawable/ic_vectoric_run</item>
+        <item name="icon_stepover">@drawable/ic_vectoric_stepover</item>
+        <item name="icon_undo">@drawable/ic_vectoric_undo</item>
+        <item name="icon_view">@drawable/ic_vectoric_view</item>
+        <item name="theme_name">Material</item>
+        <item name="color_split_separator_bottom">@drawable/color_split_separator_bottom_light</item>
+        <item name="popup_complete">@drawable/popup_complete</item>
+    </style>
+
+	
+	<!-- popmenu -->
+	<style name="Widget.Material.Light.PopupMenu" parent="@android:style/Widget.Material.Light.PopupMenu">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="android:popupBackground">@drawable/popup_bg</item>
+    </style>
+    <style name="Widget.Material.Light.PopupMenu.Overflow" parent="@android:style/Widget.Material.Light.PopupMenu.Overflow">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="android:popupBackground">@drawable/popup_overflow_bg</item>
+        <item name="android:overlapAnchor">true</item>
+    </style>
+    <style name="Widget.Material.PopupMenu" parent="@android:style/Widget.Material.Light.PopupMenu">
+        <item name="android:colorBackground">#ff303030</item>
+        <item name="android:popupBackground">@drawable/popup_bg</item>
+    </style>
+    <style name="Widget.Material.PopupMenu.Overflow" parent="@android:style/Widget.Material.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/popup_overflow_bg</item>
+        <item name="android:overlapAnchor">true</item>
+    </style>
+	
+	
+	<!-- 对话框 -->
+	<style name="DialogThemeDark" parent="@style/Base.DialogThemeDark" />
+	<style name="Base.DialogThemeDark" parent="@style/Base.V21.DialogThemeDark" />
+	<style name="Base.V21.DialogThemeDark" parent="@android:style/Theme.Material.Dialog">
+        <item name="android:colorBackground">#ff303030</item>
+        <item name="android:backgroundDimAmount">@dimen/dialog_bg_dim_amount</item>
+        <item name="android:windowBackground">@drawable/dialog_bg</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Material.Dialog</item>
+        <item name="android:colorPrimary">@color/primary_material</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark_material</item>
+        <item name="android:colorAccent">@color/accent_material</item>
+        <item name="android:colorEdgeEffect">?android:colorAccent</item>
+    </style>
+		
+		
+    <style name="DialogThemeLight" parent="@style/Base.DialogThemeLight" />
+    <style name="Base.DialogThemeLight" parent="@style/Base.V21.DialogThemeLight" />
+	<style name="Base.V21.DialogThemeLight" parent="@android:style/Theme.Material.Light.Dialog">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="android:backgroundDimAmount">@dimen/dialog_bg_dim_amount</item>
+        <item name="android:windowBackground">@drawable/dialog_bg</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Material.Dialog</item>
+        <item name="android:colorPrimary">@color/primary_material_light</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark_material_light</item>
+        <item name="android:colorAccent">@color/accent_material_light</item>
+        <item name="android:colorEdgeEffect">?android:colorAccent</item>
+    </style>
+	
+	<style name="Animation.Material.Dialog" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@animator/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@animator/push_bottom_out</item>
+    </style>
+	
+	<style name="AlertDialogThemeDark" parent="@style/Base.AlertDialogThemeDark" />
+    <style name="Base.AlertDialogThemeDark" parent="@style/Base.V21.AlertDialogThemeDark" />
+	<style name="Base.V21.AlertDialogThemeDark" parent="@android:style/Theme.Material.Dialog.Alert">
+        <item name="android:colorBackground">#ff303030</item>
+        <item name="android:backgroundDimAmount">@dimen/dialog_bg_dim_amount</item>
+        <item name="android:windowBackground">@drawable/dialog_bg</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Material.Dialog</item>
+        <item name="android:colorPrimary">@color/primary_material</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark_material</item>
+        <item name="android:colorAccent">@color/accent_material</item>
+        <item name="android:colorEdgeEffect">?android:colorAccent</item>
+    </style>
+	
+    <style name="AlertDialogThemeLight" parent="@style/Base.Theme.Material.Light.Dialog.Alert" />
+    <style name="Base.Theme.Material.Light.Dialog.Alert" parent="@style/Base.V21.Theme.Material.Light.Dialog.Alert" />
+    <style name="Base.V21.Theme.Material.Light.Dialog.Alert" parent="@android:style/Theme.Material.Light.Dialog.Alert">
+        <item name="android:backgroundDimAmount">@dimen/dialog_bg_dim_amount</item>
+        <item name="android:windowBackground">@drawable/dialog_bg</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Material.Dialog</item>
+        <item name="android:colorPrimary">@color/primary_material_light</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark_material_light</item>
+        <item name="android:colorAccent">@color/accent_material_light</item>
+        <item name="android:colorEdgeEffect">?android:colorAccent</item>
+    </style>
+	
+	<!--tab样式-->
+
+    <style name="TabViewStyle" parent="@android:style/Widget.Material.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_mtrl</item>
+    </style>
+    <style name="TabViewStyleLight" parent="@android:style/Widget.Material.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_mtrl</item>
+    </style>
+	<!-- ActionBar TabText -->
+	<style name="TabTextStyle" parent="@android:style/Widget.Material.ActionBar.TabText">
+        <item name="android:textAllCaps">false</item>
+    </style>
+	<style name="TabTextStyleLight" parent="@android:style/Widget.Material.Light.ActionBar.TabText">
+        <item name="android:textAllCaps">false</item>
+    </style>
+	
+
+
+
+</resources>

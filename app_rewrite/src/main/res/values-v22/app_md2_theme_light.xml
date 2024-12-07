@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- popmenu -->
+	<style name="Widget.Material.Light.PopupMenu" parent="@android:style/Widget.Material.Light.PopupMenu">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="android:popupBackground">@drawable/popup_bg</item>
+    </style>
+	
+    <style name="Widget.Material.Light.PopupMenu.Overflow" parent="@android:style/Widget.Material.Light.PopupMenu.Overflow">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="android:popupBackground">@drawable/popup_overflow_bg</item>
+        <item name="android:overlapAnchor">true</item>
+    </style> 
+
+	
+	<!--  -->
+    <style name="DialogThemeLight" parent="@android:style/Theme.Material.Light.Dialog">
+        <item name="android:colorPrimary">@color/primary_material_light</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark_material_light</item>
+        <item name="android:colorAccent">@color/accent_material_light</item>
+		
+		<!-- newUI -->
+		<item name="android:colorBackground">@color/app_background_light</item>
+        <item name="android:backgroundDimAmount">@dimen/dialog_bg_dim_amount</item>
+        <item name="android:windowBackground">@drawable/dialog_bg</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Material.Dialog</item>
+		<item name="android:colorEdgeEffect">?android:colorAccent</item>
+		
+    </style>
+
+	<style name="AlertDialogThemeLight" parent="@android:style/Theme.Material.Light.Dialog.Alert">
+        <item name="android:colorPrimary">@color/primary_material_light</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark_material_light</item>
+        <item name="android:colorAccent">@color/accent_material_light</item>
+		
+		<!-- newUI -->
+		<item name="android:backgroundDimAmount">@dimen/dialog_bg_dim_amount</item>
+        <item name="android:windowBackground">@drawable/dialog_bg</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Material.Dialog</item>
+		<item name="android:colorEdgeEffect">?android:colorAccent</item>
+		
+    </style>
+
+	<!-- 尽量隔离之前的变量 -->
+    
+	<!-- 亮主题 -->
+    <style name="ActivityActionbarThemeLight" parent="@android:style/Theme.Material.Light">
+		<!-- newUI -->
+		<item name="android:colorBackground">@color/app_background_light</item>
+        <item name="android:popupMenuStyle">@style/Widget.Material.Light.PopupMenu</item>
+        <item name="android:actionOverflowMenuStyle">@style/Widget.Material.Light.PopupMenu.Overflow</item>
+        <item name="android:colorEdgeEffect">?android:colorAccent</item>
+		
+
+		<!--<item name="color_split_separator_bottom">@drawable/color_split_separator_bottom_light</item>
+        <item name="popup_complete">@drawable/popup_complete</item>-->
+		
+        <!-- 安卓框架 -->
+		<!-- 窗口背景 -->
+        <item name="android:windowBackground">@color/app_background_light</item>
+		
+        <!-- 窗口透明 -->
+		<!-- true -> false -->
+        <item name="android:windowIsTranslucent">false</item>
+		
+		<!-- 软件输入模式 -->
+        <item name="android:windowSoftInputMode">adjustResize|stateHidden</item>
+
+        <!-- ActionBar Tab主题 -->
+        <item name="android:actionBarTabStyle">@style/App.Widget.Material3.Light.ActionBar.TabView</item>
+		<!-- ActionBar Tab内Text禁用全部大写 -->
+		<item name="android:actionBarTabTextStyle">@style/App.Widget.Material3.Light.ActionBar.TabText</item>
+		<item name="actionBarTabTextStyle">@style/App.Widget.Material3.Light.ActionBar.TabText</item>
+		
+		<!-- dialogTheme主题 -->
+        <item name="android:dialogTheme">@style/DialogThemeLight</item>
+        <!-- alertDialogTheme主题 -->
+        <item name="android:alertDialogTheme">@style/AlertDialogThemeLight</item>
+
+        <!-- Material变量 -->
+        <item name="android:colorPrimary">@color/primary_material_light</item>
+		
+		<!-- 定义状态栏颜色 -->
+		<!--<item name="android:colorPrimaryDark">@color/primary_dark_material_light</item>-->
+		<item name="android:colorPrimaryDark">?android:colorPrimary</item>
+		
+        <item name="android:colorAccent">@color/accent_material_light</item>
+
+        <!-- AIDE自定义变量 -->
+        <item name="color_app_background">@color/app_background_light</item>
+        <item name="color_browser_label">@color/browser_label_light</item>
+        <item name="color_browser_label_gray">@color/browser_label_gray_light</item>
+        <item name="color_key">@color/quickkey_light</item>
+        <item name="color_list_separator">@color/list_separator_light</item>
+        <item name="color_page_separator">@color/page_separator</item>
+        <item name="color_selected_item">@color/selected_list_item_light</item>
+        <!--<item name="color_split_separator">@color/split_separator_light</item>-->
+		
+		<!-- AIDE Pro中的样式 -->
+		<item name="color_split_separator">?android:colorAccent</item>
+		
+        <item name="drawable_header">@drawable/browser_header_material_light</item>
+        <item name="drawable_keybar">@drawable/quickkeybar_material_light</item>
+        <item name="drawable_popup">@drawable/popup_material_light</item>
+        <item name="icon_add">@drawable/ic_l_add_light</item>
+        <item name="icon_close_keys">@drawable/ic_l_close2_light</item>
+        <item name="icon_copy">@drawable/ic_l_copy_light</item>
+        <item name="icon_cut">@drawable/ic_l_cut_light</item>
+        <item name="icon_delete">@drawable/ic_l_delete_light</item>
+        <item name="icon_design">@drawable/ic_l_design_light</item>
+        <item name="icon_edit">@drawable/ic_l_edit_light</item>
+        <item name="icon_expand">@drawable/ic_l_expand_light</item>
+        <item name="icon_fix">@drawable/ic_l_fix_light</item>
+        <item name="icon_goto">@drawable/ic_l_goto_light</item>
+        <item name="icon_help">@drawable/ic_l_help_light</item>
+        <item name="icon_manage">@drawable/ic_l_manage_light</item>
+        <item name="icon_more">@drawable/ic_l_more_light</item>
+        <item name="icon_open_keys">@drawable/ic_l_more_light</item>
+        <item name="icon_paste">@drawable/ic_l_paste_light</item>
+        <item name="icon_redo">@drawable/ic_l_redo_light</item>
+        <item name="icon_run">@drawable/ic_l_play_light</item>
+        <item name="icon_stepover">@drawable/ic_l_stepover_light</item>
+        <item name="icon_undo">@drawable/ic_l_undo_light</item>
+        <item name="icon_view">@drawable/ic_l_view_light</item>
+		
+		<item name="theme_name">Material</item>
+    </style>
+
+	
+	<style name="ActivityPreferencesThemeLight" parent="@android:style/Theme.Material.Light">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:dialogTheme">@style/DialogThemeLight</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogThemeLight</item>
+        <item name="android:colorPrimary">@color/primary_material_light</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark_material_light</item>
+        <item name="android:colorAccent">@color/accent_material_light</item>
+        <!-- ActionBar Tab内Text禁用全部大写 -->
+		<item name="android:actionBarTabTextStyle">@style/App.Widget.Material3.Light.ActionBar.TabText</item>
+        <item name="theme_name">Material</item>
+    </style>
+	
+	<!-- ActionBar TabView -->
+	<style name="App.Widget.Material3.Light.ActionBar.TabView" parent="@android:style/Widget.Material.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_mtrl</item>
+
+    </style>
+	<!-- ActionBar TabText -->
+    <style name="App.Widget.Material3.Light.ActionBar.TabText" parent="@android:style/Widget.Material.Light.ActionBar.TabText">
+		<item name="android:textAllCaps">false</item>
+	</style>
+	
+</resources>

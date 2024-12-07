@@ -1,0 +1,4 @@
+New: Support for Api level 30
+
+Older changes
+New: Support for Chromebooks

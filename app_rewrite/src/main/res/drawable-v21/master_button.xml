@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple
+    android:color="#ffffffff"
+	android:height="24.0dip"
+    android:width="24.0dip"
+	android:viewportWidth="24"
+	android:viewportHeight="24"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+		<vector xmlns:android="http://schemas.android.com/apk/res/android"  
+			android:tint="?android:colorAccent"
+			android:width="60dp"  
+			android:height="60dp"  
+			android:viewportWidth="48"  
+			android:viewportHeight="48">  
+			<path  
+				android:fillColor="#ffffffff"  
+				android:pathData="M24,4 A20,20 0 1,1 24,44 A20,20 0 1,1 24,4" />  
+			<!-- 这里我们画了一个以(24,24)为中心，但由于圆的对称性，我们只需指定上半圆或下半圆即可，但为了完整性，我画了一个完整的圆 -->  
+		</vector>
+	</item>
+	
+	<item>
+		<vector
+			android:tint="#ffffffff"
+			android:height="30dp"
+			android:width="30dp"
+			android:viewportWidth="48"
+			android:viewportHeight="48"
+			xmlns:android="http://schemas.android.com/apk/res/android">
+			<path  
+				android:tint="?android:colorAccent"
+				android:fillColor="#ffffffff"
+				android:pathData="
+				M24,28A2,2 0,0 1,26 30A2,2 0,0 1,24 32A2,2 0,0 1,22 30A2,2 0,0 1,24 28
+				M24,22A2,2 0,0 1,26 24A2,2 0,0 1,24 26A2,2 0,0 1,22 24A2,2 0,0 1,24 22
+				M24,16A2,2 0,0 1,26 18A2,2 0,0 1,24 20A2,2 0,0 1,22 18A2,2 0,0 1,24 16Z"/>
+		</vector>
+	</item>
+</ripple>
+

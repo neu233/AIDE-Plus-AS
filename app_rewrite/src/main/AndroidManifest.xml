@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ScopedStorage,SystemPermissionTypo,DiscouragedApi,ExportedReceiver">
+    <!-- 新增 -->
+    <!-- 管理外部储存器权限 -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <!-- Shizuku -->
+    <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
+
+    <!-- 运行前台服务 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- 修改或删除您共享存储空间中的内容 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 拥有完全的网络访问权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 读取系统日志 -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <!-- 查看网络连接 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <!-- 请求安装文件包 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- 查找设备上的账号 -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 防止手机休眠 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="${applicationId}.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.type.pc"
+        android:required="false" />
+
+    <supports-screens
+        android:largeScreens="true"
+        android:xlargeScreens="true" />
+    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+
+    <!-- com.aide.ui.AIDEApplication -->
+    <application
+        android:name="io.github.zeroaicy.ZeroAicyAIDEApplication"
+        android:extractNativeLibs="true"
+        android:fullBackupContent="@xml/aide_backup_rules"
+        android:fullBackupOnly="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
+        android:resizeableActivity="true"
+        android:usesCleartextTraffic="true">
+
+
+        <!-- 新增 -->
+        <!-- 自定义主题颜色 -->
+        <activity
+            android:exported="true"
+            android:name="io.github.zeroaicy.aide.highlight.HighlightActivity" />
+
+        <!-- Show Crash Log -->
+        <activity
+            android:exported="true"
+            android:name="io.github.zeroaicy.util.crash.CrashActivity"
+            android:process=":crash" />
+
+        <!-- Shizuku rikka.shizuku.ShizukuProvider  -->
+        <provider
+            android:name="io.github.zeroaicy.aide.shizuku.ZeroAicyShizukuProvider"
+            android:authorities="${applicationId}.shizuku"
+            android:enabled="true"
+            android:exported="true"
+            android:multiprocess="false"
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
+
+        <!-- Shizuku -->
+        <meta-data
+            android:name="moe.shizuku.client.V3_SUPPORT"
+            android:value="true" />
+
+        <!-- MT管理器 -->
+        <activity
+            android:name="bin.mt.file.content.MTDataFilesWakeUpActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:noHistory="true"
+            android:taskAffinity="${applicationId}.MTDataFilesWakeUp" />
+
+        <provider
+            android:name="bin.mt.file.content.MTDataFilesProvider"
+            android:authorities="${applicationId}.MTDataFilesProvider"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
+
+        <!-- 替换AIDE的类 -->
+        <!--
+        <service
+        android:name="com.aide.ui.build.packagingservice.ExternalPackagingService"
+        android:exported="false"
+        android:process=":PackagingService" />
+        -->
+
+        <!--<service
+		android:name="com.aide.engine.service.CodeAnalysisEngineService"
+		android:exported="false"
+		android:process=":EngineService" />-->
+
+        <activity
+            android:name="io.github.zeroaicy.aide.activity.ZeroAicyCommitActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:label="Git commit"
+            android:screenOrientation="user"
+            android:theme="@style/ActivityActionbarThemeLight" />
+
+        <service
+            android:name="io.github.zeroaicy.aide.services.ZeroAicyCodeAnalysisEngineService"
+            android:exported="false"
+            android:process=":EngineService" />
+
+
+        <activity
+            android:name="com.aide.ui.preferences.PreferencesActivity"
+            android:excludeFromRecents="true"
+            android:label="Settings"
+            android:screenOrientation="user"
+            android:theme="@style/ActivityPreferencesThemeLight" />
+        <activity
+            android:name="io.github.zeroaicy.aide.preference.ZeroAicyPreferencesActivity"
+            android:excludeFromRecents="true"
+            android:label="Settings"
+            android:screenOrientation="user"
+            android:theme="@style/ActivityPreferencesThemeLight" />
+
+        <!-- 打包服务 -->
+        <service
+            android:name="io.github.zeroaicy.aide.services.ZeroAicyExternalPackagingService"
+            android:exported="false"
+            android:process=":PackagingService" />
+
+
+        <!-- 被修改的 -->
+        <activity
+            android:name="io.github.zeroaicy.aide.activity.ZeroAicyMainActivity"
+            android:banner="@drawable/banner"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:exported="true"
+            android:icon="@drawable/ic_launcher"
+            android:launchMode="singleTask"
+            android:screenOrientation="user"
+            android:theme="@style/ActivityActionbarThemeLight">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="file" />
+                <data android:mimeType="*/*" />
+                <data android:pathPattern=".*\\.classpath" />
+                <data android:pathPattern=".*\\.java" />
+                <data android:pathPattern=".*\\.xml" />
+                <data android:pathPattern=".*\\.txt" />
+                <data android:host="*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- com.aide.ui.scm.ExternalGitService -->
+        <service
+            android:name="io.github.zeroaicy.aide.scm.ZeroAicyExternalGitService"
+            android:exported="false"
+            android:process=":GitService" />
+
+        <!-- 结束 -->
+
+        <activity
+            android:name="com.dropbox.client2.android.AuthActivity"
+            android:configChanges="keyboard|orientation"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <data android:scheme="db-fkerp7oej8u61j0" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.aide.ui.activities.HelpViewActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:excludeFromRecents="false"
+            android:label="AIDE Help"
+            android:launchMode="singleInstance"
+            android:screenOrientation="user"
+            android:taskAffinity="com.aide.ui.help"
+            android:theme="@style/ActivityPreferencesThemeLight" />
+        <activity
+            android:name="com.aide.ui.activities.AndroidTrainerActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:icon="@drawable/ic_app_launcher"
+            android:label="My Android App"
+            android:launchMode="singleInstance"
+            android:screenOrientation="user"
+            android:taskAffinity="com.aide.trainer"
+            android:theme="@style/AndroidAppTheme" />
+        <activity
+            android:name="com.aide.ui.activities.TrainerCourseActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:screenOrientation="user"
+            android:theme="@style/ActivityActionbarThemeLight" />
+        <activity
+            android:name="com.aide.ui.activities.GotoBrowserActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:screenOrientation="user"
+            android:theme="@style/ActivityGotoThemeLight" />
+
+        <!--
+        <activity
+        android:theme="@style/ActivityActionbarThemeLight"
+        android:label="Git commit"
+        android:name="com.aide.ui.activities.CommitActivity"
+        android:excludeFromRecents="true"
+        android:screenOrientation="user"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode" />
+        -->
+        <activity
+            android:name="com.aide.ui.activities.ShopExpertPopupActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:label="Get access"
+            android:screenOrientation="user"
+            android:theme="@style/ActivityShopPopup" />
+        <activity
+            android:name="com.aide.ui.activities.ShopLearningPopupActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:label="Get access"
+            android:screenOrientation="user"
+            android:theme="@style/ActivityShopPopup" />
+        <activity
+            android:name="com.aide.ui.preferences.AboutActivity"
+            android:excludeFromRecents="true"
+            android:label="About"
+            android:screenOrientation="user"
+            android:theme="@style/ActivityPreferencesThemeLight" />
+
+        <activity
+            android:name="com.aide.ui.htmluidesigner.PhonegapDesignActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:label="Design"
+            android:process=":Phonegap"
+            android:screenOrientation="user"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:name="com.aide.ui.build.java.RunTrainerJavaActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:launchMode="singleTop"
+            android:process=":JavaTrainerConsole"
+            android:resizeableActivity="false"
+            android:screenOrientation="user"
+            android:taskAffinity="com.aide.ui.javaconsole"
+            android:theme="@style/ActivityActionbarThemeLight" />
+        <activity
+            android:name="com.aide.ui.build.java.RunJavaActivity"
+            android:configChanges="keyboard|keyboardHidden|locale|orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:process=":JavaConsole"
+            android:screenOrientation="user"
+            android:taskAffinity="com.aide.ui.javaconsole"
+            android:theme="@style/ActivityActionbarThemeLight" />
+        <activity
+            android:name="com.aide.ui.build.nativeexecutable.RunNativeExecutableActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:process=":NativeExecutableConsole"
+            android:screenOrientation="user"
+            android:theme="@style/ActivityActionbarThemeLight" />
+        <activity
+            android:name="com.aide.ui.build.javascript.RunJavaScriptActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:process=":JavaScriptConsole"
+            android:screenOrientation="user"
+            android:theme="@style/ActivityActionbarThemeLight" />
+        <activity
+            android:name="com.aide.uidesigner.XmlLayoutDesignActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:icon="@drawable/ic_launcher_designer"
+            android:label="Design"
+            android:process=":XmlDesigner"
+            android:screenOrientation="user"
+            android:theme="@style/ActivityThemeDesignerLight" />
+
+        <activity
+            android:name="com.aide.ui.htmluidesigner.WebDesignActivity"
+            android:configChanges="keyboard|keyboardHidden|locale"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:process=":Webview"
+            android:screenOrientation="user"
+            android:theme="@style/ActivityThemeWebDesigner" />
+
+
+        <receiver
+            android:name="com.aide.ui.debugger.ADRTReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.adrt.LOGCAT_ENTRIES" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.adrt.CONNECT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.adrt.STOP" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.adrt.BREAKPOINT_HIT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.adrt.FIELDS" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.aide.ui.TrainerRuntimeReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.aide.trainer.APP_RUN" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.aide.ui.trainer.TrainerNotificationAlarmReceiver" />
+        <receiver android:name="com.aide.ui.PromoNotificationAlarmReceiver" />
+        <receiver
+            android:name="com.aide.ui.PackageUpgradedBroadcastReceiver"
+
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.aide.ui.UserPresentBroadcastReceiver"
+
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!--<meta-data
+		android:name="com.google.android.gms.ads.APPLICATION_ID"
+		android:value="ca-app-pub-2926119607791157~3039278622" />-->
+        <!--<meta-data
+		android:name="com.google.android.play.billingclient.version"
+		android:value="2.0.3" />-->
+        <activity
+            android:name="com.android.billingclient.api.ProxyBillingActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--<service
+		android:name="com.google.firebase.components.ComponentDiscoveryService"
+		android:exported="false">
+		<meta-data
+		android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+		android:value="com.google.firebase.components.ComponentRegistrar" />
+		<meta-data
+		android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+		android:value="com.google.firebase.components.ComponentRegistrar" />
+        </service>-->
+        <!--<receiver
+		android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+		android:enabled="true"
+		android:exported="false" />
+        <receiver
+		android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
+		android:permission="android.permission.INSTALL_PACKAGES"
+		android:enabled="true"
+		android:exported="true">
+		<intent-filter>
+		<action
+		android:name="com.android.vending.INSTALL_REFERRER" />
+		</intent-filter>
+        </receiver>-->
+        <!--<service
+		android:name="com.google.android.gms.measurement.AppMeasurementService"
+		android:enabled="true"
+		android:exported="false" />
+        <service
+		android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+		android:permission="android.permission.BIND_JOB_SERVICE"
+		android:enabled="true"
+		android:exported="false" />-->
+        <!--<activity
+		android:theme="@android:style/Theme.Translucent"
+		android:name="com.google.android.gms.ads.AdActivity"
+		android:exported="false"
+		android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" />
+        <provider
+		android:name="com.google.android.gms.ads.MobileAdsInitProvider"
+		android:exported="false"
+		android:authorities="${applicationId}.mobileadsinitprovider"
+		android:initOrder="100" />-->
+        <!--<receiver
+		android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+		android:permission="com.google.android.c2dm.permission.SEND"
+		android:exported="true">
+		<intent-filter>
+		<action
+		android:name="com.google.android.c2dm.intent.RECEIVE" />
+		</intent-filter>
+        </receiver>
+        <service
+		android:name="com.google.firebase.iid.FirebaseInstanceIdService"
+		android:exported="true">
+		<intent-filter
+		android:priority="-500">
+		<action
+		android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+		</intent-filter>
+        </service>
+
+        <provider
+		android:name="com.google.firebase.provider.FirebaseInitProvider"
+		android:exported="false"
+		android:authorities="${applicationId}.firebaseinitprovider"
+		android:initOrder="100" />-->
+
+        <!--<activity
+		android:theme="@android:style/Theme.Translucent.NoTitleBar"
+		android:name="com.google.android.gms.common.api.GoogleApiActivity"
+		android:exported="false" />-->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="android.support.VERSION"
+            android:value="26.1.0" />
+        <meta-data
+            android:name="android.arch.lifecycle.VERSION"
+            android:value="27.0.0-SNAPSHOT" />
+    </application>
+</manifest>

@@ -1,0 +1,2 @@
+groovy.grape.GrabAnnotationTransformation
+org.codehaus.groovy.ast.builder.AstBuilderTransformation

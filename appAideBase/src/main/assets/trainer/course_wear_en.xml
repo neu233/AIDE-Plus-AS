@@ -1,0 +1,52 @@
+<Course
+    icon="ic_launcher_wear"
+	release_date="2014-08-10" 
+    title="Android Wear Development"
+    code_section="Build the next must-have Android Wear app"
+	code_template="Start with this empty project template to create your own wear app."
+    explore_section="Explore real-world Android Wear sample apps. You need to have an Android Wear smart watch in order to run these samples" >
+
+    <Sample
+        id="Embedded App" 
+        title="Embedded App" 
+        description="Explore how to create a basic mobile app with an embedded wearable app running on the watch.\n\nWhen you run this app the wearable app is automatically installed on your watch and can be opened from the Start section."
+        project_dir="Application"
+        release_date="2014-08-15">
+
+        <CodeFile name="activity_wearable.xml" />
+        <CodeFile name="activity_phone.xml" />
+    </Sample>
+
+    <Sample
+        id="Notifications and Cards" 
+        title="Notifications and Cards" 
+        description="Explore the different combinations of wearable UI notifications and context stream cards.\n\nThe mobile app shows how to add cards from the phone. The wearable app shows how to add cards from the watch."
+        project_dir="Application"
+        release_date="2014-08-15">
+
+        <CodeFile name="activity_main.xml" />
+        <CodeFile name="MainActivity.java" />
+    </Sample>
+
+	<Sample
+        id="WatchFace" 
+        title="WatchFace" 
+        description="Explore how to implement custom watch faces.\n\nThis sample adds custom digital and analog watch faces to your watch."
+        project_dir="Application"
+        release_date="2015-01-15">
+
+        <CodeFile name="AnalogWatchFaceService.java" />
+    </Sample>
+
+    <Sample
+        id="Quiz"
+        title="Quiz"
+        description="Explore how to implement a Quiz on the watch using context stream cards."
+        project_dir="Application"
+        release_date="2014-08-15" >
+
+        <CodeFile name="activity_main.xml" />
+        <CodeFile name="MainActivity.java" />
+    </Sample>
+
+</Course>

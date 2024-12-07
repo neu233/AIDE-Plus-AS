@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Built-By: Signflinger
+Created-By: Android Gradle 8.0.2
+
+Name: assets/data.zip
+SHA-256-Digest: Xr9+YunjKcyvvcEVra2x70hfWsiP84bVApGKl+CozrU=
+

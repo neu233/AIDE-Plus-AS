@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="preference_screen">
+    <PreferenceScreen
+        android:title="@string/preference_head_title_application"
+        android:summary="@string/preference_head_summary_application">
+
+        <PreferenceCategory 
+			android:title="窗口"
+			android:summary="设置界面">
+			<SwitchPreference
+                android:title="启用侧滑栏"
+                android:key="zero_aicy_enable_actionbar_drawer_layout"
+                android:summary="MainActivity重启生效"
+                android:defaultValue="false" />
+
+            <SwitchPreference
+                android:title="启用ActionBar TabSpinner模式"
+                android:key="zero_aicy_enable_actionbar_tab_spinner"
+                android:summary="重启生效"
+                android:defaultValue="true" />
+
+			<SwitchPreference
+                android:title="主题跟随系统"
+                android:key="zero_aicy_enable_follow_system"
+                android:summary="系统是夜间模式时将跟随系统"
+                android:defaultValue="true" />
+			<SwitchPreference
+                android:title="详细日志"
+                android:key="zero_aicy_enable_detailed_log"
+                android:summary="是否打印更详细的日志"
+                android:defaultValue="false" />
+			
+        </PreferenceCategory>
+
+		<CheckBoxPreference 
+			android:title="修复依赖过多错误" 
+			android:key="data_compression_enable" 
+			android:summary="因依赖过多而没有高亮的，可以开启(半弃用)" 
+			android:dependency="data_compression_threshold"
+			android:defaultValue="true" />
+		<EditTextPreference
+			android:title="数据压缩阈值"
+			android:key="data_compression_threshold"
+			android:defaultValue="20"
+			android:inputType="number"
+			android:summary="单位KB"
+			android:dialogTitle="单位KB" />
+		<EditTextPreference
+			android:title="数据压缩等级"
+			android:key="data_compression_level"
+			android:dependency="data_compression_threshold"
+			android:defaultValue="7"
+			android:numeric="integer"
+			android:inputType="number"
+			android:summary="以zip方式压缩等级越高，耗时越多，效果越多"
+			android:dialogTitle="数据压缩等级范围1-9" />
+
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:title="@string/preference_head_title_editor"
+        android:summary="@string/preference_head_summary_editor">
+		<PreferenceCategory
+			android:title="代码高亮">
+			<Preference
+				android:title="代码高亮配置"
+				android:key="zero_aicy_preference_highlight" />
+		</PreferenceCategory>
+	</PreferenceScreen>
+
+    <PreferenceScreen
+        android:title="@string/preference_head_title_build"
+        android:summary="@string/preference_head_summary_build">
+
+		<PreferenceCategory
+			android:title="@string/preference_category_run">
+			<CheckBoxPreference 
+				android:title="使用Shizuku安装" 
+				android:key="zero_aicy_enable_shizuku_installer" 
+				android:summary="使用Shizuku安装，使用优先级最低" 
+				android:defaultValue="false" />
+
+			<CheckBoxPreference 
+				android:title="自定义安装器" 
+				android:key="zero_aicy_enable_custom_installer" 
+				android:summary="是否使用自定义安装器" 
+				android:defaultValue="false" />
+
+			<EditTextPreference
+				android:title="Apk安装"
+				android:key="zero_aicy_apk_install_package_name"
+				android:summary="APK安装器(包名)"
+				android:dialogTitle="设置Apk打开方式(包名)" />
+		</PreferenceCategory>
+
+        <PreferenceCategory android:title="构建">
+
+            <SwitchPreference
+                android:title="启用adrt日志注入"
+                android:key="zero_aicy_enable_adrt"
+                android:summary="仅影响debug构建，release无效，杀死AIDE并重新构建工程生效"
+                android:defaultValue="false" />
+
+            <SwitchPreference
+                android:title="解除Java项目API限制"
+                android:summary="解除Java项目被限制API, 可以使用android.jar中类而不受限制" 
+				android:key="zero_aicy_remove_javaproject_api_limitations"
+                android:defaultValue="true" />
+
+			<SwitchPreference
+                android:title="重定义Apk构建路径"
+                android:key="zero_aicy_adjust_apk_build_path"
+                android:summary="重定义到工程/build/bin/"
+                android:defaultValue="true" />
+			<EditTextPreference
+				android:title="Java项目Dex的minSdk"
+				android:summary="可以控制Java项目输出的dex，不填则跟随设备，重启生效，安卓项目请在build.gradle设置"
+				android:key="zero_aicy_javaproject_min_sdk_level"
+				android:inputType="number"
+				android:dialogTitle="建议输入21及以上，一般为21 24 26 28等"  />
+			
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="新的Class解析库">
+            <SwitchPreference
+                android:title="启用新的Class解析库"
+                android:key="useReaderClass"
+                android:summary="启用优化导入，Java8 API 功能依赖此库，重启后构建刷新生效(无报错不用)"
+                android:defaultValue="true" />
+            <SwitchPreference
+                android:title="禁用接口默认方法(Java8 API)"
+                android:key="disableDefaultMethod"
+                android:summary="禁用则注释Java8 API，重启生效"
+                android:dependency="useReaderClass"
+				android:defaultValue="false" />
+			<SwitchPreference
+                android:title="禁用显示方法体代码"
+                android:key="disableMethodCode"
+                android:summary="禁用后不在显示方法体中的内容，重启生效"
+                android:dependency="useReaderClass"
+				android:defaultValue="true" />
+
+        </PreferenceCategory>
+
+    </PreferenceScreen>
+
+	<PreferenceScreen
+        android:title="实验室"
+        android:summary="不稳定的功能">
+
+		<SwitchPreference
+            android:title="启用aapt2"
+            android:key="test_zero_aicy_enable_aapt2"
+            android:summary="不支持apktool反编译项目，需要特殊aapt2"
+            android:defaultValue="true" />
+
+        <SwitchPreference
+			android:title="启用ViewBinding"
+			android:summary="已弃用，请在build.gradle中配置如下，在android{}中添加 buildFeatures{\n\tviewBinding true\n}"
+			android:key="test_zero_aicy_enable_view_binding"
+			android:dependency="test_zero_aicy_enable_aapt2"
+			android:defaultValue="false" />
+
+		<SwitchPreference
+			android:title="ViewBinding使用AndroidX"
+			android:summary="已弃用，请在build.gradle中配置如下，在android{}中添加 buildFeatures{\n\tuseAndroidx true\n}"
+			android:key="test_zero_aicy_enable_view_binding_use_androidx"
+			android:dependency="test_zero_aicy_enable_view_binding"
+			android:defaultValue="true" />
+
+		<SwitchPreference
+			android:title="启用DataBinding"
+			android:summary="需要添加databinding-runtime库依赖(弃用)"
+			android:key="test_zero_aicy_enable_data_binding_use"
+			android:dependency="test_zero_aicy_enable_aapt2"
+			android:defaultValue="false" />
+
+		<SwitchPreference
+			android:title="启用构建Aab/Apks"
+			android:summary="未实现"
+			android:key="test_zero_aicy_enable_build_aab_apks"
+			android:defaultValue="false" />
+		<SwitchPreference
+			android:title="启用自定义Apks签名"
+			android:summary="未实现"
+			android:key="test_zero_aicy_enable_custom_apkssign"
+			android:dependency="test_zero_aicy_enable_build_aab_apks"
+			android:defaultValue="false" />
+		<PreferenceCategory android:title="编译器实现">
+
+			<SwitchPreference
+				android:title="启用Eclipse Compiler For Java[ecj]"
+				android:summary="支持Java23[重启生效]，仅支持代码分析与编译，代码导航等仍是Java6"
+				android:key="test_zero_aicy_enable_eclipse_compiler_for_java"
+				android:defaultValue="false" />
+			
+		</PreferenceCategory>
+		
+    </PreferenceScreen>
+
+</PreferenceScreen>
+

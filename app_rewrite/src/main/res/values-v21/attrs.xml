@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<attr name="theme_name" format="string" />
+    <attr name="color_split_separator_bottom" format="reference|color" />
+    <attr name="popup_complete" format="reference|color" />
+</resources>

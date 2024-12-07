@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/preference_category_xml_indent">
+        <com.aide.ui.preferences.PremiumEditTextPreference
+            android:title="@string/preference_title_xml_indent"
+            android:key="xml_indentation_size"
+            android:summary="@string/preference_summary_xml_indent"
+            android:defaultValue="4"
+            android:dialogTitle="@string/preference_dialog_indent" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/preference_category_html_indent">
+        <com.aide.ui.preferences.PremiumEditTextPreference
+            android:title="@string/preference_title_html_indent"
+            android:key="html_indentation_size"
+            android:summary="@string/preference_summary_html_indent"
+            android:defaultValue="2"
+            android:dialogTitle="@string/preference_dialog_indent" />
+    </PreferenceCategory>
+    <PreferenceCategory 
+        android:title="@string/preference_category_css_indent">
+        <com.aide.ui.preferences.PremiumEditTextPreference
+            android:title="@string/preference_title_css_indent"
+            android:key="css_indentation_size"
+            android:summary="@string/preference_summary_css_indent"
+            android:defaultValue="2"
+            android:dialogTitle="@string/preference_dialog_indent" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/preference_category_java_indent">
+        <com.aide.ui.preferences.PremiumEditTextPreference
+            android:title="@string/preference_title_java_indent"
+            android:key="java_indentation_size"
+            android:summary="@string/preference_summary_java_indent"
+            android:defaultValue="4"
+            android:dialogTitle="@string/preference_dialog_indent" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/preference_category_js_indent">
+        <com.aide.ui.preferences.PremiumEditTextPreference
+            android:title="@string/preference_title_js_indent"
+            android:key="js_indentation_size"
+            android:summary="@string/preference_summary_js_indent"
+            android:defaultValue="4"
+            android:dialogTitle="@string/preference_dialog_indent" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/preference_category_c_indent">
+        <com.aide.ui.preferences.PremiumEditTextPreference
+            android:title="preference_title_c_indent"
+            android:key="cpp_indentation_size"
+            android:summary="@string/preference_summary_c_indent"
+            android:defaultValue="4"
+            android:dialogTitle="@string/preference_dialog_indent" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/preference_category_java_import">
+        <com.aide.ui.preferences.PremiumEditTextPreference
+            android:title="@string/preference_title_java_import"
+            android:key="max_single_imports"
+            android:summary="@string/preference_summary_java_import"
+            android:defaultValue="0"
+            android:dialogTitle="@string/preference_dialog_java_import" />
+    </PreferenceCategory>
+</PreferenceScreen>

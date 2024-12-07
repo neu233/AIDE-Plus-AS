@@ -1,0 +1,51 @@
+<Course
+    release_date="2014-10-01"
+	title="C/C++ Skills"
+    full_title="C++ programming skills"  
+	code_section="Code your own C++ programs and sharpen your programming skills"
+	code_template="Start with this empty project template to create your own program.">
+    
+    <Files 
+        template="simple_project"
+        project_name="My C++ Application">
+    	<CodeFile name="main.cpp" />    
+    </Files>
+
+	<Lesson
+    	section="Start from here to learn C++ programming! In these interactive lessons you will step-by-step learn C++ programming skills."
+	    title="Hello World"
+		example="console.log(&quot;Hello World&quot;)&#59;"
+		description="In this lesson you'll learn to run your first C++ program.">
+
+	    <Exercise
+	        task="Press Run to run the C++ program below."
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+#include <iostream>
+
+int main()
+{
+	std::cout << "Hello$code_hint$ World";
+}
+				]]>
+	        </SourceCode>
+	        <Run  success="Great, you've just run your first program! It prints '_Hello World_'. You can see the output below. Let's continue." />
+	    </Exercise>
+	    <Exercise
+	        task="Now modify the !_cout_! statement at the blue arrow in the program below to print '_Hi World_'. Then run."
+	        level="5" >
+	        <ExpectedOutput
+	            fail="Well, your program doesn't print '_Hi World_'. Check the output below."
+	            hint="Hint: Just change '_Hello World_' to '_Hi World_' between the quotes in the !_cout_! statement." >
+				<![CDATA[Hi World]]>
+	        </ExpectedOutput>
+	        <CodeHint />
+	        <Run success="Awesome! You have changed the program output to '_Hi World_'." />
+	    </Exercise>
+	    <Exercise
+	        task="Congratulations, you've finished the first C++ programming lesson! Now play with the code a bit on your own. Change the text which the program prints and run it as often as you like. Then continue with the next lesson." >
+	    </Exercise>
+	</Lesson>
+
+</Course>

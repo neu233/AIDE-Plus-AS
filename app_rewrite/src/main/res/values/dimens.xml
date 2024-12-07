@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+	
+	
+<!-- newUI -->
+<resources>
+	<item type="dimen" name="dialog_bg_dim_amount">0.3</item>
+	<item type="dimen" name="dialog_fixed_width_major">85.0%</item>
+    <item type="dimen" name="dialog_fixed_width_minor">85.0%</item>
+</resources>

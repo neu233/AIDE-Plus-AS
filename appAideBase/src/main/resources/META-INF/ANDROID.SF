@@ -1,0 +1,426 @@
+Signature-Version: 1.0
+Created-By: Android Gradle 8.0.2
+SHA1-Digest-Manifest: m9m5lLIdz3c5xnRZD03D5sTY05c=
+X-Android-APK-Signed: 2,3
+
+Name: META-INF/services/org.codehaus.groovy.source.Extensions
+SHA1-Digest: FJtk0a9+hbQjjQRt0GoT/R9HdI8=
+
+Name: META-INF/services/org.codehaus.groovy.transform.ASTTransformatio
+ n
+SHA1-Digest: nezZin1hH64obiwzJFr6If298vk=
+
+Name: androidsupportmultidexversion.txt
+SHA1-Digest: 2TH1LiNJ5xcWmERCtqdh6i5q3kM=
+
+Name: assets/AIDESamples.zip
+SHA1-Digest: 8yXDEjVNjcvWcq54BW3VpCbiXa8=
+
+Name: assets/JavaScriptAPI.js
+SHA1-Digest: mUzF6yzWFnhPYV31DihXXV5iQNA=
+
+Name: assets/adrt/ADRT.class
+SHA1-Digest: 1xIXmVvzq6/hR1G3xqZ2Cd1NM80=
+
+Name: assets/adrt/ADRTLogCatReader.class
+SHA1-Digest: B3GxxzUDPMmrAJ9GYqctoL8DGgM=
+
+Name: assets/adrt/ADRTLongMap.class
+SHA1-Digest: 6Pdykc6pINaYIZN7gttire9hxcM=
+
+Name: assets/adrt/ADRTLongSet.class
+SHA1-Digest: b5SeZMKm2rUmHNRH5CoZQ5tapCg=
+
+Name: assets/adrt/ADRTReceiver.class
+SHA1-Digest: HAQCHBYBODYd2q4uih9DTg9hK5Y=
+
+Name: assets/adrt/ADRTReflector.class
+SHA1-Digest: 67ks0JJG5Ge319S4/GOAfipeD/s=
+
+Name: assets/adrt/ADRTSender.class
+SHA1-Digest: 9cBcN0p7/0DKfj1DWMCmIM+5pwo=
+
+Name: assets/adrt/ADRTThread.class
+SHA1-Digest: +UG84d7+YkHLxXvxbo+nDf9FKAo=
+
+Name: assets/adrt/ADRTThreadLocal.class
+SHA1-Digest: AAavnEwj6npH60RC4LHSjTH9KP8=
+
+Name: assets/android.jar.jet
+SHA1-Digest: uB3MtyuFHddUJv7hsY0KgPXc4e0=
+
+Name: assets/annotations.jar
+SHA1-Digest: f1/qjF4DQ0h6u32iBQCtXDIR/vA=
+
+Name: assets/armeabi-pie/aapt
+SHA1-Digest: 4fDHEGoN+wvtkf6d6u/7MAw+NRE=
+
+Name: assets/armeabi-pie/aidl
+SHA1-Digest: uQYKgDIT25bOFADtg+sQje2XS50=
+
+Name: assets/armeabi/aapt
+SHA1-Digest: +/iEvhV/DtMthzVc1k4acDwlARo=
+
+Name: assets/armeabi/aidl
+SHA1-Digest: BlO3wxz2ago6IH5+J6Ho/yynJ1Y=
+
+Name: assets/crashlytics-build.properties
+SHA1-Digest: VRdV1HqpTn+PRZkj4hD2vamNfw8=
+
+Name: assets/dtds/HTMLlat1.ent
+SHA1-Digest: H0yjQr5tg9PUrAq/X3TTPHbGuxs=
+
+Name: assets/dtds/HTMLspecial.ent
+SHA1-Digest: gg1hH7nIo0Vd+PKqQ8mDccFfd9Y=
+
+Name: assets/dtds/HTMLsymbol.ent
+SHA1-Digest: hcQiIBjbkF4V3mC6UBzwldTUtBY=
+
+Name: assets/dtds/frameset.dtd
+SHA1-Digest: xYbCISC4vvLT3+1sn6mVg3/RJgA=
+
+Name: assets/dtds/html5.dtd
+SHA1-Digest: FFWLHqpiHuVQz5cDg/w9I/NPcZA=
+
+Name: assets/dtds/loose.dtd
+SHA1-Digest: Tq3aJPjJ8QyVZY0z2EsFn/FN0D4=
+
+Name: assets/dtds/strict.dtd
+SHA1-Digest: DEB3zVr4UtfORc5M/94TP2U/9Jk=
+
+Name: assets/dtds/xhtml-lat1.ent
+SHA1-Digest: 3CfL2yTYy02XhbkFsbP2rmeu3ok=
+
+Name: assets/dtds/xhtml-special.ent
+SHA1-Digest: p7S34ZCT9gx9g0RbjQfmkupmjUk=
+
+Name: assets/dtds/xhtml-symbol.ent
+SHA1-Digest: 1R9c66JCm9p8d9+DmeCbgFsWTHI=
+
+Name: assets/dtds/xhtml1-frameset.dtd
+SHA1-Digest: ctF/yAQbWRbxJTvjGJlv6on0SHI=
+
+Name: assets/dtds/xhtml1-strict.dtd
+SHA1-Digest: 68K7n1CB0TVFthFNI+nF8R7Q+PA=
+
+Name: assets/dtds/xhtml1-transitional.dtd
+SHA1-Digest: uDFwf5tSmUogqq3i2ODMpSul1vU=
+
+Name: assets/framework.aidl
+SHA1-Digest: wpttT8UUiL0oJEPnePh3Owscrj4=
+
+Name: assets/license.html
+SHA1-Digest: fPcjVT9HsOPbXI4YiH1tNacpR6Q=
+
+Name: assets/merger.zip
+SHA1-Digest: JyZhCL1gfVmHgYOIM+foABz2nvY=
+
+Name: assets/merger.zip-new
+SHA1-Digest: iQ3l3RHKsBlaHsW9+nGQLjnOzUI=
+
+Name: assets/ndk29wrapper.zip
+SHA1-Digest: 5aiXs2YZZ7kVpjdqEMk0D3377ks=
+
+Name: assets/sdk_license.html
+SHA1-Digest: OxoUoVjersIJlA0+M2RlWcv6JGU=
+
+Name: assets/templates/CppHelloWorld.zip
+SHA1-Digest: FEY5WlpqJT5DSRHZJEWpFMiTl98=
+
+Name: assets/templates/GradleApp.zip
+SHA1-Digest: rSmhZ8EguuQp0W63qMcy04JwyyY=
+
+Name: assets/templates/GradleFlavor.zip
+SHA1-Digest: sZzFNnmg+/xKC5y+87KY+LBVS7A=
+
+Name: assets/templates/GradleLibrary.zip
+SHA1-Digest: 3JuylKDFUxWd9TliSWxT+VIgnXo=
+
+Name: assets/templates/HelloWorld.zip
+SHA1-Digest: 4SOFW8f1k0478QBvW3xEEjK7LCE=
+
+Name: assets/templates/JavaConsole.zip
+SHA1-Digest: t1yfDQHyrRN7aKuBJMwJFbV8ldI=
+
+Name: assets/templates/JniHelloWorld.zip
+SHA1-Digest: OZjAqAaWQ3Q8ekIdXnVqy+jrAQs=
+
+Name: assets/templates/NativeActivity.zip
+SHA1-Digest: d4pBaT3dp9qRPm+lajjlzuVPIos=
+
+Name: assets/templates/SanAngeles.zip
+SHA1-Digest: EY9d0VJhTBIy6eXcx+6Lz2aomlk=
+
+Name: assets/templates/WearApp.zip
+SHA1-Digest: ysElcHFjxQN9z+z93MKGu/3dfj8=
+
+Name: assets/templates/Website.zip
+SHA1-Digest: BJ55aLFDZhHSD9BmsyKuaycGN+w=
+
+Name: assets/templates/course_android_simple_project.zip
+SHA1-Digest: wYwWNu2tX0n13gFFgO348+z2qP8=
+
+Name: assets/templates/course_android_simple_project_2.zip
+SHA1-Digest: SPnGIKt8yjouD7+Qe0KYt9tNhe4=
+
+Name: assets/templates/course_android_simple_project_graphics.zip
+SHA1-Digest: xSCCy19GqiwfFvHIS8yEuRiPPTY=
+
+Name: assets/templates/course_cpp_simple_project.zip
+SHA1-Digest: b0TYeM8asLcwhXhcAXdUhYGo6NU=
+
+Name: assets/templates/course_game_libgdx_drop_game.zip
+SHA1-Digest: l2m94nXA8mdNM93h925cipZVkhg=
+
+Name: assets/templates/course_game_libgdx_project.zip
+SHA1-Digest: 8kBr+CFXOUrBeZo7oGbTbN6SGTc=
+
+Name: assets/templates/course_game_libgdx_run_game.zip
+SHA1-Digest: aaeJov8IHwXn94AcNeu5Vh22yjo=
+
+Name: assets/templates/course_java_packages.zip
+SHA1-Digest: zYGN3xE9kagYEKca0KRn4vOoRGk=
+
+Name: assets/templates/course_java_simple_project.zip
+SHA1-Digest: CBrIcEksC3spXf+4SQamslQEmgw=
+
+Name: assets/templates/course_javascript_simple_project.zip
+SHA1-Digest: 0+keNYSHe1EzM5vsabW3odNG/Bw=
+
+Name: assets/templates/course_web_simple_project.zip
+SHA1-Digest: NA7yl1ol6ktvuBjjB0EcBmobIlo=
+
+Name: assets/templates/course_web_simple_project_images.zip
+SHA1-Digest: C9Eit1/EUm9Q62xqeUOhggH3mMk=
+
+Name: assets/trainer/course_android_en.xml
+SHA1-Digest: Ptbt2VBCKGqu8dnfxWc0hgBZDX4=
+
+Name: assets/trainer/course_cpp_en.xml
+SHA1-Digest: ype32W9zV7J1082gecenqSh+7es=
+
+Name: assets/trainer/course_game_en.xml
+SHA1-Digest: GpTr6aiaV5hVOIC3YIFs/YgnWfY=
+
+Name: assets/trainer/course_java_en.xml
+SHA1-Digest: h6sTmQRUiTKaElvX8t+5lNBR/WU=
+
+Name: assets/trainer/course_javascript_en.xml
+SHA1-Digest: +Kt+89PR4l7Ht8YubY9EFQzfpjw=
+
+Name: assets/trainer/course_ndk_en.xml
+SHA1-Digest: fOHnBmaksE0GlPujiYYGW5icP/A=
+
+Name: assets/trainer/course_wear_en.xml
+SHA1-Digest: mnvc8BtIl7s5FtdAGzP/Ur0qM5k=
+
+Name: assets/trainer/course_web_en.xml
+SHA1-Digest: RGpmcINBZeKBzhu2TPJ0q8cSa7s=
+
+Name: assets/whatsnew/aide-changes.txt
+SHA1-Digest: UBAxV8lyESMYTI/904rkUdmfErc=
+
+Name: assets/whatsnew/aide-phonegap-changes.txt
+SHA1-Digest: r+TJpnwP8GOB6ww0okC3qUnmzaQ=
+
+Name: assets/whatsnew/aide-phonegap-whatsnew.txt
+SHA1-Digest: KQ77kwUbQC90o9vEqtFKbvfVe/Q=
+
+Name: assets/whatsnew/aide-premiumkey-changes.txt
+SHA1-Digest: aJxXNDr4/GQVczo+mqbJHGUkSOI=
+
+Name: assets/whatsnew/aide-web-changes.txt
+SHA1-Digest: YOrm7yTXLIrAkWx5CY6TJ+SDVck=
+
+Name: assets/whatsnew/aide-web-whatsnew.txt
+SHA1-Digest: FnczzssjgZyiKgNrKjRMISZzHiI=
+
+Name: assets/whatsnew/aide-whatsnew.txt
+SHA1-Digest: Tv8ThbvTRseHFz0etP3lqmh10/4=
+
+Name: assets/whatsnew/java-trainer-changes.txt
+SHA1-Digest: azMpnb/1vUlQwQtAuVdS3lMSA9c=
+
+Name: assets/whatsnew/ui-designer-changes.txt
+SHA1-Digest: Q5NDVCYGDjtEtztsovy9HEAlW78=
+
+Name: assets/x86-pie/aapt
+SHA1-Digest: nttA8bmLOIKos2ZcsqEuISQ32aM=
+
+Name: assets/x86-pie/aidl
+SHA1-Digest: SHCzDz41/jcmM4DNsmKKiyD1s8A=
+
+Name: assets/x86/aapt
+SHA1-Digest: +casl/O7+zT7+UVVzD///n741Ck=
+
+Name: assets/x86/aidl
+SHA1-Digest: AGe5muun9vxsJL01p9kIxHPvKiU=
+
+Name: bin/AndroidManifest.xml
+SHA1-Digest: xMSvgkDioScJ9SjzYIDqWLP01Tg=
+
+Name: bin/samplingprofilerfacade.jar
+SHA1-Digest: gHGwV6l3HI8wD6hO8nhlhhZiHbc=
+
+Name: dev.probes
+SHA1-Digest: 2cZmqiwuCYN/JFr/S8T1RTevcvs=
+
+Name: firebase-ads.properties
+SHA1-Digest: BV4oFF5lFrUipy/N2EkJo3lzfFE=
+
+Name: firebase-analytics-impl.properties
+SHA1-Digest: Lq1sGNBkbUF65BtB6oHlPQo8lzg=
+
+Name: firebase-analytics.properties
+SHA1-Digest: cE1rQhRDYnH6AhLuKww+cw781h0=
+
+Name: firebase-common.properties
+SHA1-Digest: klDzhffOUckCMLhUDonAyh0x0aQ=
+
+Name: firebase-core.properties
+SHA1-Digest: ebUITWAmCF53z2c1OTWPBq+w9DM=
+
+Name: firebase-iid-interop.properties
+SHA1-Digest: PDqIrQTEUCd4v7ktW1Je+goPH+M=
+
+Name: firebase-iid.properties
+SHA1-Digest: ZfudEoFhSYoaTUmtkS66xjjyamo=
+
+Name: firebase-measurement-connector-impl.properties
+SHA1-Digest: UY+XXhZWkyq2b+Y4FBgtD7hrCSo=
+
+Name: firebase-measurement-connector.properties
+SHA1-Digest: ALsd+PHLMqKBejz1ugyvVgygMKo=
+
+Name: keys/keystore.ks
+SHA1-Digest: hOVAHDCIFX9RM/SEjzqFckyTNCo=
+
+Name: keys/media.pk8
+SHA1-Digest: m8KVRe2PFUbPdjgpPxAeb1vaovw=
+
+Name: keys/media.sbt
+SHA1-Digest: kuRC2Y9QCm5xqS01Ce3wd3KCkf4=
+
+Name: keys/media.x509.pem
+SHA1-Digest: 6RWRPuFzDONdwFbs8nKcLB1eEdo=
+
+Name: keys/platform.pk8
+SHA1-Digest: uE/rKKzI1Hpo3ZlCr4brKA1j2UA=
+
+Name: keys/platform.sbt
+SHA1-Digest: 8lNpYXkv4Uidwy/DW59OC+2EpAY=
+
+Name: keys/platform.x509.pem
+SHA1-Digest: Kyscxt9ZqsNfU1koitAkedxydW8=
+
+Name: keys/shared.pk8
+SHA1-Digest: 3ulXKDLEqPoC2rE7uWVWv8ZPZUk=
+
+Name: keys/shared.sbt
+SHA1-Digest: 81IQJ/BjXdpR7xzu18+tH/65IeY=
+
+Name: keys/shared.x509.pem
+SHA1-Digest: eXNXuggZU1/VIeOA3SivzZ7/eXE=
+
+Name: keys/testkey.pk8
+SHA1-Digest: wlDdVn+6dgRfsSi3HDKioUm2Hxk=
+
+Name: keys/testkey.sbt
+SHA1-Digest: z5tfMxJgjohNdIX2nkNvwWr3Ryg=
+
+Name: keys/testkey.x509.pem
+SHA1-Digest: +JoUgQBDoX4nUbzbDMx7j+Ldqy8=
+
+Name: lib/arm64-v8a/libAIDE.so
+SHA1-Digest: aiUn4yyqr8EprHw/titsMh91BXA=
+
+Name: lib/arm64-v8a/libaapt.so
+SHA1-Digest: 9BEbJMnhY6eFEVOuXay9jhVQOg8=
+
+Name: lib/arm64-v8a/libaapt2.so
+SHA1-Digest: AvjtNwxFzZygaDDZN98HoGjmvLA=
+
+Name: lib/arm64-v8a/libaidl.so
+SHA1-Digest: 4XO80zquGQhbfPkYJn6eNs/vrfc=
+
+Name: lib/arm64-v8a/libzipalign.so
+SHA1-Digest: q6fIwNL9ZSTxRAnN26mfuMtNn7w=
+
+Name: lib/armeabi-v7a/libAIDE.so
+SHA1-Digest: 6fUOxWhHlI+3YJw/fO0U9/NEhnc=
+
+Name: lib/armeabi-v7a/libaapt.so
+SHA1-Digest: XuAqtjjOWC7UA5a3B5K83ZBXF60=
+
+Name: lib/armeabi-v7a/libaidl.so
+SHA1-Digest: huIZGplrWZRoBjMuqHGScvjByog=
+
+Name: lib/x86/libAIDE.so
+SHA1-Digest: utHIDJjZgC1R2o55/ZKbSvG/iuI=
+
+Name: lib/x86/libaapt.so
+SHA1-Digest: +YhnbURnXQnd3qpusxXz73UAInw=
+
+Name: lib/x86/libaidl.so
+SHA1-Digest: zeQ09wSeWXxQTOBC4aIj/SO6tA4=
+
+Name: lib/x86_64/libAIDE.so
+SHA1-Digest: aMPNDmxebKI/MkHM3u1D3AKBXz4=
+
+Name: lib/x86_64/libaapt.so
+SHA1-Digest: 3RMVemoo0xU4eiBK2oBI+EkNlDM=
+
+Name: lib/x86_64/libaidl.so
+SHA1-Digest: Icx1j5Fza/c4DUwo+5S1mw3tDRc=
+
+Name: org/eclipse/jgit/JGitText.properties
+SHA1-Digest: NwP75sXWKoy49KgVOF6Ub1Rf5sA=
+
+Name: org/eclipse/jgit/storage/dfs/DfsText.properties
+SHA1-Digest: rnu3Z4RQuOeZO+MdtzFJ+sDqFRs=
+
+Name: overviewj.html
+SHA1-Digest: jlS+QQTqn9pv92dNeRlSHwtFo+o=
+
+Name: play-services-ads-base.properties
+SHA1-Digest: iZ+Oxz4XJi6bTcnuJisy4h2zDlU=
+
+Name: play-services-ads-identifier.properties
+SHA1-Digest: e9Ka5AwDb5gYEJGh+fs+gSqkLL0=
+
+Name: play-services-ads-lite.properties
+SHA1-Digest: 0Sm3sCefRXrVCZimcIuvfg12nBA=
+
+Name: play-services-ads.properties
+SHA1-Digest: /huinRhawy4jwEn12zqmUfa851M=
+
+Name: play-services-base.properties
+SHA1-Digest: p3eVZYxWbmH/iAuo9flrFOce8ik=
+
+Name: play-services-basement.properties
+SHA1-Digest: bndwQBWq+tBPuRjsXwwJG3a1yg4=
+
+Name: play-services-gass.properties
+SHA1-Digest: rzFcUuU9oT7+vjwiDUHNp4PsJD4=
+
+Name: play-services-measurement-api.properties
+SHA1-Digest: dzBAC/HIllGyn+qcDChVd0Dj53o=
+
+Name: play-services-measurement-base.properties
+SHA1-Digest: gZCTjwXiwx99Sg3JQzqyTh2IOWQ=
+
+Name: play-services-measurement-sdk-api.properties
+SHA1-Digest: qNlU0Cm55HwZlEmdHIuEsoVAt7M=
+
+Name: play-services-stats.properties
+SHA1-Digest: 6FGeX6v3IFI5YqJ4tkISxM5eXGQ=
+
+Name: play-services-tasks.properties
+SHA1-Digest: 3nCnKhtoKaDJF7i+SkLnXt8aZrw=
+
+Name: public.probes
+SHA1-Digest: R6sAUrKKyeKbnI9vsG9PtN3RKy0=
+
+Name: res.dat.jet
+SHA1-Digest: 17wDvlfo43QzmgQaoVJA/ejCnWk=
+

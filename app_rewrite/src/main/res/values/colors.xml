@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="editor_syntax_comment">#FF9B9B9B</color>
+    <color name="editor_syntax_comment_light">#FF9B9B9B</color>
+</resources>

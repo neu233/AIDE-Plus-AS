@@ -1,0 +1,30 @@
+<Course
+    release_date="2014-08-10" 
+    title="Android NDK 开发"
+    code_section="使用C/C++构建自己的Android应用"
+	code_template="从这个空的项目模板开始，创建您自己的程序。"
+    explore_section="探索使用Native开发套件和C/C++来实现功能的Android示例应用程序">
+
+    <Sample
+        id="San Angeles 3D"
+        title="San Angeles 3D"
+        description="探索以C/C++实现的Open GL 3D动画演示应用程序。"
+        project_dir=""
+        release_date="2014-08-15" >
+
+        <CodeFile name="demo.c" />
+        <CodeFile name="DemoActivity.java" />
+    </Sample>
+
+    <Sample
+        id="Native音频"
+        title="Native音频"
+        description="探索这个native音频示例应用程序，该应用程序使用native代码通过OpenSL ES播放声音。"
+        project_dir=""
+        release_date="2014-08-15" >
+
+        <CodeFile name="native-audio-jni.c" />
+        <CodeFile name="NativeAudio.java" />
+    </Sample>
+
+</Course>

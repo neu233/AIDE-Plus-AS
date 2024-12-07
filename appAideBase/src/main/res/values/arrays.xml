@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_autosave_entries">
+        <item>Off</item>
+        <item>After 15 seconds</item>
+        <item>After 1 minute</item>
+        <item>After 5 minutes</item>
+    </string-array>
+    <string-array name="pref_autosave_values">
+        <item>-1</item>
+        <item>15</item>
+        <item>60</item>
+        <item>300</item>
+    </string-array>
+    <string-array name="pref_language_entries">
+        <item>Default</item>
+        <item>English</item>
+        <item>Deutsch</item>
+        <item>русский</item>
+    </string-array>
+    <string-array name="pref_language_values">
+        <item>default</item>
+        <item>en</item>
+        <item>de</item>
+        <item>ru</item>
+    </string-array>
+    <string-array name="pref_tabsize_entries">
+        <item>2</item>
+        <item>4</item>
+        <item>8</item>
+    </string-array>
+    <string-array name="pref_tabsize_values">
+        <item>2</item>
+        <item>4</item>
+        <item>8</item>
+    </string-array>
+</resources>

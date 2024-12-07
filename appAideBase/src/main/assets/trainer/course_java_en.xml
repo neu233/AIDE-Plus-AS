@@ -1,0 +1,3737 @@
+<Course
+    icon="ic_launcher_java"
+    release_date="2014-03-04"
+	title="@string/course_java"
+	full_title="@string/course_java_long_title"
+	code_section="@string/course_java_code_section"
+	code_template="@string/course_java_code_template">
+    
+    <Files 
+        template="simple_project"
+        project_name="My Java Application">
+    	<CodeFile name="Main.java" />    
+    </Files>
+
+	<Lesson
+	    id="Java Hello World"
+	    title="@string/course_java_hello_world"
+		example="System.out.println(&quot;Hello World&quot;)&#59;"
+		description="@string/course_java_hello_world_description"
+		section="@string/course_java_hello_world_section" >
+
+	    <Exercise
+	        task="@string/course_java_hello_world_1_task"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println("Hello$code_hint$ World");
+	}
+}
+				]]>
+	        </SourceCode>
+	        <Run  success="@string/course_java_hello_world_1_success '_Hello_World_'" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_hello_world_2_task !_println_! '_Hi_World_'"
+	        level="5" >
+	        <ExpectedOutput
+	            fail="@string/course_java_hello_world_2_fail '_Hi_World_'"
+	            hint="@string/course_java_hello_world_2_hint '_Hello_World_' '_Hi_World_' !_println_!" >
+				<![CDATA[Hi World]]>
+	        </ExpectedOutput>
+	        <CodeHint />
+	        <Run success="@string/course_java_hello_world_2_success '_Hi_World_'" />
+	    </Exercise>
+	    <Exercise task="@string/course_java_hello_world_3_task">
+	    </Exercise>
+	</Lesson>
+
+
+
+
+    <Lesson
+	    id="Java Program Structure"
+	    title="@string/course_java_program_structure"
+		example="public static void main(String[] args)"
+		description="@string/course_java_program_structure_description">
+
+        <Exercise
+	        task="@string/course_java_program_structure_1_task !_Main_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+$space$
+public class Main$code_hint$
+{
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+        <Exercise
+	        task="@string/course_java_program_structure_2_task !_public_static_void_main()_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main$code_hint$(String[] args)
+	{
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+        <Exercise
+	        task="@string/course_java_program_structure_3_task !_println_! '_Java_'"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println("Java");$code_hint$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run success="@string/course_java_program_structure_3_success '_Java_'" />
+	    </Exercise>
+        <Exercise
+	        task="@string/course_java_program_structure_4_task !_println_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println("Java");
+		System.out.println("is");$code_hint$
+		
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run
+	        	success="@string/course_java_program_structure_4_success !_println_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_program_structure_5_task !_&#59;_!"
+	        level="4" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println("Java");
+		System.out.println("is")$code_hint$
+		$code_hint_1$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run
+	        	success="@string/course_java_program_structure_5_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_program_structure_6_task !_println_! '_cool_' '_Java_' '_is_' !_sys_!" 
+	        level="4">
+	        <ExpectedOutput
+	            fail="@string/course_java_program_structure_6_fail_1 '_Java_' '_is_' '_cool_'"
+	        	hint="@string/course_java_program_structure_6_hint_1 !_println_! '_cool_' !_println_!" >
+	            <![CDATA[
+Java
+is
+cool
+				]]>
+	        </ExpectedOutput>
+	        <CodeHint_1 />
+	        <Run success="@string/course_java_program_structure_6_success" />	            
+	    </Exercise>
+        <Exercise
+	        task="@string/course_java_program_structure_7_task"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println("Java");
+		System.out.println("is");
+		System.out.println("cool");
+		// this is a comment $code_hint$
+		$code_hint_1$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_java_program_structure_8_task !_//_TODO_!"
+	        level="3" >
+	        <ExpectedCode
+	            fail="@string/course_java_program_structure_8_fail_1 !_//_TODO_!">
+				<![CDATA[// TODO]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_program_structure_8_fail_2">
+	            <![CDATA[
+Java
+is
+cool
+	            ]]>
+	        </ExpectedOutput>
+	        <CodeHint_1 />
+	        <Run
+	        	success="@string/course_java_program_structure_8_success" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_java_program_structure_9_task !_println_!" >
+		</Exercise>
+	</Lesson>
+
+
+
+
+    <Lesson
+        id="Java Data Types"
+		title="@string/course_java_data_types"
+        section="@string/course_java_data_types_section"
+		example="&quot;Hello&quot; &nbsp;&nbsp;10 &nbsp;&nbsp;3.1415 &nbsp;&nbsp;true"
+		description="@string/course_java_data_types_description">
+
+		<Exercise
+	        task="@string/course_java_data_types_1_task '_hello_'" 
+	        level="1" >
+			<SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println("hello"$code_hint$);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_data_types_1_fail_1">
+	            <![CDATA[
+hello
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_data_types_1_success '_hello_'" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_java_data_types_2_task !_println_! !_10_!" 
+	        level="1" >
+			<SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println("hello");
+		System.out.println(10$code_hint$);
+		$code_hint_1$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_data_types_2_fail_1">
+	            <![CDATA[
+hello
+10
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_data_types_2_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_data_types_3_task !_20_!" 
+	        level="2"  >
+	        <CodeHint_1 />
+			<ExpectedCode
+	            fail="@string/course_java_data_types_3_fail_1 !_20_!">
+				<![CDATA[System.out.println(20)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_data_types_3_fail_2">
+	            <![CDATA[
+hello
+10
+20
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_data_types_3_success" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_java_data_types_4_task !_123456789123456L_! !_L_! !_2147483647_!" 
+	        level="3"  >
+	        <CodeHint_1 />
+			<ExpectedCode
+	            fail="@string/course_java_data_types_4_fail_1 !_123456789123456L_! !_L_!">
+				<![CDATA[System.out.println(123456789123456L)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_data_types_4_fail_2">
+	            <![CDATA[
+hello
+10
+20
+123456789123456
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_data_types_4_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_data_types_5_task !_3.1415_!" 
+	        level="3"  >
+	        <CodeHint_1 />
+			<ExpectedCode
+	            fail="@string/course_java_data_types_5_fail_1 !_3.1415_!">
+				<![CDATA[System.out.println(3.1415)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_data_types_5_fail_2">
+	            <![CDATA[
+hello
+10
+20
+123456789123456
+3.1415
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_data_types_5_success !_double_! !_float_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_data_types_6_task !_3.1415F_! !_F_! !_float_! !_double_!" 
+	        level="3"  >
+	        <CodeHint_1 />
+			<ExpectedCode
+	            fail="@string/course_java_data_types_6_fail_1 !_3.1415F_!">
+				<![CDATA[System.out.println(3.1415F)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_data_types_6_fail_2">
+	            <![CDATA[
+hello
+10
+20
+123456789123456
+3.1415
+3.1415
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_data_types_6_success" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_java_data_types_7_task !_println_! !_true_! !_true_! !_false_!" 
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println("hello");
+		System.out.println(10);
+		System.out.println(20);
+		System.out.println(123456789123456L);
+		System.out.println(3.1415);
+		System.out.println(3.1415F);
+		System.out.println(true$code_hint$);
+		$code_hint_1$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_data_types_7_fail_1">
+	            <![CDATA[
+hello
+10
+20
+123456789123456
+3.1415
+3.1415
+true	            
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_data_types_7_success !_true_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_data_types_8_task !_false_!" 
+	        level="3"  >
+	        <CodeHint_1 />
+			<ExpectedCode
+	            fail="@string/course_java_data_types_8_fail_1 !_false_!">
+				<![CDATA[System.out.println(false)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_data_types_8_fail_2">
+	            <![CDATA[
+hello
+10
+20
+123456789123456
+3.1415
+3.1415
+true
+false	            
+	            ]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_data_types_8_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_data_types_9_task">
+	    </Exercise>
+	</Lesson>
+
+
+
+
+    <Lesson
+		id="Java Operators"
+        title="@string/course_java_operators"
+		example="10 + 20"
+		description="@string/course_java_operators_description">
+
+		<Exercise
+	        task="@string/course_java_operators_1_task !_+_! !_10_+_20_!" 
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println(10 + 20$code_hint$);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_operators_1_fail_1">
+	            <![CDATA[30]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_operators_1_success !_10_+_20_!" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_java_operators_2_task !_100_+_40_!" 
+	        level="3" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println($code_hint$);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_operators_2_fail_1 !_100_+_40_! !_println_!">
+				<![CDATA[System.out.println(100+40)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_operators_2_fail_2 !_100_+_40_!">
+	            <![CDATA[140]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_operators_2_success !_+_! !_-_! !_*_! !_/_! !_%_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_operators_3_task !_100_-_40_!"
+	        level="2">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_operators_3_fail_1 !_100_-_40_!">
+				<![CDATA[System.out.println(100-40)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_operators_3_fail_2 !_100_-_40_!">
+	            <![CDATA[60]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_operators_3_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_operators_4_task !_100_*_40_!"
+	        level="2">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_operators_4_fail_1 !_100_*_40_!">
+				<![CDATA[System.out.println(100*40)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_operators_4_fail_2 !_100_! !_40_!">
+	            <![CDATA[4000]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_operators_4_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_java_operators_5_task !_100_/_40_!"
+	        level="2">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_operators_5_fail_1 !_100_/_40_!">
+				<![CDATA[System.out.println(100/40)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_operators_5_fail_2 !_100_! !_40_!">
+	            <![CDATA[2]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_operators_5_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_java_operators_6_task !_100.0_/_40.0_!"
+	        level="2">
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_operators_6_fail_1 !_100.0_/_40.0_!">
+				<![CDATA[System.out.println(100.0/40.0)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_operators_6_fail_2 !_100.0_! !_40.0_!">
+	            <![CDATA[2.5]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_operators_6_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_java_operators_7_task !_+_! !_+_!"
+	        level="1">
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println("Result: " + 10$code_hint$);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_operators_7_fail_1">
+	            <![CDATA[Result: 10]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_operators_7_success '_Result:_' !_10_!" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_java_operators_8_task '_Pi=3.1415_' !_3.1415_!"
+	        level="4">
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		$code_hint$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_operators_8_fail_1 !_&quot;Pi=&quot;+3.1415_!">
+				<![CDATA[System.out.println("Pi="+3.1415)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_operators_8_fail_2 !_Pi=3.1415_!"
+	            hint="@string/course_java_operators_8_hint_1 !_3.1415_!">
+	            <![CDATA[Pi=3.1415]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_operators_8_success" />
+		</Exercise>
+		<Exercise
+		    task="@string/course_java_operators_9_task">
+		</Exercise>
+	</Lesson>
+
+
+
+
+
+    <Lesson
+		id="Java Relational Operators"
+        title="@string/course_java_relational_operators"
+		example="10 &lt; 20"
+		description="@string/course_java_relational_operators_description">
+
+		<Exercise
+	        task="@string/course_java_relational_operators_1_task !_10_! !_20_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println(10 < 20$code_hint$);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_relational_operators_1_fail_1">
+				<![CDATA[true]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_relational_operators_1_success !_true_! !_false_!" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_java_relational_operators_2_task !_10_! !_20_!"
+	        level="2" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println($code_hint$);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_relational_operators_2_fail_1 !_&gt;_!">
+				<![CDATA[System.out.println(10 > 20)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_relational_operators_2_fail_2">
+				<![CDATA[false]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_relational_operators_2_success" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_java_relational_operators_3_task !_10_! !_20_! !_==_!"
+	        level="2" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_relational_operators_3_fail_1 !_==_!">
+				<![CDATA[System.out.println(10 == 20)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_relational_operators_3_fail_2">
+				<![CDATA[false]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_relational_operators_3_success" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_java_relational_operators_4_task !_10_! !_20_! !_!=_!"
+	        level="2" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_relational_operators_4_fail_1 !_!=_!">
+				<![CDATA[System.out.println(10 != 20)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_relational_operators_4_fail_2">
+				<![CDATA[true]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_relational_operators_4_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_java_relational_operators_5_task !_10_! !_20_! !_&lt;_=_!"
+	        level="2" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_relational_operators_5_fail_1 !_&lt;_=_!">
+				<![CDATA[System.out.println(10 <= 20)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_relational_operators_5_fail_2">
+				<![CDATA[true]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_relational_operators_5_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_java_relational_operators_6_task !_10_! !_20_! !_&gt;_=_!"
+	        level="2" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_relational_operators_6_fail_1 !_&gt;_=_!">
+				<![CDATA[System.out.println(10 >= 20)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_relational_operators_6_fail_2">
+				<![CDATA[false]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_relational_operators_6_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_java_relational_operators_7_task !_123_! !_456_! !_987_! !_654_!"
+	        level="4" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println($code_hint$);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_relational_operators_7_fail_1 !_+_! !_-_! !_&#60;_!">
+				<![CDATA[System.out.println(123 + 456 < 987 - 654)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_relational_operators_7_fail_2">
+				<![CDATA[false]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_relational_operators_7_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_java_relational_operators_8_task !_equals_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println("hello".equals$code_hint$("hello"));
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_relational_operators_8_fail_1">
+				<![CDATA[true]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_relational_operators_8_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_java_relational_operators_9_task !_equals_! '_hello_' '_hi_'"
+	        level="2" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println($code_hint$);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+		    <ExpectedCode
+	            fail="@string/course_java_relational_operators_9_fail_1 !_equals_! !_&quot;hello&quot;.equals(&quot;hi&quot;)_!">
+				<![CDATA[System.out.println("hello".equals("hi"))]]>
+	        </ExpectedCode>
+			<ExpectedOutput
+	            fail="@string/course_java_relational_operators_9_fail_2">
+				<![CDATA[false]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_relational_operators_9_success" />
+		</Exercise>
+		<Exercise
+		    task="@string/course_java_relational_operators_10_task">
+		</Exercise>
+	</Lesson>
+
+
+
+
+
+    <Lesson
+		id="Java Variables"
+        title="@string/course_java_variables"
+        section="@string/course_java_variables_section"
+		example="int i = 10&#59;"
+		description="@string/course_java_variables_description">
+
+	    <Exercise
+	        task="@string/course_java_variables_1_task !_i_! !_10_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int i = 10;$code_hint$
+		System.out.println(i);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_variables_1_fail_1">
+				<![CDATA[10]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_variables_1_success" />
+	    </Exercise>
+     	<Exercise
+	        task="@string/course_java_variables_2_task !_i_! !_20_!"
+	        level="2" >
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_variables_2_fail_1 !_20_!"
+	            hint="@string/course_java_variables_2_hint_1 !_int_i_=_20_!" >
+				<![CDATA[20]]>
+	        </ExpectedOutput>
+	        <ExpectedCode
+	            fail="@string/course_java_variables_2_fail_2 !_i_! !_println_!">
+				<![CDATA[System.out.println(i)]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_java_variables_2_success" />
+	    </Exercise>
+     	<Exercise
+	        task="@string/course_java_variables_3_task !_I_! !_i_!"
+	        level="2" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int i = 20;
+		System.out.println(I$code_hint$);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run success="@string/course_java_variables_3_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variables_4_task !_j_! !_k_! !_k_! !_i_! !_j_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int i = 20;$code_hint_2$
+		System.out.println(i);
+		int j = 10;
+		System.out.println(j);
+		int k = i + j;$code_hint$
+		System.out.println(k);
+		$code_hint_1$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_variables_4_fail_1">
+				<![CDATA[
+20
+10
+30
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_variables_4_success !_i_! !_j_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variables_5_task !_x_! !_i_! !_j_!"
+	        level="3" >
+	        <ExpectedOutput
+	            fail="@string/course_java_variables_5_fail_1">
+				<![CDATA[
+20
+10
+30
+200
+				]]>
+	        </ExpectedOutput>
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_variables_5_fail_2 !_i_*_j_! !_x_!">
+				<![CDATA[x = i * j]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_variables_5_fail_3 !_x_! !_println_!">
+				<![CDATA[System.out.println(x)]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_java_variables_5_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variables_6_task !_i_! !_500_!"
+	        level="2" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="@string/course_java_variables_6_fail_1 !_i_! !_500_!">
+				<![CDATA[
+500
+10
+510
+5000
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_variables_6_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variables_7_task">
+	    </Exercise>
+	</Lesson>
+
+    
+    
+    
+    <Lesson
+		id="Java Variable Modification"
+		title="@string/course_java_variable_modification"
+		example="i++&#59;"
+		description="@string/course_java_variable_modification_description">
+    
+	    <Exercise
+	        task="@string/course_java_variable_modification_1_task !_i_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int i = 1;
+		System.out.println(i);
+		i = 2;$code_hint$
+		System.out.println(i);
+		$code_hint_1$
+	}
+}
+				]]>
+	        </SourceCode>
+			<CodeHint />	        
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_modification_1_fail_1">
+				<![CDATA[
+1
+2
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_variable_modification_1_success !_println_! !_i_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_modification_2_task !_i_! !_3_!"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_modification_2_fail_1 !_1_! !_2_! !_3_!">
+				<![CDATA[
+1
+2
+3
+				]]>
+	        </ExpectedOutput>
+	        <ExpectedCode
+	            fail="@string/course_java_variable_modification_2_fail_2 !_3_! !_i_!">
+				<![CDATA[i = 3]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            count="3"
+	            fail="@string/course_java_variable_modification_2_fail_3 !_i_!" >
+				<![CDATA[System.out.println(i)]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_java_variable_modification_2_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_modification_3_task !_i_! !_1_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int i = 1;$code_hint_2$
+		System.out.println(i);
+		i = i + 1;$code_hint$
+		System.out.println(i);
+		$code_hint_1$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_modification_3_fail_1">
+				<![CDATA[
+1
+2
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_variable_modification_3_success !_i_=_i_+_1_! !_i_+_1_! !_i_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_modification_4_task !_i_! !_1_!"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_modification_4_fail_1 !_1_! !_2_! !_3_!">
+				<![CDATA[
+1
+2
+3
+				]]>
+	        </ExpectedOutput>
+	        <ExpectedCode
+	            count="3"
+	            fail="@string/course_java_variable_modification_4_fail_2 !_i_!" >
+				<![CDATA[System.out.println(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            count="2"
+	            fail="@string/course_java_variable_modification_4_fail_3 !_i_! !_1_! !_+_!" >
+				<![CDATA[i = i + 1]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_java_variable_modification_4_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_modification_5_task !_i_! !_10_! !_11_! !_12_!"
+	        level="4" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_modification_5_fail_1 !_10_! !_11_! !_12_!">
+				<![CDATA[
+10
+11
+12
+				]]>
+	        </ExpectedOutput>
+	        <ExpectedCode
+	            count="3"
+	            fail="@string/course_java_variable_modification_5_fail_2 !_i_!" >
+				<![CDATA[System.out.println(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            count="2"
+	            fail="@string/course_java_variable_modification_5_fail_3 !_i_! !_1_! !_+_!" >
+				<![CDATA[i = i + 1]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_java_variable_modification_5_success !_1_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_modification_6_task !_++_! !_i_! !_1_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int i = 10;
+		System.out.println(i);
+		i++;$code_hint$
+		System.out.println(i);
+		i++;
+		System.out.println(i);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_modification_6_fail_1">
+				<![CDATA[
+10
+11
+12
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_variable_modification_6_success !_++_! !_--_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_modification_7_task !_++_! !_--_!"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_modification_7_fail_1">
+				<![CDATA[
+10
+9
+8
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_variable_modification_7_success !_--_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_modification_8_task">
+	    </Exercise>
+	</Lesson>
+
+
+
+
+
+    <Lesson
+		id="Java Variable Types"
+        title="@string/course_java_variable_types"
+		example="String str = &quot;Hello&quot;&#59;"
+		description="@string/course_java_variable_types_description">
+
+	    <Exercise
+	        task="@string/course_java_variable_types_1_task !_i_! !_int_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int$code_hint$ i = 10;
+		System.out.println(i);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_types_1_fail_1">
+				<![CDATA[10]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_variable_types_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_types_2_task !_x_! !_int_! !_double_! !_int_! !_x_! !_1.5_!"
+	        level="3" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int i = 10;
+		System.out.println(i);
+		int$code_hint$ x = 1.5;
+		System.out.println(x);
+		$code_hint_1$
+		$code_hint_2$
+		$code_hint_3$
+		$code_hint_4$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_variable_types_2_fail_1 !_int_x_! !_double_x_!">
+	            <![CDATA[double x =]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_variable_types_2_fail_2 !_x_!">
+	            <![CDATA[System.out.println(x)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_types_2_fail_3 !_x_! !_1.5_!">
+				<![CDATA[
+10
+1.5
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_variable_types_2_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_types_3_task !_double_! !_pi_! !_3.1415_!"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_variable_types_3_fail_1 !_double_pi_! !_3.1415_!">
+	            <![CDATA[double pi]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_variable_types_3_fail_2 !_pi_!">
+	            <![CDATA[System.out.println(pi)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_types_3_fail_3 !_3.1415_!">
+				<![CDATA[
+10
+1.5
+3.1415
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_variable_types_3_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_types_4_task !_String_! !_s_! '_Hello_'"
+	        level="4" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_java_variable_types_4_fail_1 !_String_s_=_&quot;Hello&quot;_!">
+	            <![CDATA[String s]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_variable_types_4_fail_2 !_s_!">
+	            <![CDATA[System.out.println(s)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_types_4_fail_3 '_Hello_'">
+				<![CDATA[
+10
+1.5
+3.1415
+Hello
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_variable_types_4_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_types_5_task !_long_! !_v_! !_123456789123456L_!"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_java_variable_types_5_fail_1 !_long_! !_v_!">
+	            <![CDATA[long v]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_variable_types_5_fail_2 !_v_!">
+	            <![CDATA[System.out.println(v)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_types_5_fail_3 !_123456789123456_!">
+				<![CDATA[
+10
+1.5
+3.1415
+Hello
+123456789123456
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_variable_types_5_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_types_6_task !_boolean_! !_b_! !_true_!"
+	        level="3" >
+	        <CodeHint_4 />
+	        <ExpectedCode
+	            fail="@string/course_java_variable_types_6_fail_1 !_boolean_! !_b_!">
+	            <![CDATA[boolean b]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_variable_types_6_fail_2 !_b_!">
+	            <![CDATA[System.out.println(b)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_variable_types_6_fail_3 !_true_!">
+				<![CDATA[
+10
+1.5
+3.1415
+Hello
+123456789123456
+true
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_variable_types_6_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_variable_types_7_task">
+	    </Exercise>
+	</Lesson>	    
+
+
+
+
+
+	<Lesson
+		id="Java If Statements"
+        title="@string/course_java_if_statements"
+		section="@string/course_java_if_statements_section"
+		example="if (i &lt; 10) {}"
+		description="@string/course_java_if_statements_description">
+
+	    <Exercise
+	        task="@string/course_java_if_statements_1_task"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int i = 5;$code_hint_2$
+		if (i < 10)$code_hint$
+		{
+			System.out.println("i is less than 10");
+		}
+		$code_hint_1$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_if_statements_1_fail_1">
+	            <![CDATA[
+i is less than 10
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_if_statements_1_success '_i_is_less_than_10_' !_println_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_if_statements_2_task '_i_is_greater_than_0_' !_i_! !_0_!"
+	        level="2">
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_if_statements_2_fail_1 !_if_(i_>_0)_!">
+	            <![CDATA[if (i > 0)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_if_statements_2_fail_2">
+	            <![CDATA[
+i is less than 10
+i is greater than 0
+	            ]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_if_statements_2_success"/>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_if_statements_3_task !_i_! !_100_!"
+	        level="2">
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_java_if_statements_3_fail_1 !_i_! !_100_!">
+	            <![CDATA[i = 100]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_if_statements_3_fail_2">
+	            <![CDATA[
+i is greater than 0
+	            ]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_if_statements_3_success !_println_!"/>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_if_statements_4_task '_i_is_even_' !_i_! !_i_%_2_!"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_if_statements_4_fail_1 !_if_(i_%_2_==_0)_! !_i_!">
+	            <![CDATA[if (i % 2 == 0]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_if_statements_4_fail_2 '_i_is_even_'">
+	            <![CDATA[System.out.println("i is even")]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_if_statements_4_fail_3 '_i_is_even_'">
+	            <![CDATA[
+i is greater than 0
+i is even
+	            ]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_if_statements_4_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_if_statements_5_task">
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	<Lesson
+		id="Java If-Else Statements"
+	    title="@string/course_java_if_else_statements"
+		example="if (i &lt; 10) {} else {}"
+		description="@string/course_java_if_else_statements_description" >
+	    
+	    <Exercise
+	        task="@string/course_java_if_else_statements_1_task"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int a = 2000;
+		int b = 1000;
+		if (a < b)
+		{
+			System.out.println("a is less than b");
+		}
+		else$code_hint$
+		{
+			System.out.println("a is not less than b");
+		}
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_if_else_statements_1_fail_1">
+	            <![CDATA[a is not less than b]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_if_else_statements_1_success !_a_! !_b_! '_a_is_not_less_than_b_'" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_if_else_statements_2_task !_a_! !_b_! !_min_!"
+	        level="4" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int a = 2000;$code_hint_2$
+		int b = 1000;
+		int min;
+		if (a < b)
+		{
+			// TODO: assign min
+			$code_hint$
+		}
+		else
+		{
+			// TODO: assign min
+			
+		}
+		System.out.println("The minimum of a and b is: " + min);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_if_else_statements_2_fail_1 !_a_! !_b_! !_a_! !_min_!">
+	            <![CDATA[min = a]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_if_else_statements_2_fail_2 !_a_! !_b_! !_b_! !_min_!">
+	            <![CDATA[min = b]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_if_else_statements_2_fail_3">
+	            <![CDATA[The minimum of a and b is: 1000]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_if_else_statements_2_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_if_else_statements_3_task !_a_! !_100_!"
+	        level="2" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_java_if_else_statements_3_fail_1 !_a_! !_100_!">
+	            <![CDATA[a = 100]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_if_else_statements_3_fail_2">
+	            <![CDATA[The minimum of a and b is: 100]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_if_else_statements_3_success" />
+	    </Exercise>
+	    <Exercise 
+	        task="@string/course_java_if_else_statements_4_task">
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	
+    <Lesson
+		id="Java While Loops"
+        title="@string/course_java_while_loops"
+		example="while (i &lt; 10) i++&#59;"
+		description="@string/course_java_while_loops_description">
+
+	    <Exercise
+	        task="@string/course_java_while_loops_1_task !_i_! !_5_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int i = 0;$code_hint_2$
+		while (i <= 5$code_hint$)
+		{
+			System.out.println(i);$code_hint_1$
+			i++;$code_hint_3$
+		}
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_while_loops_2_task !_i_!"
+	        level="1" >
+	        <CodeHint_1 />
+	        <ExpectedOutput
+	            fail="@string/course_java_while_loops_2_fail_1">
+	            <![CDATA[
+0
+1
+2
+3
+4
+5
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_while_loops_2_success !_0_! !_5_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_while_loops_3_task !_0_! !_10_!"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_while_loops_3_fail_1 !_i_!">
+	            <![CDATA[System.out.println(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_while_loops_3_fail_2">
+	            <![CDATA[while (]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_while_loops_3_fail_3 !_0_! !_10_!"
+	            hint="@string/course_java_while_loops_3_hint_1 !_i_! !_10_!" >
+	            <![CDATA[
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_while_loops_3_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_java_while_loops_4_task !_10_! !_20_!"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_java_while_loops_4_fail_1 !_i_!">
+	            <![CDATA[System.out.println(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_while_loops_4_fail_2">
+	            <![CDATA[while (]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_while_loops_4_fail_3 !_10_! !_20_!"
+	            hint="@string/course_java_while_loops_4_hint_1 !_i_! !_10_! !_i_! !_20_!" >
+	            <![CDATA[
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_while_loops_4_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_java_while_loops_5_task !_10_! !_1_!"
+	        level="4" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_java_while_loops_5_fail_1 !_i_!">
+	            <![CDATA[System.out.println(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_while_loops_5_fail_2">
+	            <![CDATA[while (]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_while_loops_5_fail_3 !_10_! !_1_!" 
+	            hint="@string/course_java_while_loops_5_hint_1 !_i_! !_10_! !_1_! !_--_!" >
+	            <![CDATA[
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_while_loops_5_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_java_while_loops_6_task !_1_! !_1000_!"
+	        level="5" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int sum = 0;
+		// Use a while loop to calculate the sum of 1 to 1000
+		$code_hint$
+		System.out.println(sum);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_while_loops_6_fail_1 !_sum_!">
+	            <![CDATA[System.out.println(sum)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_while_loops_6_fail_2 !_i_! !_1_! !_1000_!">
+	            <![CDATA[while (]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_while_loops_6_fail_3"
+	            hint="@string/course_java_while_loops_6_hint_1 !_sum_! !_sum_=_sum_+_i_!">
+	            <![CDATA[500500]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_while_loops_6_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_while_loops_7_task">
+	    </Exercise>
+	</Lesson>
+
+    
+    
+    
+    
+	<Lesson
+		id="Java For Loops"
+        title="@string/course_java_for_loops"
+		example="for (int i = 0; i &lt; 10; i++) {}"
+		description="@string/course_java_for_loops_description">
+
+	    <Exercise
+	        task="@string/course_java_for_loops_1_task !_i_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		for (int i = 0$code_hint$; i <= 5$code_hint_1$; i++$code_hint_3$)
+		{
+			System.out.println(i);$code_hint_2$
+		}
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_for_loops_2_task !_i_! !_5_!"
+	        level="1" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_for_loops_3_task !_i_!"
+	        level="1" >
+	        <CodeHint_2 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_for_loops_4_task !_i_!"
+	        level="1" >
+	        <CodeHint_3 />
+	        <ExpectedOutput
+	            fail="@string/course_java_for_loops_4_fail_1">
+	            <![CDATA[
+0
+1
+2
+3
+4
+5
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_for_loops_4_success !_0_! !_5_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_for_loops_5_task !_0_! !_10_!"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_for_loops_5_fail_1 !_i_!">
+	            <![CDATA[System.out.println(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_for_loops_5_fail_2">
+	            <![CDATA[for (int]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_for_loops_5_fail_3 !_0_! !_10_!"
+	            hint="@string/course_java_for_loops_5_hint_1 !_i_! !_10_!" >
+	            <![CDATA[
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_for_loops_5_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_java_for_loops_6_task !_10_! !_20_!"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_for_loops_6_fail_1 !_i_!">
+	            <![CDATA[System.out.println(i)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_for_loops_6_fail_2">
+	            <![CDATA[for (int]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_for_loops_6_fail_3 !_10_! !_20_!"
+	            hint="@string/course_java_for_loops_6_hint_1 !_i_!" >
+	            <![CDATA[
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_for_loops_6_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_java_for_loops_7_task !_10_! !_1_!"
+	        level="4" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		// for (initialization; condition; increment)
+		$code_hint$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_for_loops_7_fail_1 !_int_!">
+	            <![CDATA[for (int]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_for_loops_7_fail_2 !_--_!">
+	            <![CDATA[--]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_for_loops_7_fail_3">
+	            <![CDATA[System.out.println(]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_for_loops_7_fail_4 !_10_! !_1_!">
+	            <![CDATA[
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_for_loops_7_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_for_loops_8_task">
+	    </Exercise>
+	</Lesson>
+    
+	
+	
+	
+	
+	<Lesson
+		id="Java Static Methods"
+        title="@string/course_java_static_methods"
+		example="static void foo() {}"
+		description="@string/course_java_static_methods_description">
+
+	    <Exercise
+	        task="@string/course_java_static_methods_1_task !_foo_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		foo();$code_hint$
+		$code_hint_2$
+	}
+	
+	static void foo()$code_hint_1$
+	{
+		System.out.println("Inside foo");
+	}
+	
+	$code_hint_3$
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_2_task !_foo_!"
+	        level="1" >
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_static_methods_2_fail_1">
+	            <![CDATA[Inside foo]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_static_methods_2_success !_foo_! '_Inside_foo_'" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_java_static_methods_3_task !_foo()_!"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="@string/course_java_static_methods_3_fail_1 !_foo()_!">
+	            <![CDATA[
+Inside foo
+Inside foo
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_static_methods_3_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_4_task !_bar_! '_Inside_bar_'"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_java_static_methods_4_fail_1 !_static_void_bar()_!">
+	            <![CDATA[static void bar(]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_5_task !_bar_! !_foo_!"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_java_static_methods_5_fail_1 !_bar()_!">
+	            <![CDATA[bar();]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_static_methods_5_fail_2 '_Inside_foo_' '_Inside_foo_' '_Inside_bar_'">
+	            <![CDATA[
+Inside foo
+Inside foo
+Inside bar
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_static_methods_5_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_6_task !_print_! !_String_! !_str_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		print("Hello"$code_hint$);
+		$code_hint_3$
+	}
+	
+	static void print(String str$code_hint_1$)
+	{
+		System.out.println(str$code_hint_2$);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_7_task"
+	        level="1" >
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_8_task"
+	        level="1" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="@string/course_java_static_methods_8_fail_1">
+	            <![CDATA[Hello]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_static_methods_8_success '_Hello_'" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_9_task !_print_! '_World_'"
+	        level="2" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_java_static_methods_9_fail_1 !_print_! '_World_'">
+	            <![CDATA[print("World")]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_static_methods_9_fail_2 '_Hello_' '_World_'">
+	            <![CDATA[
+Hello
+World
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_static_methods_9_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_10_task !_printSum_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		printSum(10, 20);$code_hint_1$
+		$code_hint_2$
+	}
+	
+	static void printSum(int a, int b$code_hint$)
+	{
+		System.out.println(a + b);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_11_task"
+	        level="1" >
+	        <CodeHint_1 />
+	        <ExpectedOutput
+	            fail="@string/course_java_static_methods_11_fail_1">
+	            <![CDATA[30]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_static_methods_11_success !_10_! !_20_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_12_task !_printSum_! !_100_! !_200_!"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="@string/course_java_static_methods_12_fail_1 !_30_! !_300_!">
+	            <![CDATA[
+30
+300
+	            ]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_static_methods_12_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_13_task !_sum_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int x = sum(10, 20);$code_hint_1$
+		System.out.println(x);
+		$code_hint_3$
+	}
+	
+	static int$code_hint_2$ sum(int a, int b)
+	{
+		return a + b;$code_hint$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_14_task !_sum_! !_int_! !_void_!"
+	        level="1" >
+	        <CodeHint_2 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_15_task !_sum_!"
+	        level="1" >
+	        <CodeHint_1 />
+	        <ExpectedOutput
+	            fail="@string/course_java_static_methods_15_fail_1">
+	            <![CDATA[30]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_static_methods_15_success !_sum_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_16_task !_sum_! !_100_! !_200_!"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_java_static_methods_16_fail_1 !_sum_! !_100_! !_200_!">
+	            <![CDATA[sum(100, 200)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_static_methods_16_fail_2 !_30_! !_300_!">
+	            <![CDATA[
+30
+300
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_static_methods_16_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_17_task !_mult_!"
+	        level="4" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		System.out.println(mult(10, 20));
+		System.out.println(mult(100, 200));
+	}
+	
+	$code_hint$
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_static_methods_17_fail_1 !_static_int_mult(int_a,_int_b)_!">
+	            <![CDATA[static int mult(]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_static_methods_17_fail_2 !_return_! !_mult_!">
+	            <![CDATA[return]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_static_methods_17_fail_3 !_mult_!">
+	            <![CDATA[System.out.println(mult(10, 20))]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_static_methods_17_fail_4 !_mult_!">
+	            <![CDATA[System.out.println(mult(100, 200))]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_static_methods_17_fail_5">
+	            <![CDATA[
+200
+20000
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_static_methods_17_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_static_methods_18_task" >
+	    </Exercise>
+	</Lesson>
+
+	
+	
+	
+	<Lesson
+        id="Java Arrays"
+        title="@string/course_java_arrays"
+	    section="@string/course_java_arrays_section"
+        release_date="2014-07-01"
+		example="int[] a = new int[3];"
+		description="@string/course_java_arrays_description">
+
+	    <Exercise
+	        task="@string/course_java_arrays_1_task !_4_! !_8_! !_2_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int[]$code_hint_1$ a = { 4, 8, 2 }$code_hint$;
+		System.out.println(a[0]$code_hint_2$);
+		$code_hint_3$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_arrays_2_task !_[]_! !_a_! !_int_!"
+	        level="1" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_arrays_3_task !_a[0]_! !_0_!"
+	        level="1" >
+	        <CodeHint_2 />
+	        <Run  success="@string/course_java_arrays_3_success !_4_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_arrays_4_task !_1_!"
+	        level="3" >
+	        <CodeHint_3 />
+	         <ExpectedCode
+	            fail="@string/course_java_arrays_4_fail_1 !_a[1]_!">
+	            <![CDATA[a[1]]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="That's not the expected output.">
+	            <![CDATA[
+4
+8
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_arrays_4_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_arrays_5_task !_i_! !_0_! !_a.length_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int[] a = { 4, 8, 2 }$code_hint_2$;
+		for (int i = 0; i < a.length$code_hint$; i++)
+		{
+			$code_hint_1$
+		}
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_arrays_6_task !_i_!"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_arrays_6_fail_1 !_System.out.println(a[i])_! !_i_!">
+	            <![CDATA[System.out.println(a[i])]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_arrays_6_fail_2">
+	            <![CDATA[
+4
+8
+2
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_arrays_6_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_arrays_7_task !_a_! !_{_5,_7,_3,_9_}_!"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="@string/course_java_arrays_7_fail_1">
+	            <![CDATA[
+5
+7
+3
+9
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_arrays_7_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_arrays_8_task !_4_! !_0_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int[] a = new int[4$code_hint$];
+		System.out.println(a[0]);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run  success="@string/course_java_arrays_8_success !_0_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_arrays_9_task !_5_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		int[] a = new int[4];
+		a[0] = 5;$code_hint$
+		System.out.println(a[0]);
+		$code_hint_1$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run  success="@string/course_java_arrays_9_success !_5_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_arrays_10_task !_1_! !_7_!"
+	        level="2" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_arrays_10_fail_1 !_a[1]_=_7_!">
+	            <![CDATA[a[1] = 7]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_arrays_10_fail_2 !_a[1]_!">
+	            <![CDATA[System.out.println(a[1])]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_arrays_10_fail_3">
+	            <![CDATA[
+5
+7
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_arrays_10_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_arrays_11_task" >
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	<Lesson
+        id="Java Classes and Objects"
+        title="@string/course_java_classes_and_objects"
+	    section="@string/course_java_classes_and_objects_section"
+		example="class Rectangle {}"
+		description="@string/course_java_classes_and_objects_description">
+
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_1_task !_Rectangle_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+	}
+}
+
+class Rectangle$code_hint$
+{
+	int width;$code_hint_1$
+	int height;
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_2_task !_Rectangle_! !_width_! !_height_!"
+	        level="1" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_3_task !_Rectangle_! !_new_Rectangle()_! !_rect_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle();$code_hint$
+	}
+}
+
+class Rectangle
+{
+	int width;
+	int height;
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_4_task !_width_! !_100_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle();
+		
+		rect.width = 100;$code_hint$
+		System.out.println(rect.width);
+		$code_hint_1$
+	}
+}
+$code_hint_2$
+class Rectangle
+{
+	int width;
+	int height;
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_classes_and_objects_4_fail_1">
+	            <![CDATA[100]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_classes_and_objects_4_success !_width_! !_Rectangle_! !_100_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_5_task !_height_! !_Rectangle_! !_200_!"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_5_fail_1 !_rect.height_=_200_!">
+	            <![CDATA[rect.height = 200]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_5_fail_2 !_height_! !_rect_!">
+	            <![CDATA[System.out.println(rect.height)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_classes_and_objects_5_fail_3 !_height_! !_200_!">
+	            <![CDATA[
+100
+200
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_classes_and_objects_5_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_6_task !_Rectangle_! !_rect2_! !_width_! !_10_! !_height_! !_20_!"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_6_fail_1 !_Rectangle_! !_rect2_!">
+	            <![CDATA[Rectangle rect2 = new Rectangle()]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_6_fail_2 !_width_! !_rect2_! !_10_!">
+	            <![CDATA[rect2.width = 10]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_6_fail_3 !_height_! !_rect2_! !_20_!">
+	            <![CDATA[rect2.height = 20]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_6_fail_4 !_width_! !_rect2_!">
+	            <![CDATA[System.out.println(rect2.width)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_6_fail_5 !_height_! !_rect2_!">
+	            <![CDATA[System.out.println(rect2.height)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_classes_and_objects_6_fail_6">
+	            <![CDATA[
+100
+200
+10
+20
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_classes_and_objects_6_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_7_task !_Point_! !_x_! !_y_!"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_7_fail_1 !_Point_! !_Rectangle_!">
+	            <![CDATA[class Point]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_7_fail_2 !_x_! !_Point_!">
+	            <![CDATA[int x;]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_7_fail_3 !_y_! !_Point_!">
+	            <![CDATA[int y;]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_8_task !_Point_! !_p_!"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_8_fail_1 !_Point_! !_p_!">
+	            <![CDATA[Point p = new Point();]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_9_task !_x_! !_p_! !_4_! !_y_! !_5_! !_p.x_! !_p.y_!"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_9_fail_1 !_x_! !_p_! !_4_!">
+	            <![CDATA[p.x = 4]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_9_fail_2 !_y_! !_p_! !_5_!">
+	            <![CDATA[p.y = 5]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_9_fail_3 !_p.x_!">
+	            <![CDATA[System.out.println(p.x)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_9_fail_4 !_p.y_!">
+	            <![CDATA[System.out.println(p.y)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_classes_and_objects_9_fail_5">
+	            <![CDATA[
+100
+200
+10
+20
+4
+5
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_classes_and_objects_9_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_10_task !_position_! !_Rectangle_! !_Point_!"
+	        level="4" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle();
+		rect.width = 100;
+		System.out.println(rect.width);
+		rect.height = 200;
+		System.out.println(rect.height);
+		
+		Rectangle rect2 = new Rectangle();
+		rect2.width = 10;
+		System.out.println(rect2.width);
+		rect2.height = 20;
+		System.out.println(rect2.height);
+		
+		Point p = new Point();
+		p.x = 4;
+		p.y = 5;
+		System.out.println(p.x);
+		System.out.println(p.y);
+		$code_hint_1$
+	}
+}
+
+class Point
+{
+	int x;
+	int y;
+}
+
+class Rectangle
+{
+	int width;
+	int height;
+	$code_hint$
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            start_line="11"
+	            fail="@string/course_java_classes_and_objects_10_fail_1 !_Point_position_! !_Rectangle_!">
+	            <![CDATA[Point position;]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_11_task !_p_! !_position_! !_rect2_!"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_11_fail_1 !_p_! !_rect2.position_! !_rect2.position_=_p_!">
+	            <![CDATA[rect2.position = p]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_12_task !_rect2.position.x_! !_rect2.position.y_!"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_12_fail_1 !_rect2.position.x_!">
+	            <![CDATA[System.out.println(rect2.position.x)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_classes_and_objects_12_fail_2 !_rect2.position.y_!">
+	            <![CDATA[System.out.println(rect2.position.y)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_classes_and_objects_12_fail_3">
+	            <![CDATA[
+100
+200
+10
+20
+4
+5
+4
+5
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_classes_and_objects_12_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_classes_and_objects_13_task">
+	    </Exercise>
+	</Lesson>
+		
+	
+	
+	
+	
+	<Lesson
+        id="Java Constructors"
+        title="@string/course_java_constructors"
+		example="new Rectangle(100, 200)"
+		description="@string/course_java_constructors_description">
+
+	    <Exercise
+	        task="@string/course_java_constructors_1_task !_Rectangle_! !_width_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+	}
+}
+
+class Rectangle
+{
+	int width;
+	int height;
+	
+	// A constructor
+	Rectangle(int width)$code_hint$
+	{
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_constructors_2_task !_Rectangle_! !_100_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100);$code_hint$
+	}
+}
+
+class Rectangle
+{
+	int width;
+	int height;
+	
+	// A constructor
+	Rectangle(int width) 
+	{
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_constructors_3_task !_width_! !_width_! !_this_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100);
+	}
+}
+
+class Rectangle
+{
+	int width;
+	int height;
+	
+	// A constructor
+	Rectangle(int width)
+	{
+		this.width = width;$code_hint$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_constructors_4_task !_width_! !_Rectangle_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100);
+		System.out.println(rect.width);$code_hint$
+		$code_hint_3$
+	}
+}
+
+class Rectangle
+{
+	int width;
+	int height;
+	
+	// A constructor
+	Rectangle(int width$code_hint_2$)
+	{
+		this.width = width;
+		$code_hint_1$
+	}
+	
+	$code_hint_4$
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_constructors_4_fail_1">
+	            <![CDATA[100]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_constructors_4_success !_width_! !_Rectangle_! !_100_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_constructors_5_task !_height_! !_200_!"
+	        level="4" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_java_constructors_5_fail_1 !_int_height_!">
+	            <![CDATA[Rectangle(int width, int height)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_constructors_5_fail_2 !_200_! !_Rectangle_!">
+	            <![CDATA[new Rectangle(100, 200)]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_constructors_6_task !_height_!"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_constructors_6_fail_1 !_this.height_=_height_!">
+	            <![CDATA[this.height = height]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_constructors_7_task !_rect.height_!"
+	        level="4" >
+	         <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_java_constructors_7_fail_1 !_rect.height_!">
+	            <![CDATA[System.out.println(rect.height)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_constructors_7_fail_2">
+	            <![CDATA[
+100
+200
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_constructors_7_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_constructors_8_task !_Rectangle_! !_10_! !_20_! !_rect2_! !_width_! !_height_!"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_java_constructors_8_fail_1 !_width_! !_rect2_!">
+	            <![CDATA[System.out.println(rect2.width)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_constructors_8_fail_2 !_height_! !_rect2_!">
+	            <![CDATA[System.out.println(rect2.height)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_constructors_8_fail_3">
+	            <![CDATA[
+100
+200
+10
+20
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_constructors_8_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_constructors_9_task !_height_! !_width_! !_100_!"
+	        level="4" >
+	         <CodeHint_4 />
+	        <ExpectedCode
+	            fail="@string/course_java_constructors_9_fail_1 !_Rectangle()_{}_! !_Rectangle_!">
+	            <![CDATA[Rectangle()]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_constructors_9_fail_2 !_this.width_! !_100_!">
+	            <![CDATA[this.width = 100]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_constructors_9_fail_3 !_this.height_! !_100_!">
+	            <![CDATA[this.height = 100]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_constructors_10_task !_Rectangle_! !_rect3_! !_width_! !_height_!"
+	        level="4" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_java_constructors_10_fail_1 !_Rectangle_rect3_=_new_Rectangle();_!">
+	            <![CDATA[rect3 = new Rectangle()]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_constructors_10_fail_2">
+	            <![CDATA[
+100
+200
+10
+20
+100
+100
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_constructors_10_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_constructors_11_task">
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	
+	<Lesson
+        id="Java Methods"
+        title="@string/course_java_methods"
+		example="int getWidth() { return this.width; }"
+		description="@string/course_java_methods_description">
+
+	    <Exercise
+	        task="@string/course_java_methods_1_task !_Rectangle_! !_width_! !_height_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100, 200);$code_hint$
+	}
+}
+
+class Rectangle
+{
+	int width;
+	int height;
+	
+	Rectangle(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_methods_2_task !_getWidth()_! !_Rectangle_! !_width_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100, 200);
+	}
+}
+
+class Rectangle
+{
+	int width;
+	int height;
+	
+	Rectangle(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+	}
+	
+	// The method
+	int getWidth()$code_hint$
+	{
+		return this.width;
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_methods_3_task !_getWidth()_! !_Rectangle_! !_this_! !_getWidth()_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100, 200);
+		System.out.println(rect.getWidth());$code_hint$
+		$code_hint_2$
+	}
+}
+
+class Rectangle
+{
+	int width;
+	int height;
+	
+	Rectangle(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+	}
+	$code_hint_1$
+	// The method
+	int getWidth()
+	{
+		return this.width;
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_methods_3_fail_1">
+	            <![CDATA[100]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_methods_3_success !_getWidth_! !_100_! !_width_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_methods_4_task !_getHeight()_!"
+	        level="2" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_methods_4_fail_1 !_int_getHeight()_! !_Rectangle_!">
+	            <![CDATA[int getHeight()]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_methods_5_task !_getHeight()_!"
+	        level="2" >
+	        <CodeHint_2 />
+	         <ExpectedCode
+	            fail="@string/course_java_methods_5_fail_1 !_getHeight()_!">
+	            <![CDATA[.getHeight()]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_methods_5_fail_2">
+	            <![CDATA[
+100
+200
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_methods_5_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_methods_6_task !_getArea()_!"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_methods_6_fail_1 !_int_getArea()_! !_Rectangle_!">
+	            <![CDATA[int getArea()]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_methods_6_fail_2 !_with_*_height_!">
+	            <![CDATA[*]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_methods_7_task !_getArea()_!"
+	        level="4" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_java_methods_7_fail_1 !_getArea_!">
+	            <![CDATA[rect.getArea()]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_methods_7_fail_2">
+	            <![CDATA[
+100
+200
+20000
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_methods_7_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_methods_8_task !_void_setWidth(int_width)_! !_Rectangle_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100, 200);
+		System.out.println(rect.getWidth());
+		System.out.println(rect.getHeight());
+		System.out.println(rect.getArea());
+		
+		rect.setWidth(10);$code_hint_1$
+		System.out.println(rect.getArea());
+	}
+}
+
+class Rectangle
+{
+	int width;
+	int height;
+	
+	Rectangle(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+	}
+	
+	// A setter method
+	void setWidth(int width)$code_hint$
+	{
+		this.width = width;
+	}
+	
+	int getWidth()
+	{
+		return this.width;
+	}
+	
+	int getHeight()
+	{
+		return this.height;
+	}
+	
+	int getArea()
+	{
+		return this.width * this.height;
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_methods_9_task !_setWidth()_! !_10_!"
+	        level="1" >
+	        <CodeHint_1 />
+	        <ExpectedOutput
+	            fail="@string/course_java_methods_9_fail_1">
+	            <![CDATA[
+100
+200
+20000
+2000
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_methods_9_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_methods_10_task !_setHeight()_!"
+	        level="3" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100, 200);
+		System.out.println(rect.getWidth());
+		System.out.println(rect.getHeight());
+		System.out.println(rect.getArea());
+		
+		rect.setWidth(10);
+		rect.setHeight(20);
+		System.out.println(rect.getArea());
+		
+		$code_hint_1$
+	}
+}
+
+class Rectangle
+{
+	int width;
+	int height;
+	
+	Rectangle(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+	}
+	$code_hint$
+	void setWidth(int width)
+	{
+		this.width = width;
+	}
+	
+	int getWidth()
+	{
+		return this.width;
+	}
+	
+	int getHeight()
+	{
+		return this.height;
+	}
+	
+	int getArea()
+	{
+		return this.width * this.height;
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedOutput
+	            fail="@string/course_java_methods_10_fail_1"
+	            Hint="Hint: Add a method !_void setHeight(int height)_! and set !_this.height_! to the method parameter value.">
+	            <![CDATA[
+100
+200
+20000
+200
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_methods_10_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_methods_11_task !_void_scale(int_factor)_! !_factor_!"
+	        level="4" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_methods_11_fail_1 !_void_scale(int_factor)_{}_! !_Rectangle_!">
+	            <![CDATA[void scale(int factor)]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_java_methods_11_fail_2 !_scale_! !_width_! !_height_! !_width_=_width_*_factor_! !_height_=_height_*_factor_!">
+	            <![CDATA[* factor]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_methods_12_task !_scale_! !_rect_! !_10_!"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_methods_12_fail_1 !_rect.scale(10)_!">
+	            <![CDATA[rect.scale(10)]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_methods_12_fail_2">
+	            <![CDATA[
+100
+200
+20000
+200
+20000
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_methods_12_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_methods_13_task">
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	<Lesson
+        id="Java Access Modifiers"
+        title="@string/course_java_access_modifiers"
+        release_date="2014-05-01"
+		example="private int width;"
+		description="@string/course_java_access_modifiers_description">
+
+	    <Exercise
+	        task="@string/course_java_access_modifiers_1_task !_Rectangle_! !_width_! !_height_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100, 200);$code_hint$
+		$code_hint_2$
+	}
+}
+
+class Rectangle
+{
+	int width;
+	int height;
+	
+	Rectangle(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+	}
+	
+	int getHeight()$code_hint_1$
+	{
+		return this.height;
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_access_modifiers_2_task !_getHeight_! !_height_!"
+	        level="1" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_access_modifiers_3_task !_getHeight()_! !_rect_!"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_java_access_modifiers_3_fail_1 !_rect.getHeight()_!">
+	            <![CDATA[rect.getHeight()]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_access_modifiers_3_fail_2">
+	            <![CDATA[
+200
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_access_modifiers_3_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_access_modifiers_4_task !_height_! !_rect_!"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_java_access_modifiers_4_fail_1 !_rect.height_!">
+	            <![CDATA[rect.height]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_access_modifiers_4_fail_2">
+	            <![CDATA[
+200
+200
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_access_modifiers_4_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_access_modifiers_5_task !_private_! !_height_!"
+	        level="3" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100, 200);
+		
+		System.out.println(rect.getHeight());
+		System.out.println(rect.height$code_hint_1$);
+	}
+}
+
+class Rectangle
+{
+	int width;
+	$code_hint$int height;
+	
+	Rectangle(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+	}
+	
+	$code_hint_3$int getHeight()
+	{
+		return this.height;$code_hint_2$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_access_modifiers_5_fail_1 !_private_int_height;_!">
+	            <![CDATA[private int height]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_access_modifiers_6_task !_println_! !_height_! !_private_!"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedOutput
+	            fail="@string/course_java_access_modifiers_6_fail_1">
+	            <![CDATA[
+200
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_access_modifiers_6_success !_getHeight_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_access_modifiers_7_task !_height_!"
+	        level="1" >
+	        <CodeHint_2 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_access_modifiers_8_task !_public_! !_getHeight_!"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_java_access_modifiers_8_fail_1 !_public_int_getHeight()_!">
+	            <![CDATA[public int getHeight]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_access_modifiers_8_fail_2">
+	            <![CDATA[
+200
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_access_modifiers_8_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_access_modifiers_9_task !_width_! !_private_!"
+	        level="2" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100, 200);
+		
+		System.out.println(rect.getHeight());
+		$code_hint_2$
+	}
+}
+
+class Rectangle
+{
+	$code_hint$int width;
+	private int height;
+	
+	Rectangle(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+	}
+	
+	$code_hint_1$
+	
+	public int getHeight()
+	{
+		return this.height;
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_access_modifiers_9_fail_1 !_private_int_width;_!">
+	            <![CDATA[private int width]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_access_modifiers_10_task !_public_! !_getWidth_!"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_access_modifiers_10_fail_1 !_public_int_getWidth()_!">
+	            <![CDATA[public int getWidth()]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_access_modifiers_11_task !_getWidth()_! !_rect_!"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_java_access_modifiers_11_fail_1 !_rect.getWidth()_!">
+	            <![CDATA[rect.getWidth()]]>
+	        </ExpectedCode>
+	        <ExpectedOutput
+	            fail="@string/course_java_access_modifiers_11_fail_2">
+	            <![CDATA[
+200
+100
+				]]>
+	        </ExpectedOutput>
+	        <Run  success="@string/course_java_access_modifiers_11_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_access_modifiers_12_task">
+	    </Exercise>
+	</Lesson>
+	    
+	    
+	   
+	
+	<Lesson
+        id="Java Inheritance"
+        title="@string/course_java_inheritance"
+        release_date="2014-05-01"
+		example="class Square extends Rectangle"
+		description="@string/course_java_inheritance_description">
+
+	    <Exercise
+	        task="@string/course_java_inheritance_1_task !_Rectangle_! !_width_! !_height_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100, 200);
+		System.out.println(rect.getArea());$code_hint$
+	}
+}
+
+$code_hint_1$
+
+class Rectangle
+{
+	private int width;
+	private int height;
+	
+	public Rectangle(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+	}
+	
+	public int getArea()
+	{
+		return width * height;
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <Run success="@string/course_java_inheritance_1_success !_Square_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_inheritance_2_task !_class_Square_{}_! !_Rectangle_!" 
+	        code_file="Main.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_inheritance_2_fail_1 !_class_Square_{}_!">
+				<![CDATA[class Square]]>
+	        </ExpectedCode>
+	    </Exercise>
+		<Exercise
+	        task="@string/course_java_inheritance_3_task !_extends_Rectangle_! !_Square_! !_Square_! !_Rectangle_!"
+	        level="4" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100, 200);
+		System.out.println(rect.getArea());
+	}
+}
+
+class Square $code_hint$
+{
+}$code_hint_1$
+
+class Rectangle
+{
+	private int width;
+	private int height;
+	
+	public Rectangle(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+	}
+	
+	public int getArea()
+	{
+		return width * height;
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_inheritance_3_fail_1 !_class_Square_extends_Rectangle_!">
+	            <![CDATA[class Square extends Rectangle]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_inheritance_4_task !_Square_!"
+	        level="1" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_inheritance_5_task !_size_!"
+	        level="1" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100, 200);
+		System.out.println(rect.getArea());
+		
+		$code_hint_2$
+	}
+}
+
+class Square extends Rectangle
+{
+	public Square(int size)$code_hint$
+	{
+		super(size, size)$code_hint_1$;
+	}
+}
+
+class Rectangle
+{
+	private int width;
+	private int height;
+	
+	public Rectangle(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+	}
+	
+	public int getArea()
+	{
+		return width * height;
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_inheritance_6_task !_super_! !_Rectangle_! !_size_!"
+	        level="1" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_inheritance_7_task !_Square_! !_100_! !_Square_square_!" 
+	        code_file="Main.java"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_java_inheritance_7_fail_1 !_Square_square_=_new_Square(100);_!">
+				<![CDATA[Square square = new Square(100);]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_inheritance_8_task !_square.getArea()_! !_getArea_! !_Square_! !_Rectangle_!" 
+	        code_file="Main.java"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedOutput
+	            fail="@string/course_java_inheritance_8_fail_1" >
+				<![CDATA[
+20000
+10000
+				]]>
+	        </ExpectedOutput>
+	        <Run success="@string/course_java_inheritance_8_success !_100_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_inheritance_9_task !_Rectangle_! !_Square_! !_Rectangle_!"
+	        level="2" >
+	        <SourceCode>
+	            <![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Rectangle rect = new Rectangle(100, 200);
+		System.out.println(rect.getArea());
+		
+		Square$code_hint$ square = new Square(100);
+		System.out.println(square.getArea());
+	}
+}
+
+class Square extends Rectangle
+{
+	public Square(int size)
+	{
+		super(size, size);
+	}
+}
+
+class Rectangle
+{
+	private int width;
+	private int height;
+	
+	public Rectangle(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+	}
+	
+	public int getArea()
+	{
+		return width * height;
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_inheritance_9_fail_1 !_Rectangle_square_=_new_Square(100);_!">
+				<![CDATA[Rectangle square = new Square(100);]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_java_inheritance_9_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_inheritance_10_task">
+	    </Exercise>
+	</Lesson>
+	
+
+
+	
+	<Lesson
+        id="Java Packages and Imports"
+	    title="@string/course_java_packages_and_imports"
+    	section="@string/course_java_packages_and_imports_section"
+    	release_date="2014-04-02"
+		example="import java.util.*"
+		description="@string/course_java_packages_and_imports_description">
+	    <Files 
+	        template="simple_project"
+	        template2="packages"
+	        project_name="My Java Application">
+	    	<CodeFile name="Main.java" />    
+			<CodeFile name="MyClass.java" />    
+	    </Files>
+	    <Exercise
+	        task="@string/course_java_packages_and_imports_1_task !_MyClass_!"
+	        code_file="MyClass.java"
+	        level="1" >
+	    	<SourceCode code_file="MyClass.java">
+				<![CDATA[
+$space$
+package com.mycompany.mypackage;$code_hint_1$
+
+public class MyClass$code_hint$
+{
+	public static void foo()
+	{
+		System.out.println("Inside com.mycompany.mypackage.MyClass.foo()");
+	}
+}
+				]]>
+	        </SourceCode>
+	    	<SourceCode code_file="Main.java">
+				<![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_packages_and_imports_2_task !_com.mycompany.mypackage_!" 
+	        code_file="MyClass.java"
+	        level="1" >
+	        <CodeHint_1 />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_packages_and_imports_3_task !_Main.java_! !_import_com.mycompany.mypackage.*;_!" 
+	        code_file="Main.java"
+	        level="3" >
+	        <SourceCode code_file="Main.java">
+				<![CDATA[
+$space$
+$code_hint$
+
+public class Main
+{
+	public static void main(String[] args)
+	{
+		$code_hint_1$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_packages_and_imports_3_fail_1 !_import_com.mycompany.mypackage.*;_!">
+				<![CDATA[import com.mycompany.mypackage.*;]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_packages_and_imports_4_task !_MyClass.foo()_!" 
+	        code_file="Main.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_java_packages_and_imports_4_fail_1 !_MyClass.foo();_!">
+				<![CDATA[MyClass.foo();]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_java_packages_and_imports_4_success !_foo_! !_MyClass_!" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_packages_and_imports_5_task" 
+	        code_file="Main.java"
+	        level="3" >
+	        <SourceCode code_file="Main.java">
+				<![CDATA[
+public class Main
+{
+	public static void main(String[] args)
+	{
+		MyClass.foo();$code_hint$
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_packages_and_imports_5_fail_1">
+				<![CDATA[import com.mycompany.mypackage]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_java_packages_and_imports_5_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_java_packages_and_imports_6_task !_Random_! !_java.util_!" 
+	        code_file="Main.java"
+	        level="4" >
+	        <SourceCode code_file="Main.java">
+				<![CDATA[
+$space$
+import com.mycompany.mypackage.*;
+
+public class Main
+{
+	public static void main(String[] args)
+	{
+		MyClass.foo();
+		
+		int i = new Random$code_hint$().nextInt();
+		System.out.println(i);
+	}
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_java_packages_and_imports_6_fail_1">
+				<![CDATA[import java.util]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_java_packages_and_imports_6_success !_java.util.Random_!" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_java_packages_and_imports_7_task"
+	        code_file="Main.java" >
+	    </Exercise>
+	</Lesson>
+	
+</Course>

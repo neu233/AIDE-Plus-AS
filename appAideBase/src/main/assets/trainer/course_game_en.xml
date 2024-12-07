@@ -1,0 +1,2472 @@
+<Course
+    icon="ic_launcher_game"
+    release_date="2014-03-26"
+	title="@string/course_game"
+	full_title="@string/course_game_long_title"
+	code_section="@string/course_game_code_section"
+	code_template="@string/course_game_code_template" >|
+
+    <Files 
+        template="libgdx_project"
+        open_path="gdx-game-android"
+        project_name="My Game"
+        package_name="mylibgdxgame" >
+    	<CodeFile name="MyGdxGame.java" />    
+    </Files>
+    
+    
+    
+	<Lesson
+	    id="Game Your first Game"
+    	release_date="2014-03-27"
+	    title="@string/course_game_your_first_game"
+    	section="@string/course_game_your_first_game_section"
+		example="class MyGdxGame"
+		description="@string/course_game_your_first_game_description">
+		<Files 
+	        template="libgdx_project"
+	        template2="libgdx_run_game"
+	        open_path="gdx-game-android"
+	        project_name="My Game"
+	        package_name="mylibgdxgame" >
+	    	<CodeFile name="MyGdxGame.java" />    
+	    </Files>
+	    <Exercise
+	        task="@string/course_game_your_first_game_1_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.audio.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.*;
+import java.util.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+	int ROCK_DISTANCE = 600$code_hint$;
+
+	OrthographicCamera camera;
+    Animation walkAnimation;
+	TextureRegion backgroundTexture;
+	TextureRegion rockTexture;
+	Sound collisionSound;
+	BitmapFont font;
+    SpriteBatch batch;
+
+    float time;
+	Rectangle manPosition;
+	Vector2 manVelocity;
+	
+	List<Rectangle> rockPositions;
+
+    @Override
+    public void create()
+	{
+		Texture texture = new Texture(Gdx.files.internal("skyBackground.jpg"));
+		backgroundTexture = new TextureRegion(texture, 0, 0, 2048, 563);
+
+		Texture texture2 = new Texture(Gdx.files.internal("rock.png"));
+		rockTexture = new TextureRegion(texture2, 25, 0, 250, 250);
+		rockPositions = new ArrayList<Rectangle>();
+		int x = 1800;
+		for (int i = 0; i < 60; i++)
+		{
+			rockPositions.add(new Rectangle(x, 0, 100, 100));
+			x += ROCK_DISTANCE + new Random().nextInt(600);
+		}
+		
+        Texture walkSheet = new Texture(Gdx.files.internal("runAnimation.png"));
+		int FRAME_COLS = 6;
+		int FRAME_ROWS = 5;
+        TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS, walkSheet.getHeight() / FRAME_ROWS);
+        TextureRegion[] walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+        int index = 0;
+        for (int i = 0; i < FRAME_ROWS; i++)
+		{
+            for (int j = 0; j < FRAME_COLS; j++)
+			{
+                walkFrames[index++] = tmp[i][j];
+            }
+        }
+        walkAnimation = new Animation(0.025f, walkFrames);
+
+		font = new BitmapFont();
+		
+		collisionSound = Gdx.audio.newSound(Gdx.files.internal("collision.wav"));
+		
+        batch = new SpriteBatch();
+		camera = new OrthographicCamera();
+		resetGame();
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+		
+		for (int i = 0; i < 30; i++)
+			batch.draw(backgroundTexture, i * 2900, 0, 2900, 800);
+		
+		for (Rectangle r : rockPositions)
+			batch.draw(rockTexture, r.x, r.y, r.width, r.height);
+			
+        batch.draw(walkAnimation.getKeyFrame(time, true), manPosition.x, manPosition.y, manPosition.width, manPosition.height);
+		
+		font.draw(batch, (int) (manPosition.x / 70) + "m", camera.position.x - 10, 30);
+        batch.end();
+
+		if (Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.BUTTON_A) || Gdx.input.isKeyPressed(Input.Keys.DPAD_CENTER))
+			if (manPosition.y == 0)
+				manVelocity.y = 500;
+		
+		time += Gdx.graphics.getDeltaTime();
+		manPosition.x += manVelocity.x * Gdx.graphics.getDeltaTime();
+		manPosition.y += manVelocity.y * Gdx.graphics.getDeltaTime();
+		manVelocity.y -= 1000 * Gdx.graphics.getDeltaTime();
+		if (manPosition.y < 0) 
+		{
+			manPosition.y = 0;
+			manVelocity.y = 0;
+		}
+
+		camera.translate((manVelocity.x - camera.viewportWidth / 80) * Gdx.graphics.getDeltaTime(), 0);
+		
+		for (Rectangle r : rockPositions)
+			if (r.overlaps(manPosition) && r.getCenter(new Vector2()).dst(manPosition.getCenter(new Vector2())) < 120)
+			{
+				collisionSound.play();
+				resetGame();
+				break;
+			}
+    }
+	
+	private void resetGame()
+	{
+		configureCamera();
+		manPosition = new Rectangle(0, 0, 200, 200);
+		manVelocity = new Vector2(500, 0);
+	}
+
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		resetGame();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}				
+				]]>
+	        </SourceCode>
+	        <Run
+	            success="@string/course_game_your_first_game_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_your_first_game_2_task !__600__! !__2000__!"
+	        code_file="MyGdxGame.java"
+	        level="4" >
+	        <ExpectedCode
+	            fail="@string/course_game_your_first_game_2_fail_1 !__int_ROCK__DISTANCE_=_2000;__!">
+				<![CDATA[ROCK_DISTANCE = 2000;]]>
+	        </ExpectedCode>
+	        <CodeHint />
+	        <Run  
+	            success="@string/course_game_your_first_game_2_success" />
+	    </Exercise>
+		<Exercise
+	        task="@string/course_game_your_first_game_3_task"
+	        code_file="MyGdxGame.java" >
+	    </Exercise>
+	</Lesson>
+
+	
+	
+			
+	
+	<Lesson
+	    id="Game Game Engine Basics"
+	    title="@string/course_game_game_engine_basics"
+		example="initialize(new MyGdxGame(), cfg)"
+		description="@string/course_game_game_engine_basics_description">
+		<Files 
+	        template="libgdx_project"
+	        open_path="gdx-game-android"
+	        project_name="My Game"
+	        package_name="mylibgdxgame" >
+	    	<CodeFile name="AndroidManifest.xml" />    
+	    	<CodeFile name="MainActivity.java" />    
+	    	<CodeFile name="MyGdxGame.java" />    
+	    </Files>
+	    <Exercise
+	        task="@string/course_game_game_engine_basics_1_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MainActivity.java">
+				<![CDATA[
+package $package_name$;
+
+import android.os.*;
+import com.badlogic.gdx.backends.android.*;
+
+public class MainActivity$code_hint$ extends AndroidApplication$code_hint_1$
+{
+    @Override
+    public void onCreate$code_hint_2$(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+
+        AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
+
+        initialize(new MyGdxGame()$code_hint_3$, cfg);
+    }
+}
+				]]>
+			</SourceCode>
+	        <SourceCode code_file="AndroidManifest.xml">
+				<![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aide.trainer.mylibgdxgame"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="5" android:targetSdkVersion="17" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".MainActivity"$code_hint$
+            android:label="@string/app_name"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+				]]>
+			</SourceCode>
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;$code_hint_1$
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+
+public class MyGdxGame$code_hint$ implements ApplicationListener
+{
+    SpriteBatch batch;
+    BitmapFont font;
+
+    @Override
+    public void create()$code_hint_2$
+	{        
+        batch = new SpriteBatch();    
+        font = new BitmapFont();
+        font.setColor(Color.BLACK$code_hint_3$);
+        font.setScale(3);
+    }
+
+    @Override
+    public void render$code_hint_4$()
+	{        
+        Gdx.gl.glClearColor(1, 1, 1, 1)$code_hint_5$;
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.begin();
+        font.draw(batch, "Hello World", 100$code_hint_6$, 100);
+        batch.end();
+    }
+
+    @Override
+    public void dispose()
+	{
+        batch.dispose();
+        font.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <Run
+	            success="@string/course_game_game_engine_basics_1_success '__Hello_World__'" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_game_engine_basics_2_task !__activity__! !__MainActivity__!"
+	        code_file="AndroidManifest.xml"
+	        level="1" >
+	        <CodeHint />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_game_engine_basics_3_task !__MainActivity__!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <CodeHint />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_game_engine_basics_4_task !__MainActivity__! !__AndroidApplication__!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <CodeHint_1 />
+		</Exercise>
+		 <Exercise
+	        task="@string/course_game_game_engine_basics_5_task !__onCreate__!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <CodeHint_2 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_game_engine_basics_6_task !__onCreate__! !__MyGdxGame__! !__MainActivity__!"
+	        code_file="MainActivity.java"
+	        level="1" >
+	        <CodeHint_3 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_game_engine_basics_7_task !__MyGdxGame__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_game_engine_basics_8_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_1 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_game_engine_basics_9_task !__create()__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_2 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_game_engine_basics_10_task !__create()__! '__Hello_World__' !__RED__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_game_game_engine_basics_10_fail_1 !__font.setColor(Color.RED)__!">
+				<![CDATA[Color.RED]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_game_engine_basics_10_success '__Hello_World__'" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_game_engine_basics_11_task !__render()__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_4 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_game_engine_basics_12_task !__glClearColor()__! !__(0,0,0,1)__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_5 />
+	        <ExpectedCode
+	            fail="@string/course_game_game_engine_basics_12_fail_1 !__Gdx.gl.glClearColor(0,0,0,1)__!">
+				<![CDATA[glClearColor(0,0,0,1)]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_game_engine_basics_12_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_game_engine_basics_13_task !__font.draw()__! '__Hello_World__' !__200__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_6 />
+	        <ExpectedCode
+	            fail="@string/course_game_game_engine_basics_13_fail_1 !__font.draw(batch,_&quot;Hello_World&quot;,_200,_100)__!">
+				<![CDATA[font.draw(batch, "Hello World", 200, 100)]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_game_engine_basics_13_success '__Hello_World__'" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_game_engine_basics_14_task"
+	        code_file="MyGdxGame.java" >
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	<Lesson
+	    id="Game Camera and Scene"
+	    title="@string/course_game_camera_and_scene"
+	    section="@string/course_game_camera_and_scene_section"
+		example="camera = new OrthographicCamera()"
+		description="@string/course_game_camera_and_scene_description">
+	    <Exercise
+	        task="@string/course_game_camera_and_scene_1_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.glutils.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    ShapeRenderer shapeRenderer;
+    OrthographicCamera camera;
+
+    @Override
+    public void create()
+	{        
+		camera = new OrthographicCamera();
+		configureCamera();$code_hint$
+		
+		shapeRenderer = new ShapeRenderer();$code_hint_7$
+    }
+
+    @Override
+    public void render()
+	{        
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		camera.update();
+		shapeRenderer.setProjectionMatrix(camera.combined);$code_hint_3$
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		
+		shapeRenderer.setColor(0, 0.5f, 0, 1);
+		shapeRenderer.circle(50, 50, 40);$code_hint_4$
+		$code_hint_5$
+		shapeRenderer.setColor(0.5f, 0, 0, 1);
+		shapeRenderer.rect(10, 100, 80, 80);
+		
+		shapeRenderer.setColor(0, 0, 0.5f, 1);
+		shapeRenderer.triangle(10, 200, 90, 200, 50, 270);
+		
+		shapeRenderer.end();
+    }
+
+	private void configureCamera()
+	{
+		float size = 800$code_hint_6$;
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())$code_hint_1$
+			camera.setToOrtho$code_hint_2$(false, size, size * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, size * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), size);
+	}
+	
+    @Override
+    public void dispose()
+	{
+        shapeRenderer.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_game_camera_and_scene_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_camera_and_scene_2_task !__OrthographicCamera__! !__configureCamera()__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_camera_and_scene_3_task !__ShapeRenderer__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_7 />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_camera_and_scene_4_task !__configureCamera()__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_1 />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_camera_and_scene_5_task !__setToOrtho()__! !__800__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_2 />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_camera_and_scene_6_task !__render__! !__setProjectionMatrix()__! !__ShapeRenderer__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_3 />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_camera_and_scene_7_task !__circle__! !__(x_=_50,_y_=_50)__! !__40__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_4 />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_camera_and_scene_8_task !__(x_=_140,_y_=_50)__! !__40__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_5 />
+	        <ExpectedCode
+	            fail="@string/course_game_camera_and_scene_8_fail_1 !__shapeRenderer.circle(140,_50,_40);__!">
+				<![CDATA[shapeRenderer.circle(140, 50, 40);]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_camera_and_scene_8_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_camera_and_scene_9_task !__800__! !__1600__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_6 />
+	        <ExpectedCode
+	            fail="@string/course_game_camera_and_scene_9_fail_1 !__float_size_=_1600;__!">
+				<![CDATA[float size = 1600;]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_camera_and_scene_9_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_camera_and_scene_10_task"
+	        code_file="MyGdxGame.java" >
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	<Lesson
+	    id="Game Images and Textures"
+	    title="@string/course_game_images_and_textures"
+		example="new Texture(Gdx.files.internal(&quot;rock.png&quot;))"
+		description="@string/course_game_images_and_textures_description">
+		<Files 
+	        template="libgdx_project"
+	        template2="libgdx_run_game"
+	        open_path="gdx-game-android"
+	        project_name="My Game"
+	        package_name="mylibgdxgame" >
+	    	<CodeFile name="MyGdxGame.java" />    
+	    </Files>
+	    <Exercise
+	        task="@string/course_game_images_and_textures_1_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    SpriteBatch batch;
+	OrthographicCamera camera;
+	$code_hint$
+
+    @Override
+    public void create()
+	{
+		camera = new OrthographicCamera();
+		configureCamera();
+        batch = new SpriteBatch();
+		$code_hint_1$
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+		$code_hint_2$
+        batch.end();
+    }
+	
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_game_images_and_textures_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_images_and_textures_2_task !__TextureRegion_rockTexture;__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_game_images_and_textures_2_fail_1 !__TextureRegion_rockTexture;__!">
+				<![CDATA[TextureRegion rockTexture;]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_images_and_textures_3_task !__create__! !__Texture_texture_=_new_Texture(Gdx.files.internal(&quot;rock.png&quot;));__! !__rock.png__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_game_images_and_textures_3_fail_1 !__Texture_texture_=_new_Texture(Gdx.files.internal(&quot;rock.png&quot;));__!">
+				<![CDATA[Texture texture = new Texture(Gdx.files.internal("rock.png"));]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_images_and_textures_4_task !__rockTexture__! !__new_TextureRegion(texture,_25,_0,_250,_250)__! !__512__! !__TextureRegion__! !__25,_0,_250,_250__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_game_images_and_textures_4_fail_1 !__rockTexture_=_new_TextureRegion(texture,_25,_0,_250,_250)__!">
+				<![CDATA[rockTexture = new TextureRegion(texture, 25, 0, 250, 250)]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_images_and_textures_5_task !__render__! !__batch.draw(rockTexture,_0,_0,_100,_100);__! !__0,_0__! !__100__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_game_images_and_textures_5_fail_1 !__batch.draw(rockTexture,_0,_0,_100,_100);__!">
+				<![CDATA[batch.draw(rockTexture, 0, 0, 100, 100);]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_images_and_textures_5_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_images_and_textures_6_task !__200,_0__! !__100__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    SpriteBatch batch;
+	OrthographicCamera camera;
+	TextureRegion rockTexture;
+	$code_hint_1$
+
+    @Override
+    public void create()
+	{
+		camera = new OrthographicCamera();
+		configureCamera();
+        batch = new SpriteBatch();
+		
+		Texture texture = new Texture(Gdx.files.internal("rock.png"));
+		rockTexture = new TextureRegion(texture, 25, 0, 250, 250);
+		$code_hint_2$
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        $code_hint_3$
+		batch.draw(rockTexture, 0, 0, 100, 100);
+		$code_hint$
+        batch.end();
+    }
+	
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_game_images_and_textures_6_fail_1 !__batch.draw(rockTexture,_200,_0,_100,_100);__!">
+				<![CDATA[batch.draw(rockTexture, 200, 0, 100, 100);]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_images_and_textures_6_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_images_and_textures_7_task !__TextureRegion_backgroundTexture;__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_game_images_and_textures_7_fail_1 !__TextureRegion_backgroundTexture;__!">
+				<![CDATA[TextureRegion backgroundTexture;]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_images_and_textures_8_task !__render__! !__&quot;skyBackground.jpg&quot;__! !__TextureRegion__! !__0,_0,_2048,_563__! !__backgroundTexture__!"
+	        code_file="MyGdxGame.java"
+	        level="4" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_game_images_and_textures_8_fail_1 !__Texture_texture2_=_new_Texture(Gdx.files.internal(&quot;skyBackground.jpg&quot;))__!">
+				<![CDATA[new Texture(Gdx.files.internal("skyBackground.jpg"))]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_game_images_and_textures_8_fail_2 !__backgroundTexture_=_new_TextureRegion(texture2,_0,_0,_2048,_563)__!">
+				<![CDATA[backgroundTexture = new TextureRegion(]]>
+	        </ExpectedCode>
+	        <ExpectedCode
+	            fail="@string/course_game_images_and_textures_8_fail_3 !__backgroundTexture_=_new_TextureRegion(texture2,_0,_0,_2048,_563)__!">
+				<![CDATA[25, 0, 250, 250)]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_images_and_textures_9_task !__render__! !__batch.draw(backgroundTexture,_0,_0,_2900,_800);__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_game_images_and_textures_9_fail_1 !__batch.draw(backgroundTexture,_0,_0,_2900,_800);__!">
+				<![CDATA[batch.draw(backgroundTexture, 0, 0, 2900, 800);]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_images_and_textures_9_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_images_and_textures_10_task"
+	        code_file="MyGdxGame.java" >
+	    </Exercise>
+	</Lesson>
+	    
+	    
+	
+	
+	
+	<Lesson
+	    id="Game Moving Objects"
+	    title="@string/course_game_moving_objects"
+	    section="@string/course_game_moving_objects_section"
+		example="x = x + 20 * Gdx.graphics.getDeltaTime()"
+		description="@string/course_game_moving_objects_description">
+	    <Exercise
+	        task="@string/course_game_moving_objects_1_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.glutils.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+	ShapeRenderer shapeRenderer;    
+    OrthographicCamera camera;
+	$code_hint_1$
+
+    @Override
+    public void create()
+	{        
+		camera = new OrthographicCamera();
+		configureCamera();
+		
+		shapeRenderer = new ShapeRenderer();
+    }
+
+    @Override
+    public void render()
+	{        
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		camera.update();
+		shapeRenderer.setProjectionMatrix(camera.combined);
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		shapeRenderer.setColor(0, 0.5f, 0, 1);
+		shapeRenderer.circle$code_hint$(50$code_hint_2$, 50, 40);
+		shapeRenderer.end();
+        
+        $code_hint_3$
+    }
+
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+	
+    @Override
+    public void dispose()
+	{
+        shapeRenderer.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_game_moving_objects_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_moving_objects_2_task !__render()__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_moving_objects_3_task !__float_x;__!"
+	        code_file="MyGdxGame.java"
+	        level="4" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_game_moving_objects_3_fail_1 !__float_x;__!">
+				<![CDATA[float x;]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_moving_objects_4_task !__shapeRenderer.circle()__! !__x__! !__50__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_game_moving_objects_4_fail_1 !__shapeRenderer.circle(x,_50,_40)__!">
+				<![CDATA[shapeRenderer.circle(x, 50, 40)]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_moving_objects_5_task !__x__! !__render()__! !__x_=_x_+_20_*_Gdx.graphics.getDeltaTime()__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_game_moving_objects_5_fail_1 !__x_=_x_+_20_*_Gdx.graphics.getDeltaTime()__!">
+				<![CDATA[x = x + 20 * Gdx.graphics.getDeltaTime()]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_moving_objects_5_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_moving_objects_6_task !__100__! !__20__! !__getDeltaTime()__! !__render()__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.glutils.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    ShapeRenderer shapeRenderer;
+    OrthographicCamera camera;
+	float x;
+
+    @Override
+    public void create()
+	{
+		camera = new OrthographicCamera();
+		configureCamera();
+        
+		shapeRenderer = new ShapeRenderer();
+    }
+
+    @Override
+    public void render()
+	{        
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		camera.update();
+		shapeRenderer.setProjectionMatrix(camera.combined);
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		shapeRenderer.setColor(0, 0.5f, 0, 1);
+		shapeRenderer.circle(x, 50, 40);
+		shapeRenderer.end();
+        
+        x = x + 20$code_hint$ * Gdx.graphics.getDeltaTime();
+        $code_hint_1$
+    }
+    
+    private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+    @Override
+    public void dispose()
+	{
+        shapeRenderer.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_game_moving_objects_6_fail_1 !__20__! !__100__!">
+				<![CDATA[x = x + 100 * Gdx.graphics.getDeltaTime()]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_moving_objects_6_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_moving_objects_7_task !__if_(x_>_camera.viewportWidth)_x_=_-20;__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_game_moving_objects_7_fail_1 !__if_(x_>_camera.viewportWidth)_x_=_-20;__!">
+				<![CDATA[if (x > camera.viewportWidth) x = -20;]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_moving_objects_7_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_moving_objects_8_task"
+	        code_file="MyGdxGame.java" >
+	    </Exercise>
+	</Lesson>
+
+	
+	
+	
+	<Lesson
+	    id="Game Animating Objects"
+	    title="@string/course_game_animating_objects"
+		example="new Animation(0.025f, frames)"
+		description="@string/course_game_animating_objects_description">
+		<Files 
+	        template="libgdx_project"
+	        template2="libgdx_run_game"
+	        open_path="gdx-game-android"
+	        project_name="My Game"
+	        package_name="mylibgdxgame" >
+	    	<CodeFile name="MyGdxGame.java" />    
+	    </Files>
+	    <Exercise
+	        task="@string/course_game_animating_objects_1_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    Texture walkSheet;
+    SpriteBatch batch;
+	OrthographicCamera camera;
+
+    @Override
+    public void create()
+	{
+        walkSheet = new Texture(Gdx.files.internal("runAnimation.png"$code_hint$));
+		
+		camera = new OrthographicCamera();
+		configureCamera();
+        batch = new SpriteBatch();
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(walkSheet, 0, 0, 400, 400);
+        batch.end();
+    }
+	
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_game_animating_objects_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_animating_objects_2_task !__Texture__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_animating_objects_3_task !__TextureRegion__! !__5__! !__6__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    SpriteBatch batch;
+	OrthographicCamera camera;
+    $code_hint_3$
+
+    @Override
+    public void create()
+	{
+        Texture walkSheet = new Texture(Gdx.files.internal("runAnimation.png"));
+		int FRAME_COLS = 6;
+		int FRAME_ROWS = 5;$code_hint$
+        TextureRegion[][] tmp = TextureRegion.split$code_hint_1$(walkSheet, walkSheet.getWidth() / FRAME_COLS, walkSheet.getHeight() / FRAME_ROWS);
+        TextureRegion[] walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+        int index = 0;
+        for (int i = 0; i < FRAME_ROWS; i++)
+            for (int j = 0; j < FRAME_COLS; j++)
+                walkFrames[index++] = tmp[i][j];$code_hint_2$
+        $code_hint_4$
+		
+		camera = new OrthographicCamera();
+		configureCamera();
+        batch = new SpriteBatch();
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        $code_hint_5$
+        batch.end();
+    }
+	
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_animating_objects_4_task !__split__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_1 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_animating_objects_5_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_2 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_animating_objects_6_task !__Animation_walkAnimation;__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_3 />
+	        <ExpectedCode
+	            fail="@string/course_game_animating_objects_6_fail_1 !__Animation_walkAnimation;__!">
+				<![CDATA[Animation walkAnimation;]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_animating_objects_7_task !__walkAnimation__! !__new_Animation(0.025f,_walkFrames)__! !__0.025f__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_4 />
+	        <ExpectedCode
+	            fail="@string/course_game_animating_objects_7_fail_1 !__walkAnimation_=_new_Animation(0.025f,_walkFrames);__!">
+				<![CDATA[walkAnimation = new Animation(0.025f, walkFrames);]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_animating_objects_8_task !__render__! !__batch.draw(walkAnimation.getKeyFrame(0,_true),_0,_0,_200,_200);__! !__200__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_5 />
+	        <ExpectedCode
+	            fail="@string/course_game_animating_objects_8_fail_1 !__batch.draw(walkAnimation.getKeyFrame(0,_true),_0,_0,_200,_200);__!">
+				<![CDATA[batch.draw(walkAnimation.getKeyFrame(0, true), 0, 0, 200, 200);]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_animating_objects_8_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_animating_objects_9_task !__float_time;__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    SpriteBatch batch;
+	OrthographicCamera camera;
+    Animation walkAnimation;
+    $code_hint$
+
+    @Override
+    public void create()
+	{
+        Texture walkSheet = new Texture(Gdx.files.internal("runAnimation.png"));
+		int FRAME_COLS = 6;
+		int FRAME_ROWS = 5;
+        TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS, walkSheet.getHeight() / FRAME_ROWS);
+        TextureRegion[] walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+        int index = 0;
+        for (int i = 0; i < FRAME_ROWS; i++)
+            for (int j = 0; j < FRAME_COLS; j++)
+                walkFrames[index++] = tmp[i][j];
+        walkAnimation = new Animation(0.025f, walkFrames); 
+		
+		camera = new OrthographicCamera();
+		configureCamera();
+        batch = new SpriteBatch();
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(walkAnimation.getKeyFrame(0$code_hint_2$, true), 0, 0, 200, 200);
+        batch.end();
+        
+        $code_hint_1$
+    }
+	
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_game_animating_objects_9_fail_1 !__float_time;__!">
+				<![CDATA[float time;]]>
+	        </ExpectedCode>
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_animating_objects_10_task !__render__! !__time_+=_Gdx.graphics.getDeltaTime();__! !__getDeltaTime()__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_game_animating_objects_10_fail_1 !__time_+=_Gdx.graphics.getDeltaTime();__!">
+				<![CDATA[time += Gdx.graphics.getDeltaTime();]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_animating_objects_11_task !__time__! !__getKeyFrame()__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_game_animating_objects_11_fail_1 !__walkAnimation.getKeyFrame(time,_true)__!">
+				<![CDATA[walkAnimation.getKeyFrame(time, true)]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_animating_objects_11_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_animating_objects_12_task"
+	        code_file="MyGdxGame.java" >
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	<Lesson
+	    id="Game Moving the Camera"
+	    title="@string/course_game_moving_the_camera"
+		example="camera.translate(500 * Gdx.graphics.getDeltaTime(), 0)"
+		description="@string/course_game_moving_the_camera_description">
+	    <Files 
+	        template="libgdx_project"
+	        template2="libgdx_run_game"
+	        open_path="gdx-game-android"
+	        project_name="My Game"
+	        package_name="mylibgdxgame" >
+	    	<CodeFile name="MyGdxGame.java" />    
+	    </Files>
+	    <Exercise
+	        task="@string/course_game_moving_the_camera_1_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    SpriteBatch batch;
+	OrthographicCamera camera;
+	TextureRegion rockTexture;
+	TextureRegion backgroundTexture;
+
+    @Override
+    public void create()
+	{
+		camera = new OrthographicCamera();
+		configureCamera();
+        batch = new SpriteBatch();
+		
+		Texture texture = new Texture(Gdx.files.internal("rock.png"));
+		rockTexture = new TextureRegion(texture, 25, 0, 250, 250);
+		Texture texture2 = new Texture(Gdx.files.internal("skyBackground.jpg"));
+		backgroundTexture = new TextureRegion(texture2, 0, 0, 2048, 563);
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+		batch.draw(backgroundTexture, 0, 0, 2900, 800);
+		batch.draw(rockTexture, 200, 0, 100, 100);
+		batch.draw(rockTexture, 0, 0, 100, 100);
+        batch.end();
+        
+        $code_hint$
+    }
+	
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_game_moving_the_camera_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_moving_the_camera_2_task !__render__! !__camera.translate(50_*_Gdx.graphics.getDeltaTime(),_0);__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_game_moving_the_camera_2_fail_1 !__camera.translate(50_*_Gdx.graphics.getDeltaTime(),_0);__!">
+				<![CDATA[camera.translate(50 * Gdx.graphics.getDeltaTime(), 0);]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_moving_the_camera_2_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_moving_the_camera_3_task !__50__! !__500__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_game_moving_the_camera_3_fail_1 !__camera.translate(500_*_Gdx.graphics.getDeltaTime(),_0);__!">
+				<![CDATA[camera.translate(500 * Gdx.graphics.getDeltaTime(), 0);]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_moving_the_camera_3_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_moving_the_camera_4_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    SpriteBatch batch;
+	OrthographicCamera camera;
+	TextureRegion rockTexture;
+	TextureRegion backgroundTexture;
+
+    @Override
+    public void create()
+	{
+		camera = new OrthographicCamera();
+		configureCamera();
+        batch = new SpriteBatch();
+		
+		Texture texture = new Texture(Gdx.files.internal("rock.png"));
+		rockTexture = new TextureRegion(texture, 25, 0, 250, 250);
+		Texture texture2 = new Texture(Gdx.files.internal("skyBackground.jpg"));
+		backgroundTexture = new TextureRegion(texture2, 0, 0, 2048, 563);
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        for (int i = 0; i < 30; i++)$code_hint$
+			batch.draw(backgroundTexture, i * 2900, 0, 2900, 800);
+		for (int i = 0; i < 100; i++)$code_hint_1$
+			batch.draw(rockTexture, i * 800, 0, 100, 100);
+        batch.end();
+        
+        camera.translate(500 * Gdx.graphics.getDeltaTime(), 0);
+    }
+	
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_moving_the_camera_5_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_1 />
+	        <Run success="@string/course_game_moving_the_camera_5_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_moving_the_camera_6_task"
+	        code_file="MyGdxGame.java" >
+	    </Exercise>
+	</Lesson>
+
+	
+	
+	
+	<Lesson
+	    id="Game Basic Physics"
+	    title="@string/course_game_basic_physics"
+	    section="@string/course_game_basic_physics_section"
+		example="Vector2 ballVelocity"
+		description="@string/course_game_basic_physics_description">
+	    <Files 
+	        template="libgdx_project"
+	        template2="libgdx_run_game"
+	        open_path="gdx-game-android"
+	        project_name="My Game"
+	        package_name="mylibgdxgame" >
+	    	<CodeFile name="MyGdxGame.java" />    
+	    </Files>
+	    <Exercise
+	        task="@string/course_game_basic_physics_1_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    SpriteBatch batch;
+	OrthographicCamera camera;
+	TextureRegion ballTexture;
+	TextureRegion backgroundTexture;
+	
+	float time;
+	$code_hint$
+
+    @Override
+    public void create()
+	{
+		camera = new OrthographicCamera();
+		configureCamera();
+        batch = new SpriteBatch();
+		
+		Texture texture = new Texture(Gdx.files.internal("ball.png"));
+		ballTexture = new TextureRegion(texture, 0, 0, 256, 256);
+		Texture texture2 = new Texture(Gdx.files.internal("skyBackground.jpg"));
+		backgroundTexture = new TextureRegion(texture2, 0, 0, 2048, 563);
+		
+		$code_hint_1$
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(backgroundTexture, 0, 0, 2900, 800);
+		batch.draw(ballTexture, 0, 0$code_hint_2$, 50, 50);
+        batch.end();
+        
+        time += Gdx.graphics.getDeltaTime();
+		if (time > 2)$code_hint_3$
+		{
+			$code_hint_4$
+			$code_hint_5$
+			$code_hint_6$
+		}
+    }
+	
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_game_basic_physics_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_basic_physics_2_task !__Vector2_ballPosition;__! !__Vector2__! !__x__! !__y__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_game_basic_physics_2_fail_1 !__Vector2_ballPosition;__!">
+				<![CDATA[Vector2 ballPosition;]]>
+	        </ExpectedCode>
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_basic_physics_3_task !__Vector2_ballVelocity;__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_game_basic_physics_3_fail_1 !__Vector2_ballVelocity;__!">
+				<![CDATA[Vector2 ballVelocity;]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_basic_physics_4_task !__create__! !__ballPosition__! !__new_Vector2(0,_0)__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_game_basic_physics_4_fail_1 !__ballPosition_=_new_Vector2(0,_0);__!">
+				<![CDATA[ballPosition = new Vector2(0, 0);]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_basic_physics_5_task !__ballVelocity__! !__new_Vector2(30,_400)__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_game_basic_physics_5_fail_1 !__ballPosition_=_new_Vector2(30,_400);__!">
+				<![CDATA[ballVelocity = new Vector2(30, 400);]]>
+	        </ExpectedCode>
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_basic_physics_6_task !__render__! !__ballPosition.x,_ballPosition.y__! !__0,_0__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_game_basic_physics_6_fail_1 !__batch.draw(ballTexture,_ballPosition.x,_ballPosition.y,_50,_50);__!">
+				<![CDATA[batch.draw(ballTexture, ballPosition.x, ballPosition.y, 50, 50);]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_basic_physics_6_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_basic_physics_7_task !__render__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_3 />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_basic_physics_8_task !__ballPosition.add(new_Vector2(ballVelocity).scl(Gdx.graphics.getDeltaTime()));__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_4 />
+	        <ExpectedCode
+	            fail="@string/course_game_basic_physics_8_fail_1 !__ballPosition.add(new_Vector2(ballVelocity).scl(Gdx.graphics.getDeltaTime()));__!">
+				<![CDATA[ballPosition.add(new Vector2(ballVelocity).scl(Gdx.graphics.getDeltaTime()));]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_basic_physics_8_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_basic_physics_9_task !__ballVelocity.y_-=_300_*_Gdx.graphics.getDeltaTime();__! !__300__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_5 />
+	        <ExpectedCode
+	            fail="@string/course_game_basic_physics_9_fail_1 !__ballVelocity.y_-=_300_*_Gdx.graphics.getDeltaTime();__!">
+				<![CDATA[ballVelocity.y -= 300 * Gdx.graphics.getDeltaTime();]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_basic_physics_9_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_basic_physics_10_task !__if_(ballPosition.y_&lt;_0_&amp;&amp;_ballVelocity.y_&lt;_0)_ballVelocity.y_=_-ballVelocity.y;__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_6 />
+	        <ExpectedCode
+	            fail="@string/course_game_basic_physics_10_fail_1 !__if_(ballPosition.y_&lt;_0_&amp;&amp;_ballVelocity.y_&lt;_0)_ballVelocity.y_=_-ballVelocity.y;__!">
+				<![CDATA[if (ballPosition.y < 0 && ballVelocity.y < 0) ballVelocity.y = -ballVelocity.y;]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_basic_physics_10_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_basic_physics_11_task !__ballVelocity.y_=_-0.9f_*_ballVelocity.y__! !__0.9f__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    SpriteBatch batch;
+	OrthographicCamera camera;
+	TextureRegion ballTexture;
+	TextureRegion backgroundTexture;
+	
+	float time;
+	Vector2 ballPosition; 
+	Vector2 ballVelocity;
+
+    @Override
+    public void create()
+	{
+		camera = new OrthographicCamera();
+		configureCamera();
+        batch = new SpriteBatch();
+		
+		Texture texture = new Texture(Gdx.files.internal("ball.png"));
+		ballTexture = new TextureRegion(texture, 0, 0, 256, 256);
+		Texture texture2 = new Texture(Gdx.files.internal("skyBackground.jpg"));
+		backgroundTexture = new TextureRegion(texture2, 0, 0, 2048, 563);
+		
+		ballPosition=new Vector2(0, 0);
+		ballVelocity=new Vector2(30, 400);
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(backgroundTexture, 0, 0, 2900, 800);
+		batch.draw(ballTexture, ballPosition.x, ballPosition.y, 50, 50);
+        batch.end();
+        
+        time += Gdx.graphics.getDeltaTime();
+		if (time > 2)
+		{
+			ballPosition.add(new Vector2(ballVelocity).scl(Gdx.graphics.getDeltaTime()));
+			ballVelocity.y -= 300 * Gdx.graphics.getDeltaTime();
+			if (ballPosition.y < 0 && ballVelocity.y < 0) 
+				ballVelocity.y = $code_hint$-ballVelocity.y;
+			$code_hint_1$
+		}
+    }
+	
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	        <ExpectedCode
+	            fail="@string/course_game_basic_physics_11_fail_1 !__ballVelocity.y_=_-0.9f_*_ballVelocity.y__!">
+				<![CDATA[ballVelocity.y = -0.9f * ballVelocity.y]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_basic_physics_11_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_basic_physics_12_task !__ballVelocity.scl(1_-_(0.1f_*_Gdx.graphics.getDeltaTime()));__! !__0.1f__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_1 />
+	        <ExpectedCode
+	            fail="@string/course_game_basic_physics_12_fail_1 !__ballVelocity.scl(1_-_(0.1f_*_Gdx.graphics.getDeltaTime()));__!">
+				<![CDATA[ballVelocity.scl(1 - (0.1f * Gdx.graphics.getDeltaTime()));]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_basic_physics_12_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_basic_physics_13_task"
+	        code_file="MyGdxGame.java" >
+	    </Exercise>
+	</Lesson>	
+	
+	
+	
+	
+	<Lesson
+	    id="Game User Interaction"
+	    title="@string/course_game_user_interaction"
+	    section="@string/course_game_user_interaction_section"
+		example="if (Gdx.input.isTouched())"
+		description="@string/course_game_user_interaction_description">
+	    <Files 
+	        template="libgdx_project"
+	        template2="libgdx_run_game"
+	        open_path="gdx-game-android"
+	        project_name="My Game"
+	        package_name="mylibgdxgame" >
+	    	<CodeFile name="MyGdxGame.java" />    
+	    </Files>
+	    <Exercise
+	        task="@string/course_game_user_interaction_1_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    SpriteBatch batch;
+	OrthographicCamera camera;
+    Animation walkAnimation;
+    
+    float time;
+    Rectangle manPosition;$code_hint$
+	Vector2 manVelocity;
+
+    @Override
+    public void create()
+	{
+        Texture walkSheet = new Texture(Gdx.files.internal("runAnimation.png"));
+		int FRAME_COLS = 6;
+		int FRAME_ROWS = 5;
+        TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS, walkSheet.getHeight() / FRAME_ROWS);
+        TextureRegion[] walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+        int index = 0;
+        for (int i = 0; i < FRAME_ROWS; i++)
+            for (int j = 0; j < FRAME_COLS; j++)
+                walkFrames[index++] = tmp[i][j];
+        walkAnimation = new Animation(0.025f, walkFrames); 
+		
+		camera = new OrthographicCamera();
+		configureCamera();
+        batch = new SpriteBatch();
+        
+        manVelocity = new Vector2(500, 0);
+        manPosition = new Rectangle(0, 0, 200, 200);
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(walkAnimation.getKeyFrame(time, true), manPosition.x, manPosition.y, manPosition.width, manPosition.height);
+        batch.end();
+        
+        time += Gdx.graphics.getDeltaTime();
+        manPosition.x += $code_hint_1$manVelocity.x * Gdx.graphics.getDeltaTime();
+		manPosition.y += manVelocity.y * Gdx.graphics.getDeltaTime();
+		if (manPosition.x > camera.viewportWidth) manPosition.x = -200;
+		
+        $code_hint_2$
+    }
+	
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <Run success="@string/course_game_user_interaction_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_user_interaction_2_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_user_interaction_3_task !__render__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_1 />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_user_interaction_4_task !__render__! !__if_(Gdx.input.isTouched())_manVelocity.y_=_500;__! !__isTouched()__!"
+	        code_file="MyGdxGame.java"
+	        level="3" >
+	        <CodeHint_2 />
+	        <ExpectedCode
+	            fail="@string/course_game_user_interaction_4_fail_1 !__if_(Gdx.input.isTouched())_manVelocity.y_=_500;__!">
+				<![CDATA[if (Gdx.input.isTouched()) manVelocity.y = 500;]]>
+	        </ExpectedCode>
+	        <Run success="@string/course_game_user_interaction_4_success" />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_user_interaction_5_task !__render__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+    SpriteBatch batch;
+	OrthographicCamera camera;
+    Animation walkAnimation;
+    
+    float time;
+    Rectangle manPosition;
+	Vector2 manVelocity;
+
+    @Override
+    public void create()
+	{
+        Texture walkSheet = new Texture(Gdx.files.internal("runAnimation.png"));
+		int FRAME_COLS = 6;
+		int FRAME_ROWS = 5;
+        TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS, walkSheet.getHeight() / FRAME_ROWS);
+        TextureRegion[] walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+        int index = 0;
+        for (int i = 0; i < FRAME_ROWS; i++)
+            for (int j = 0; j < FRAME_COLS; j++)
+                walkFrames[index++] = tmp[i][j];
+        walkAnimation = new Animation(0.025f, walkFrames); 
+		
+		camera = new OrthographicCamera();
+		configureCamera();
+        batch = new SpriteBatch();
+        
+        manVelocity = new Vector2(500, 0);
+        manPosition = new Rectangle(0, 0, 200, 200);
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(walkAnimation.getKeyFrame(time, true), manPosition.x, manPosition.y, manPosition.width, manPosition.height);
+        batch.end();
+        
+        time += Gdx.graphics.getDeltaTime();
+        manPosition.x += manVelocity.x * Gdx.graphics.getDeltaTime();
+		manPosition.y += manVelocity.y * Gdx.graphics.getDeltaTime();
+		if (manPosition.x > camera.viewportWidth) manPosition.x = -200;
+		
+        if (Gdx.input.isTouched()) manVelocity.y = 500;
+        
+        manVelocity.y -= 1000$code_hint$ * Gdx.graphics.getDeltaTime();
+		if (manPosition.y < 0)$code_hint_1$
+		{
+			manPosition.y = 0;
+			manVelocity.y = 0;
+		}
+    }
+	
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		configureCamera();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}
+				]]>
+	        </SourceCode>
+	        <CodeHint />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_user_interaction_6_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_1 />
+	        <Run success="@string/course_game_user_interaction_6_success" />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_user_interaction_7_task"
+	        code_file="MyGdxGame.java" >
+	    </Exercise>
+	</Lesson>
+	
+	
+	
+	
+	<Lesson
+	    id="Game Run and Jump Game"
+	    title="@string/course_game_run_and_jump_game"
+    	section="@string/course_game_run_and_jump_game_section"
+		example="class MyGdxGame"
+		description="@string/course_game_run_and_jump_game_description">
+		<Files 
+	        template="libgdx_project"
+	        template2="libgdx_run_game"
+	        open_path="gdx-game-android"
+	        project_name="My Game"
+	        package_name="mylibgdxgame" >
+	    	<CodeFile name="MyGdxGame.java" />    
+	    </Files>
+	    <Exercise
+	        task="@string/course_game_run_and_jump_game_1_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	    	<SourceCode code_file="MyGdxGame.java">
+				<![CDATA[
+package $package_name$;
+
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.audio.*;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.*;
+import java.util.*;
+
+public class MyGdxGame implements ApplicationListener
+{
+	OrthographicCamera camera;
+    Animation walkAnimation;
+	TextureRegion backgroundTexture;
+	TextureRegion rockTexture;
+	Sound collisionSound;
+	BitmapFont font;
+    SpriteBatch batch;
+
+    float time;
+	Rectangle manPosition;
+	Vector2 manVelocity$code_hint_2$;
+	
+	List<Rectangle> rockPositions;
+
+    @Override
+    public void create()
+	{
+		// Load background 
+		Texture texture = new Texture(Gdx.files.internal("skyBackground.jpg"));
+		backgroundTexture = new TextureRegion(texture, 0, 0, 2048, 563);$code_hint_3$
+
+		// Load and position rocks
+		Texture texture2 = new Texture(Gdx.files.internal("rock.png"));
+		rockTexture = new TextureRegion(texture2, 25, 0, 250, 250);
+		rockPositions = new ArrayList<Rectangle>();
+		int x = 1800;
+		for (int i = 0; i < 60; i++)
+		{
+			rockPositions.add(new Rectangle(x, 0, 100, 100));$code_hint$
+			x += 600 + new Random().nextInt(600);
+		}
+		
+		// Create run animation
+        Texture walkSheet = new Texture(Gdx.files.internal("runAnimation.png"));
+		int FRAME_COLS = 6;
+		int FRAME_ROWS = 5;
+        TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS, walkSheet.getHeight() / FRAME_ROWS);
+        TextureRegion[] walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+        int index = 0;
+        for (int i = 0; i < FRAME_ROWS; i++)
+		{
+            for (int j = 0; j < FRAME_COLS; j++)
+			{
+                walkFrames[index++] = tmp[i][j];
+            }
+        }
+        walkAnimation = new Animation(0.025f, walkFrames);$code_hint_1$
+
+		font = new BitmapFont();
+		
+		collisionSound = Gdx.audio.newSound(Gdx.files.internal("collision.wav"));
+		
+        batch = new SpriteBatch();
+		camera = new OrthographicCamera();
+		resetGame();
+    }
+
+    @Override
+    public void render()
+	{
+		Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+		
+		// Draw background
+		for (int i = 0; i < 30; i++)
+			batch.draw(backgroundTexture$code_hint_4$, i * 2900, 0, 2900, 800);
+		
+		// Draw rocks
+		for (Rectangle r : rockPositions)
+			batch.draw(rockTexture$code_hint_5$, r.x, r.y, r.width, r.height);
+			
+		// Draw man
+        batch.draw(walkAnimation.getKeyFrame(time, true)$code_hint_6$, manPosition.x, manPosition.y, manPosition.width, manPosition.height);
+		
+		font.draw(batch, (int) (manPosition.x / 70) + "m", camera.position.x - 10, 30);
+        batch.end();
+
+		// Move man
+		time += Gdx.graphics.getDeltaTime();$code_hint_7$
+		manPosition.x += manVelocity.x * Gdx.graphics.getDeltaTime();
+		manPosition.y += manVelocity.y * Gdx.graphics.getDeltaTime();
+		manVelocity.y -= 1000 * Gdx.graphics.getDeltaTime();
+		if (Gdx.input.isTouched() && manPosition.y == 0)
+		{
+			manVelocity.y = 500;
+		}
+		if (manPosition.y < 0) 
+		{
+			manPosition.y = 0;
+			manVelocity.y = 0;
+		}
+
+		// Move camera
+		camera.translate$code_hint_8$((manVelocity.x - camera.viewportWidth / 80) * Gdx.graphics.getDeltaTime(), 0);
+		
+		// Detect collision
+		for (Rectangle r : rockPositions)
+		{
+			if (r.overlaps(manPosition)$code_hint_9$ && r.getCenter(new Vector2()).dst(manPosition.getCenter(new Vector2())) < 120)
+			{
+				collisionSound.play();
+				resetGame();
+				break;
+			}
+		}
+    }
+	
+	private void resetGame()
+	{
+		configureCamera();
+		manPosition = new Rectangle(0, 0, 200, 200);
+		manVelocity = new Vector2(500, 0);
+	}
+
+	private void configureCamera()
+	{
+		if (Gdx.graphics.getHeight() < Gdx.graphics.getWidth())
+			camera.setToOrtho(false, 800, 800 * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		else
+			camera.setToOrtho(false, 800 * Gdx.graphics.getWidth() / Gdx.graphics.getHeight(), 800);
+	}
+
+	@Override
+    public void dispose()
+	{
+        batch.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height)
+	{
+		resetGame();
+    }
+
+    @Override
+    public void pause()
+	{
+    }
+
+    @Override
+    public void resume()
+	{
+    }
+}				
+				]]>
+	        </SourceCode>
+	        <Run
+	            success="@string/course_game_run_and_jump_game_1_success" />
+	    </Exercise>
+	    <Exercise
+	        task="@string/course_game_run_and_jump_game_2_task !__create__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_3 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_run_and_jump_game_3_task !__rockPositions__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_run_and_jump_game_4_task !__Animation__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_1 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_run_and_jump_game_5_task !__manPosition__! !__manVelocity__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_2 />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_run_and_jump_game_6_task !__render__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_4 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_run_and_jump_game_7_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_5 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_run_and_jump_game_8_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_6 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_run_and_jump_game_9_task !__render__!"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_7 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_run_and_jump_game_10_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_8 />
+		</Exercise>
+	    <Exercise
+	        task="@string/course_game_run_and_jump_game_11_task"
+	        code_file="MyGdxGame.java"
+	        level="1" >
+	        <CodeHint_9 />
+		</Exercise>
+		<Exercise
+	        task="@string/course_game_run_and_jump_game_12_task"
+	        code_file="MyGdxGame.java" >
+	    </Exercise>
+	</Lesson>
+	
+	
+</Course>
