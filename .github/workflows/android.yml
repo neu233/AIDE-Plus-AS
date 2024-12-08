@@ -52,11 +52,15 @@ jobs:
         path: build/app/outputs/apk/release/${{ env.ASSET_NAME }}
     # 发布到 Release
     - name: Upload APK to GitHub Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
+      if: startsWith(github.ref, 'refs/tags/')
       with:
+        tag_name: ${{ env.VERSION_NAME }}
+        repository: neu233/AIDE-Plus-AS
         files: build/app/outputs/apk/release/${{ env.ASSET_NAME }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+
+
     # 上传到 FTP
     # - name: Deploy single APK to FTP
         # run: |
