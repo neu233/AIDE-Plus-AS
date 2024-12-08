@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package io.github.zeroaicy.aide.aaptcompiler
 
 import android.view.View
