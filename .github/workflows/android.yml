@@ -6,7 +6,7 @@ on:
       - v*
   pull_request:
     # 分支名称
-    - master
+    branches: [ "main" ]
   workflow_dispatch: { }
 
 jobs:
