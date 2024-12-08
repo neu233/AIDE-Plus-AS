@@ -43,7 +43,7 @@ dependencies {
 
     compileOnly(fileTree(mapOf("dir" to "provider", "include" to listOf("*.jar"))))
 
-    api(fileTree(mapOf("dir" to "libs-xml-completion", "include" to listOf("*.jar"))))
+    // api(fileTree(mapOf("dir" to "libs-xml-completion", "include" to listOf("*.jar"))))
 
     api("androidx.core:core-ktx:1.15.0")
     api("androidx.preference:preference-ktx:1.2.1")
@@ -54,14 +54,21 @@ dependencies {
         isTransitive = true
     }
 
+
+    api(projects.resParse){
+        isTransitive = true
+    }
+
+
     // https://mvnrepository.com/artifact/org.eclipse.jdt/ecj
     // api("org.eclipse.jdt:ecj:3.39.0:sources")
-    compileOnly("org.eclipse.jdt:ecj:3.39.0")
+    api("org.eclipse.jdt:ecj:3.39.0")
 
     api("net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0")
 
 
     // xml-completion
+    /*
     api("com.google.guava:guava:33.2.1-android")
     api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.24")
     api("androidx.annotation:annotation:1.9.1")
@@ -71,6 +78,9 @@ dependencies {
     api("com.android.tools:common:31.7.3")
     api("com.android.tools.build:aapt2-proto:8.3.2-10880808")
     api("com.google.protobuf:protobuf-java:3.25.3")
+
+    */
+
     // jgit 7.0.0.202409031743-r
     api("org.eclipse.jgit:org.eclipse.jgit:7.0.0.202409031743-r")
 

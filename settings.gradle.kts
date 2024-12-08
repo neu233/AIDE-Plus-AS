@@ -1,10 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":appAideBase")
-
-
-include(":app_rewrite")
-
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 
@@ -21,8 +16,6 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
         mavenLocal()
-        //noinspection JcenterRepositoryObsolete
-        jcenter()
         maven("https://jitpack.io")
         maven("https://repo1.maven.org/maven2/")
         maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
@@ -46,8 +39,6 @@ dependencyResolutionManagement {
         mavenCentral()
         gradlePluginPortal()
         mavenLocal()
-        //noinspection JcenterRepositoryObsolete
-        jcenter()
         maven("https://jitpack.io")
         maven("https://repo1.maven.org/maven2/")
         maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
@@ -67,3 +58,12 @@ dependencyResolutionManagement {
 
 rootProject.name = "AIDE-Plus"
 include(":app")
+
+include(":appAideBase")
+include(":app_rewrite")
+
+
+include(":aaptcompiler")
+include(":layoutlib-api")
+///include(":jaxp")
+include(":res-parse")

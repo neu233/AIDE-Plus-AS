@@ -6,13 +6,17 @@
       <GradleProjectSettings>
         <option name="testRunner" value="CHOOSE_PER_TEST" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../AppData/Local/Gradle/wrapper/dists/gradle-8.9-bin/90cnw93cvbtalezasaz0blq0a/gradle-8.9" />
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/aaptcompiler" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/appAideBase" />
             <option value="$PROJECT_DIR$/app_rewrite" />
+            <option value="$PROJECT_DIR$/layoutlib-api" />
+            <option value="$PROJECT_DIR$/res-parse" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

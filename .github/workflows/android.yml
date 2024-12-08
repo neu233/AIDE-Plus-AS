@@ -1,0 +1,56 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch: { }
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew :app:assembleRelease
+    
+    # 获取版本
+    - name: Get versionName and versionCode from build.gradle.kts
+      id: get_version_info
+      run: |
+        VERSION_NAME=$(grep "version =" build.gradle.kts | awk '{print $3}' | tr -d "'")
+        echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
+        VERSION_CODE=$(grep "versionCode =" build.gradle.kts | awk '{print $3}')
+        echo "VERSION_CODE=${VERSION_CODE}" >> $GITHUB_ENV
+        RELEASE_NAME="v${VERSION_NAME}-${VERSION_CODE}"
+        echo "RELEASE_NAME=${RELEASE_NAME}" >> $GITHUB_ENV
+        ASSET_NAME="AIDE_Pro_${VERSION_NAME}.apk"
+        echo "ASSET_NAME=${ASSET_NAME}" >> $GITHUB_ENV
+
+    # 重命名
+    - name: Rename APK
+      run: mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/${{ env.ASSET_NAME }}
+
+    - name: Upload  APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.ASSET_NAME }}
+        path: build/app/outputs/apk/release/${{ env.ASSET_NAME }}
+    
+    # 上传到 FTP
+    # - name: Deploy single APK to FTP
+        # run: |
+        # sudo apt-get update && sudo apt-get install -y lftp
+        # lftp -e "set ssl:verify-certificate no; put -O / build/app/outputs/apk/release/${{ env.ASSET_NAME }}; bye" -u "${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }}" "${{ secrets.FTP_SERVER }}:${{ secrets.FTP_PORT }}"

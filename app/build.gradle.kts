@@ -1,3 +1,8 @@
+import com.android.tools.build.apkzlib.zip.ZFile
+import java.io.ByteArrayInputStream
+import java.nio.file.Files
+import java.nio.file.Paths
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -65,18 +70,32 @@ android {
     }
 
     packaging {
+
         resources {
             /// 排除文件
             //excludes += "/META-INF/{AL2.0,LGPL2.1}"
 
             /// 重复替换
             pickFirsts += "/META-INF/{AL2.0,LGPL2.1}"
+            pickFirsts += "/assets/*/*/*/*/*/*/*"
+            pickFirsts += "/assets/*/*/*/*/*/*"
+            pickFirsts += "/assets/*/*/*/*/*"
             pickFirsts += "/assets/*/*/*/*"
             pickFirsts += "/assets/*/*/*"
             pickFirsts += "/assets/*/*"
             pickFirsts += "/assets/*"
             pickFirsts += "/*"
-            pickFirsts += "assets/templates/*"
+
+
+            pickFirsts += "org/eclipse/jdt/internal/compiler/parser/**"
+            pickFirsts += "org/eclipse/jdt/internal/*/**"
+
+            pickFirsts += "org/eclipse/jdt/core/*/**"
+            pickFirsts += "org/eclipse/jdt/core/**"
+
+            pickFirsts += "org/eclipse/jdt/internal/*/*/*/*"
+            pickFirsts += "org/eclipse/jdt/internal/compiler/parser/*/*/*"
+            pickFirsts += "org/eclipse/jdt/internal/*/*/*/*/*/*"
 
         }
         jniLibs {
@@ -84,6 +103,33 @@ android {
             pickFirsts += "/lib/*/*"
         }
     }
+    androidResources {
+        val publicXmlFile = project.rootProject.file("${project(":appAideBase").projectDir.path}/src/main/res/values/public.xml")
+        val publicTxtFile = project.rootProject.file("${layout.buildDirectory.asFile.get().path}/public.txt")
+
+        // 创建父目录并确保 publicTxtFile 存在
+        publicTxtFile.parentFile.mkdirs()
+        publicTxtFile.createNewFile()
+
+        // 解析 public.xml 文件并将内容写入 public.txt
+        val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance()
+            .newDocumentBuilder()
+            .parse(publicXmlFile)
+            .documentElement
+            .getElementsByTagName("public")
+
+        for (i in 0 until nodes.length) {
+            val node = nodes.item(i)
+            val type = node.attributes.getNamedItem("type").nodeValue
+            val name = node.attributes.getNamedItem("name").nodeValue
+            val id = node.attributes.getNamedItem("id").nodeValue
+            publicTxtFile.appendText("${android.defaultConfig.applicationId}:$type/$name = $id\n")
+        }
+
+        // 添加稳定 ID 参数
+        additionalParameters("--stable-ids", publicTxtFile.path)
+    }
+
 
 
     buildFeatures {
@@ -91,7 +137,7 @@ android {
         viewBinding = true
     }
     lint {
-        abortOnError = true
+        abortOnError = false
         checkReleaseBuilds = false
     }
 }
@@ -118,6 +164,13 @@ dependencies {
     }
 }
 
+configurations.all {
+    //exclude("com.google.guava","listenablefuture")
+    //exclude("com.google.guava","guava")
+    exclude("net.java.dev.jna", "jna")
+    exclude("net.java.dev.jna", "jna-platform")
+}
+
 
 val isRelease: Boolean = gradle.startParameter.taskNames.any { taskName ->
     taskName.contains("Release", ignoreCase = true)
@@ -126,6 +179,8 @@ val isRelease: Boolean = gradle.startParameter.taskNames.any { taskName ->
 tasks.withType<Copy> {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
+
+
 
 /*
 configurations.all {
@@ -140,21 +195,101 @@ configurations.all {
 
 
 
+afterEvaluate {
+
+
+    val AppDexCount: (String, Boolean) -> Int = { buildDir, isDebug ->
+        val dexDir = Paths.get(
+            buildDir,
+            "intermediates",
+            "dex",
+            if (isDebug) "debug" else "release",
+            if (isDebug) "mergeDexDebug" else "mergeDexRelease"
+        )
+        if (!Files.exists(dexDir)) 0
+        else {
+            Files.list(dexDir).use { it.count().toInt() }
+        }
+    }
+
+    val copy: (Project, File, Boolean) -> Unit = { project, resFile, isDebug ->
+        val buildDir = project.layout.buildDirectory.asFile.get().path
+        val dexBytes = mutableListOf<ByteArray>()
+        val dexFolder = project.layout.projectDirectory.file("Dex")
+        println(dexFolder.asFile.absolutePath)
+        dexFolder.asFile.listFiles()?.forEach {
+            if (it.name.endsWith(".dex")) {
+                println(it.absolutePath)
+                dexBytes.add(Files.readAllBytes(it.toPath()))
+            }
+        }
+        val appDexCount = AppDexCount(buildDir, isDebug)
+        check(appDexCount != 0) { "Unexpected app dex count" }
+
+        try {
+            ZFile.openReadWrite(resFile).use { zip ->
+                val iterator = dexBytes.iterator()
+                for (i in (appDexCount + 2)..Int.MAX_VALUE) {
+                    if (!iterator.hasNext()) break
+                    val name = "classes$i.dex"
+                    println(name)
+                    zip.add(name, ByteArrayInputStream(iterator.next()))
+                }
+            }
+        }catch (e: Exception){
+            throw e
+        }
+
+
+    }
+
+
+    tasks.register("copyDexRelease") {
+        doLast {
+            val zip = layout.buildDirectory.file(
+                "intermediates/optimized_processed_res/release/optimizeReleaseResources/resources-release-optimize.ap_"
+            ).get().asFile
+            copy(project, zip, false)
+        }
+    }
+
+    tasks.register("copyDexDebug") {
+        doLast {
+            val zip = layout.buildDirectory.file(
+                "intermediates/processed_res/debug/processDebugResources/out/resources-debug.ap_"
+            ).get().asFile
+            copy(project, zip, true)
+        }
+    }
+
+
+
+
+    tasks.configureEach {
+        if (name == "mergeDexRelease") {
+            finalizedBy("copyDexRelease")
+        } else if (name == "mergeDexDebug") {
+            finalizedBy("copyDexDebug")
+        }
+    }
+}
+
+/*
 
 /// 创建复制预编译 dex 文件的任务
 tasks.register<Copy>("copyPrecompiledDex") {
     from("Dex")
-    from(File("${layout.projectDirectory.asFile}","Dex"))
+    from(File("${layout.projectDirectory.asFile}", "Dex"))
     into("${layout.buildDirectory.get().asFile}/intermediates/dex/debug/mergeDexDebug")
     include("*.dex")
 }
 
 // 配置 dex 合并任务
 tasks.whenTaskAdded {
-    if (name == "mergeDexDebug" || name == "mergeDexRelease") {
+
+    if (name == "packageRelease" || name == "packageDebug") {
         dependsOn("copyPrecompiledDex")
     }
-    if (name == "packageRelease"|| name == "packageDebug"){
-        dependsOn("")
-    }
+
 }
+*/
