@@ -6,7 +6,7 @@ on:
       - v*
   pull_request:
     # 分支名称
-    branches: [ "main" ]
+    branches: [ "master" ]
   workflow_dispatch: { }
 
 jobs:
@@ -42,14 +42,12 @@ jobs:
 
     # 重命名
     - name: Rename APK
-      run: mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/${{ env.ASSET_NAME }}
-          #build/outputs/apk/release/app-release.apk
-          #app/build/outputs/apk/release/app-release.apk
+      run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/${{ env.ASSET_NAME }}
     - name: Upload  APK
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.ASSET_NAME }}
-        path: build/app/outputs/apk/release/${{ env.ASSET_NAME }}
+        path: app/build/outputs/apk/release/${{ env.ASSET_NAME }}
     # 发布到 Release
     - name: Upload APK to GitHub Release
       uses: softprops/action-gh-release@v2
@@ -57,12 +55,5 @@ jobs:
       with:
         tag_name: ${{ env.VERSION_NAME }}
         repository: neu233/AIDE-Plus-AS
-        files: build/app/outputs/apk/release/${{ env.ASSET_NAME }}
+        files: app/build/outputs/apk/release/${{ env.ASSET_NAME }}
         token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
-
-
-    # 上传到 FTP
-    # - name: Deploy single APK to FTP
-        # run: |
-        # sudo apt-get update && sudo apt-get install -y lftp
-        # lftp -e "set ssl:verify-certificate no; put -O / build/app/outputs/apk/release/${{ env.ASSET_NAME }}; bye" -u "${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }}" "${{ secrets.FTP_SERVER }}:${{ secrets.FTP_PORT }}"
