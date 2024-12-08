@@ -42,6 +42,7 @@ class BigBuffer(val blockSize: Int = 1024) {
   internal class Block(
     internal var size: Int, internal  val blockSize: Int, internal val data: ByteBuffer)
 
+  @ConsistentCopyVisibility
   data class BlockRef internal constructor(
     internal val start: Int, val size: Int, internal val block: Block) {
 
