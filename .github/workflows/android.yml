@@ -5,6 +5,7 @@ on:
     tags:
       - v*
   pull_request:
+    - master
     # 分支名称
     branches: [ "main" ]
   workflow_dispatch: { }
