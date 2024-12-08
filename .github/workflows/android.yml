@@ -36,18 +36,19 @@ jobs:
         echo "VERSION_CODE=${VERSION_CODE}" >> $GITHUB_ENV
         RELEASE_NAME="v${VERSION_NAME}-${VERSION_CODE}"
         echo "RELEASE_NAME=${RELEASE_NAME}" >> $GITHUB_ENV
-        ASSET_NAME="AIDE_Pro_${VERSION_NAME}.apk"
+        ASSET_NAME="AIDE-Plus_${VERSION_NAME}.apk"
         echo "ASSET_NAME=${ASSET_NAME}" >> $GITHUB_ENV
 
     # 重命名
     - name: Rename APK
-      run: mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/${{ env.ASSET_NAME }}
-
+      run: mv build/outputs/apk/release/app-release.apk build/outputs/apk/release/${{ env.ASSET_NAME }}
+          #build/outputs/apk/release/app-release.apk
+          #app/build/outputs/apk/release/app-release.apk
     - name: Upload  APK
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.ASSET_NAME }}
-        path: build/app/outputs/apk/release/${{ env.ASSET_NAME }}
+        path: build/outputs/apk/release/${{ env.ASSET_NAME }}
     
     # 上传到 FTP
     # - name: Deploy single APK to FTP
