@@ -42,12 +42,12 @@ jobs:
 
     # 重命名
     - name: Rename APK
-      run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/${{ env.ASSET_NAME }}
+      run: mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/${{ env.ASSET_NAME }}
     - name: Upload  APK
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.ASSET_NAME }}
-        path: app/build/outputs/apk/release/${{ env.ASSET_NAME }}
+        path: build/app/outputs/apk/release/${{ env.ASSET_NAME }}
     # 发布到 Release
     - name: Upload APK to GitHub Release
       uses: softprops/action-gh-release@v2
@@ -55,5 +55,5 @@ jobs:
       with:
         tag_name: ${{ env.VERSION_NAME }}
         repository: neu233/AIDE-Plus-AS
-        files: app/build/outputs/apk/release/${{ env.ASSET_NAME }}
+        files: build/app/outputs/apk/release/${{ env.ASSET_NAME }}
         token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}

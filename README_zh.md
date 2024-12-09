@@ -3,6 +3,12 @@
 
 - [README of English](README.md)
 
+## 构建
+不要使用debug
+如果需要运行测试可以使用
+`gradlew :app:installRelease`
+
+
 
 ## 功能
 
@@ -35,7 +41,7 @@
 - [x] 新增一些基础的语法补全
 
 ### 计划实现
-- [ ] Lambda实现
+- [x] Lambda实现 (ecj)
 - [ ] 更多补全
 
 # 相关信息

@@ -1,5 +1,4 @@
 import com.android.tools.build.apkzlib.zip.ZFile
-import java.io.ByteArrayInputStream
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -104,8 +103,10 @@ android {
         }
     }
     androidResources {
-        val publicXmlFile = project.rootProject.file("${project(":appAideBase").projectDir.path}/src/main/res/values/public.xml")
-        val publicTxtFile = project.rootProject.file("${layout.buildDirectory.asFile.get().path}/public.txt")
+        val publicXmlFile =
+            project.rootProject.file("${project(":appAideBase").projectDir.path}/src/main/res/values/public.xml")
+        val publicTxtFile =
+            project.rootProject.file("${layout.buildDirectory.asFile.get().path}/public.txt")
 
         // 创建父目录并确保 publicTxtFile 存在
         publicTxtFile.parentFile.mkdirs()
@@ -127,6 +128,7 @@ android {
         }
 
         // 添加稳定 ID 参数
+        @Suppress("DEPRECATION")
         additionalParameters("--stable-ids", publicTxtFile.path)
     }
 
@@ -181,7 +183,6 @@ tasks.withType<Copy> {
 }
 
 
-
 /*
 configurations.all {
     resolutionStrategy {
@@ -214,34 +215,35 @@ afterEvaluate {
 
     val copy: (Project, File, Boolean) -> Unit = { project, resFile, isDebug ->
         val buildDir = project.layout.buildDirectory.asFile.get().path
-        val dexBytes = mutableListOf<ByteArray>()
         val dexFolder = project.layout.projectDirectory.file("Dex")
-        println(dexFolder.asFile.absolutePath)
-        dexFolder.asFile.listFiles()?.forEach {
-            if (it.name.endsWith(".dex")) {
-                println(it.absolutePath)
-                dexBytes.add(Files.readAllBytes(it.toPath()))
-            }
-        }
         val appDexCount = AppDexCount(buildDir, isDebug)
         check(appDexCount != 0) { "Unexpected app dex count" }
-
+        var dexCount = appDexCount + 2
         try {
             ZFile.openReadWrite(resFile).use { zip ->
-                val iterator = dexBytes.iterator()
-                for (i in (appDexCount + 2)..Int.MAX_VALUE) {
-                    if (!iterator.hasNext()) break
-                    val name = "classes$i.dex"
-                    println(name)
-                    zip.add(name, ByteArrayInputStream(iterator.next()))
+                dexFolder.asFile.listFiles()?.forEach {
+                    /// 不允许先添加 AIDE+_2.3.dex
+                    if (it.name.endsWith(".dex") && it.name != "AIDE+_2.3.dex") {
+                        val dexName = "classes${dexCount}.dex"
+                        zip.add(dexName, it.inputStream())
+                        dexCount++
+                    }
                 }
+                val inputStream = project
+                    .layout
+                    .projectDirectory
+                    .file("Dex/AIDE+_2.3.dex")
+                    .asFile
+                    .inputStream()
+                val dexName = "classes${dexCount}.dex"
+                zip.add(dexName, inputStream)
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             throw e
         }
-
-
     }
+
+
 
 
     tasks.register("copyDexRelease") {
@@ -274,22 +276,3 @@ afterEvaluate {
     }
 }
 
-/*
-
-/// 创建复制预编译 dex 文件的任务
-tasks.register<Copy>("copyPrecompiledDex") {
-    from("Dex")
-    from(File("${layout.projectDirectory.asFile}", "Dex"))
-    into("${layout.buildDirectory.get().asFile}/intermediates/dex/debug/mergeDexDebug")
-    include("*.dex")
-}
-
-// 配置 dex 合并任务
-tasks.whenTaskAdded {
-
-    if (name == "packageRelease" || name == "packageDebug") {
-        dependsOn("copyPrecompiledDex")
-    }
-
-}
-*/

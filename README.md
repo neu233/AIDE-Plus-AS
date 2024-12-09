@@ -3,9 +3,16 @@
 - [中文](README_zh.md)
 
 
+## Build
+
+To run tests, you can use the following command:
+`gradlew :app:installRelease`
+
+
 ## Features
 
 ### Implemented
+
 - [x] AAPT2 implemented
 - [x] D8 implemented
 - [x] Some Java 8 syntax support
@@ -34,7 +41,7 @@
 - [x] Added some basic syntax auto-completion
 
 ### Planned
-- [ ] Lambda support
+- [x] Lambda support (form ecj)
 - [ ] More auto-completion
 
 # Additional Information

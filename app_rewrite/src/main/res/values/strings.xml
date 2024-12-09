@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- Put flavor specific strings here -->
-	<string name="app_name">AIDE+</string>
+	<string name="app_name" translatable="false">AIDE+</string>
     
     <string name="zeroaicy_settings">ZeroAicyExtensionSettings</string>
     <string name="command_files_open_aide_termux">OpenAIDETermux</string>
