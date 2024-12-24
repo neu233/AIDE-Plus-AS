@@ -1,5 +1,6 @@
 package com.aide.codemodel.language.java;
 
+import io.github.zeroaicy.aide.preference.ZeroAicySetting;
 import org.eclipse.jdt.internal.compiler.CompilationResult;
 import org.eclipse.jdt.internal.compiler.ICompilerRequestor;
 import org.eclipse.jdt.internal.compiler.IErrorHandlingPolicy;
@@ -11,7 +12,6 @@ import org.eclipse.jdt.internal.compiler.env.INameEnvironment;
 import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
 import org.eclipse.jdt.internal.compiler.lookup.LookupEnvironment;
 import org.eclipse.jdt.internal.compiler.problem.AbortCompilation;
-import io.github.zeroaicy.aide.preference.ZeroAicySetting;
 
 public class CompilationUnitDeclarationResolver2 extends org.eclipse.jdt.internal.compiler.Compiler {
 
@@ -116,5 +116,34 @@ public class CompilationUnitDeclarationResolver2 extends org.eclipse.jdt.interna
 		// TODO: Implement this method
 		return super.resolve(unit, sourceUnit, verifyMethods, analyzeCode, generateCode);
 	}
+
+
+	/*
+	 @Override
+	 public void initializeParser() {
+	 //*
+	 this.problemReporter = new ProblemReporter(CompilationUnitDeclarationResolver.getHandlingPolicy(), this.options, new DefaultProblemFactory()){
+	 @Override
+	 public void duplicateTypes(CompilationUnitDeclaration compUnitDecl, TypeDeclaration typeDecl) {
+	 ICompilationUnit compilationUnit = compUnitDecl.compilationResult.compilationUnit;
+	 char[] fileName = compilationUnit.getFileName();
+
+	 AppLog.println_d("filepath %s\n", String.valueOf(fileName));
+	 // AppLog.println_d("typeDecl %s\n", String.valueOf(typeDecl));
+
+	 AppLog.println_e(Thread.currentThread().getStackTrace());
+	 AppLog.println_e("-------------------------------\n");
+	 super.duplicateTypes(compUnitDecl, typeDecl);
+	 }
+	 @Override
+	 public void deprecatedType(TypeBinding type, ASTNode location, int index) {
+	 System.out.println(type);
+	 if( type instanceof BinaryTypeBinding binaryTypeBinding){
+	 AppLog.d("isDeprecated %s", binaryTypeBinding.isDeprecated());
+	 }
+	 }
+	 };
+	 super.initializeParser();
+	 }*/
 
 }

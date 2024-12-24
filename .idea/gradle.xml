@@ -11,12 +11,19 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/aaptcompiler" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/appAideBase" />
             <option value="$PROJECT_DIR$/app_rewrite" />
-            <option value="$PROJECT_DIR$/layoutlib-api" />
-            <option value="$PROJECT_DIR$/res-parse" />
+            <option value="$PROJECT_DIR$/compiletion" />
+            <option value="$PROJECT_DIR$/compiletion/Kotlin" />
+            <option value="$PROJECT_DIR$/compiletion/Kotlin/kotlinc" />
+            <option value="$PROJECT_DIR$/compiletion/Kotlin/the-unsafe" />
+            <option value="$PROJECT_DIR$/compiletion/Xml" />
+            <option value="$PROJECT_DIR$/compiletion/Xml/aaptcompiler" />
+            <option value="$PROJECT_DIR$/compiletion/Xml/layoutlib-api" />
+            <option value="$PROJECT_DIR$/compiletion/Xml/res-parse" />
+            <option value="$PROJECT_DIR$/compiletion/Xml/testApp" />
+            <option value="$PROJECT_DIR$/compiletion/jaxp" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

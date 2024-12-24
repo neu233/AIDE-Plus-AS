@@ -1,18 +1,16 @@
 package io.github.zeroaicy.aide.ui.services;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.TextUtils;
 import androidx.annotation.Keep;
 import com.aide.common.AppLog;
 import com.aide.ui.AppPreferences;
 import com.aide.ui.ServiceContainer;
-import com.aide.ui.project.AndroidProjectSupport;
 import com.aide.ui.project.internal.GradleTools;
 import com.aide.ui.rewrite.R;
-import com.aide.ui.services.ProjectService;
 import com.aide.ui.util.ArtifactNode;
 import com.aide.ui.util.BuildGradle;
-import com.aide.ui.util.ClassPath;
 import com.aide.ui.util.FileSystem;
 import com.aide.ui.util.MavenDependencyVersion;
 import com.aide.ui.util.MavenMetadataXml;
@@ -29,10 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import com.aide.ui.services.ZeroAicyProjectService;
-import android.app.AlertDialog;
-import java.util.HashSet;
-import java.util.Arrays;
 
 /**
  * 更新底包时，再优化，那时必须抽离出修改点，只保留底包对其引用的api

@@ -1,6 +1,5 @@
 package io.github.zeroaicy.aide.ui;
 
-import abcd.i2;
 import abcd.jg;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -27,6 +26,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
+import android.content.res.Resources;
 
 public class AIDEEditor extends com.aide.ui.AIDEEditor {
 
@@ -35,72 +35,76 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 		private boolean jn = true;
 		private AIDEEditor ee = AIDEEditor.this;
 
-		public EditorView(Context context) {
+		public EditorView( Context context ) {
 			super(context);
 		}
 
 		@Override
-		protected void onDraw(Canvas canvas) {
+		protected void onDraw( Canvas canvas ) {
 			super.onDraw(canvas);
 		}
 
 		@Override
-		public void initColors() {
+		public void initColors( ) {
 			super.initColors();
 
-			if (this.ee == null) {
+			if ( this.ee == null ) {
                 return;
             }
 			boolean isLight = this.ee.isLightTheme();
+			Context context = getContext();
+			Resources.Theme theme = context.getTheme();
+			Resources resources = getResources();
+			
 			// is Material主题
-			if (AndroidHelper.isMaterialTheme(getContext())) {
+			if ( AndroidHelper.isMaterialTheme(getContext()) ) {
                 //this.selectionColor = new Color(getResources().getColor(isLight ? R.color.editor_selection_material_light : R.color.editor_selection_material));
 				this.selectionColor = new Color(io.github.zeroaicy.aide.highlight.ColorKind.EDITOR_SELECTION.getColor(getContext(), isLight));
-            } else {
-                this.selectionColor = new Color(getResources().getColor(isLight ? R.color.editor_selection_light : R.color.editor_selection));
+			} else {
+				this.selectionColor = new Color(resources.getColor(isLight ? R.color.editor_selection_light : R.color.editor_selection, theme));
             }
 
 			// 背景颜色
             //this.graphicsColor = new Color(getResources().getColor(isLight ? R.color.editor_background_light : R.color.editor_background));
-			this.graphicsColor = new Color(io.github.zeroaicy.aide.highlight.ColorKind.EDITOR_BACKGROUND.getColor(getContext(), isLight));
+			this.graphicsColor = new Color(io.github.zeroaicy.aide.highlight.ColorKind.EDITOR_BACKGROUND.getColor(context, isLight));
 
 			// 光标所在行背景色
-			this.Za = this.jn ? new Color(getResources().getColor(isLight ? R.color.editor_caret_line_light : R.color.editor_caret_line)): null;
+			this.Za = this.jn ? new Color(resources.getColor(isLight ? R.color.editor_caret_line_light : R.color.editor_caret_line, theme)): null;
 
-			this.stepbarColor = this.jn ? new Color(getResources().getColor(isLight ? R.color.editor_stepping_bar_light : R.color.editor_stepping_bar)) : null;
+			this.stepbarColor = this.jn ? new Color(resources.getColor(isLight ? R.color.editor_stepping_bar_light : R.color.editor_stepping_bar, theme)) : null;
 
-            this.Pa = new Color(getResources().getColor(isLight ? R.color.editor_caret_light : R.color.editor_caret));
+            this.Pa = new Color(resources.getColor(isLight ? R.color.editor_caret_light : R.color.editor_caret, theme));
 
-            this.separatorColor = new Color(getResources().getColor(isLight ? R.color.editor_separator_light : R.color.editor_separator));
-            this.hyperlinkColor = new Color(getResources().getColor(isLight ? R.color.editor_hyperlink_light : R.color.editor_hyperlink));
+            this.separatorColor = new Color(resources.getColor(isLight ? R.color.editor_separator_light : R.color.editor_separator, theme));
+            this.hyperlinkColor = new Color(resources.getColor(isLight ? R.color.editor_hyperlink_light : R.color.editor_hyperlink, theme));
 
-            this.Bx = new Color(getResources().getColor(isLight ? R.color.editor_diff_inserted_light : R.color.editor_diff_inserted));
-            this.Jm = new Color(getResources().getColor(isLight ? R.color.editor_diff_deleted_light : R.color.editor_diff_deleted));
-            this.An = new Color(getResources().getColor(isLight ? R.color.editor_line_number_light : R.color.editor_line_number));
+            this.Bx = new Color(resources.getColor(isLight ? R.color.editor_diff_inserted_light : R.color.editor_diff_inserted, theme));
+            this.Jm = new Color(resources.getColor(isLight ? R.color.editor_diff_deleted_light : R.color.editor_diff_deleted, theme));
+            this.An = new Color(resources.getColor(isLight ? R.color.editor_line_number_light : R.color.editor_line_number, theme));
 
 		}
 
 		@Override
-		public void setShowCaretLine(boolean showCaretLine) {
+		public void setShowCaretLine( boolean showCaretLine ) {
 			this.jn = showCaretLine;
 			super.setShowCaretLine(showCaretLine);
 		}
 
 
 	}
-	public AIDEEditor(Context context) {
+	public AIDEEditor( Context context ) {
 		this(context, null);
 	}
-	public AIDEEditor(Context context, AttributeSet attributeSet) {
+	public AIDEEditor( Context context, AttributeSet attributeSet ) {
 		this(context, attributeSet, 0);
 	}
 
-	public AIDEEditor(Context context, AttributeSet attributeSet, int defStyleAttr) {
+	public AIDEEditor( Context context, AttributeSet attributeSet, int defStyleAttr ) {
 		super(context, attributeSet, defStyleAttr);
 	}
 
 	@Override
-	protected void createEditorView() {
+	protected void createEditorView( ) {
 		//super.createEditorView();
 		removeAllViews();
 		addView(new EditorView(getContext()));
@@ -108,38 +112,38 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 
 
 	@Override
-	protected com.aide.ui.views.CodeEditText.EditorView getOEditorView() {
+	protected CodeEditText.EditorView getOEditorView( ) {
 		return super.getOEditorView();
 	}
 
 
-	private int getIndentationSize() {
+	private int getIndentationSize( ) {
 		String lowerCase = getFilePath().toLowerCase();
-		if (lowerCase.endsWith(".java")) {
+		if ( lowerCase.endsWith(".java") ) {
 			return AppPreferences.getJavaIndentationSize();
 		}
-		if (lowerCase.endsWith(".js")) {
+		if ( lowerCase.endsWith(".js") ) {
 			return AppPreferences.getJsIndentationSize();
 		}
 
-		if (lowerCase.endsWith(".c") 
+		if ( lowerCase.endsWith(".c") 
 			|| lowerCase.endsWith(".cpp") 
 			|| lowerCase.endsWith(".h") 
 			|| lowerCase.endsWith(".cc") 
 			|| lowerCase.endsWith(".hh") 
-			|| lowerCase.endsWith(".hpp")) {
+			|| lowerCase.endsWith(".hpp") ) {
 			return AppPreferences.getCppIndentationSize();
 		}
 
-		if (lowerCase.endsWith(".xml")) {
+		if ( lowerCase.endsWith(".xml") ) {
 			return AppPreferences.getXmlIndentationSize();
 		}
 
-		if (lowerCase.endsWith(".html") 
-			|| lowerCase.endsWith(".htm")) {
+		if ( lowerCase.endsWith(".html") 
+			|| lowerCase.endsWith(".htm") ) {
 			return AppPreferences.getHtmlIndentationSize();
 		}
-		if (lowerCase.endsWith(".css")) {
+		if ( lowerCase.endsWith(".css") ) {
 			return AppPreferences.getCssIndentationSize();
 		}
 		return getTabSize();
@@ -147,33 +151,33 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 	}
 
 	@Override
-	public String getQuickKeys() {
+	public String getQuickKeys( ) {
 		String indentation = "";
 		int indentationSize = getIndentationSize();
 		int i = 0;
-		if (indentationSize % getTabSize() == 0) {
-			while (i < indentationSize / getTabSize()) {
+		if ( indentationSize % getTabSize() == 0 ) {
+			while ( i < indentationSize / getTabSize() ) {
 				indentation = indentation + "\t";
 				i++;
 			}
 		} else {
-			while (i < indentationSize) {
+			while ( i < indentationSize ) {
 				indentation = indentation + "s";
 				i++;
 			}
 		}
 		String lowerCase = getFilePath().toLowerCase();
 
-		if (lowerCase.endsWith(".css")) {
+		if ( lowerCase.endsWith(".css") ) {
 			return indentation + " { } - : . ; # % ( ) \" ' @ > = [ ] / * !";
 		}
-		if (lowerCase.endsWith(".xml") 
+		if ( lowerCase.endsWith(".xml") 
 			|| lowerCase.endsWith(".html") 
-			|| lowerCase.endsWith(".htm")) {
+			|| lowerCase.endsWith(".htm") ) {
 			return indentation + " < > / = \" : @ + ( ) ; , . | & ! [ ] { } _ -";
 		}
-		if (lowerCase.endsWith(".java") 
-			|| lowerCase.endsWith(".js")) {
+		if ( lowerCase.endsWith(".java") 
+			|| lowerCase.endsWith(".js") ) {
 			return indentation + " { } ( ) ; , . = \" | & ! [ ] < > + - / * ? : _";
 		}
 		// 比如gradle
@@ -188,7 +192,7 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 	 */
 	//*
 	@Override
-	protected OpenFileService.OpenFileModel Z1(final String filePath) {
+	protected OpenFileService.OpenFileModel Z1( final String filePath ) {
 		// 先返回，内容异步塞入
 		return new AIDEEditorModel(filePath);
 	}
@@ -197,12 +201,12 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 
 	static ExecutorService defaultThreadPoolService = ThreadPoolService.getDefaultThreadPoolService();
 	// 有问题 暂时不启用
-	public class AIDEEditorModel extends com.aide.ui.AIDEEditor.t {
+	public class AIDEEditorModel extends t {
 
 		private static final String TAG = "AIDEEditorModel";
 
 		String filePath;
-		public AIDEEditorModel(String filePath) {
+		public AIDEEditorModel( String filePath ) {
 			// 使用无参构造器，因为没有加载内容
 			super();
 
@@ -216,7 +220,7 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 
 			// 延迟加载内容
 			Vector<TextBuffer> textBuffers = EditorModelKt.getTextBuffers(this);
-			synchronized (textBuffers) {
+			synchronized ( textBuffers ) {
 				textBuffers.addElement(new TextBuffer("异步加载中....".toCharArray()));
 			}
 
@@ -224,7 +228,7 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 			defaultThreadPoolService.submit(
 				new Runnable(){
 					@Override
-					public void run() {
+					public void run( ) {
 						// AppLog.d("异步读取");
 						initAsync(FileSystem.readFileOrZipEntry(AIDEEditorModel.this.filePath));
 					}
@@ -256,11 +260,11 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 		// 但是代码分析进程可能阻塞，比如分析代码中，不能够及时
 		// 而调用此方法也在子线程以及aidl线程不会阻塞Ui线程
 		@Override
-		public void J0(OpenFile openFile) {
-			if (initing.get()) {
+		public void J0( OpenFile openFile ) {
+			if ( initing.get() ) {
 				try {
 					Object lock = this.lock;
-					synchronized (lock) {
+					synchronized ( lock ) {
 						// 防止死锁
 						lock.wait(10000);
 					}
@@ -273,21 +277,21 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 		}
 
 		@Override
-		public void close() {
-			synchronized (this.lock) {
+		public void close( ) {
+			synchronized ( this.lock ) {
 				this.lock.notifyAll();
 			}
 			super.close();
 		}
 
 		@Override
-		protected void finalize() throws Throwable {
+		protected void finalize( ) throws Throwable {
 			super.finalize();
 		}
 
 
 		@Override
-		public int getLineCount() {
+		public int getLineCount( ) {
 			return super.getLineCount();
 		}
 
@@ -295,7 +299,7 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 		private final Object lock = new Object();
 		private final AtomicBoolean initing = new AtomicBoolean(true);
 
-		public void initAsync(Reader reader) {
+		public void initAsync( Reader reader ) {
 			try {
 				// 读取
 				initReader(reader);
@@ -305,31 +309,31 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 			}
 			finally {
 				this.initing.set(false);
-				synchronized (this.lock) {
+				synchronized ( this.lock ) {
 					this.lock.notifyAll();
 				}
 			}
 		}
 
 
-		private void initReader(Reader reader) {
+		private void initReader( Reader reader ) {
 
 			// 锁住自己
-			synchronized (this) {
+			synchronized ( this ) {
 				// k1()
 				this.cb = com.aide.engine.service.CodeModelFactory.findCodeModel(filePath, ServiceContainer.Hw());
 
 				Vector<TextBuffer> textBuffers = EditorModelKt.getTextBuffers(this);
 				// 需要对textBuffers操作，防止并发
 				// 重置
-				synchronized (textBuffers) {
+				synchronized ( textBuffers ) {
 					textBuffers.clear();
 
 					char[] bufferPool = new char[0x8000];
 					com.aide.ui.views.editor.v.j6(reader, new EditorModel.a(new StringBuffer(), false, getTabSize(), false), bufferPool);
 					IOUtils.close(reader);
 					// 没有内容
-					if (textBuffers.size() == 0) {
+					if ( textBuffers.size() == 0 ) {
 						textBuffers.addElement(new TextBuffer());
 					}
 					textBuffers.trimToSize();
@@ -337,7 +341,7 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 
 				this.initing.set(false);
 
-				synchronized (this.lock) {
+				synchronized ( this.lock ) {
 					// 通知代码分析进程
 					this.lock.notifyAll();
 
@@ -350,7 +354,7 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 				engineService.ei();
 
 
-				synchronized (this.lock) {
+				synchronized ( this.lock ) {
 					this.lock.notifyAll();
 				}
 
@@ -360,24 +364,24 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 				oEditorView.indexingLayoutTask.DW();
 			}
 
-			synchronized (this.lock) {
+			synchronized ( this.lock ) {
 				this.lock.notifyAll();
 			}
 		}
 
 		@Override
-		public void Hw(final int p, final int p1) {
+		public void Hw( final int p, final int p1 ) {
 			defaultThreadPoolService.submit(
 				new Runnable(){
 					@Override
-					public void run() {
+					public void run( ) {
 						HwAsync(p, p1);
 					}
 				});
 		}
 
 
-		public void HwAsync(int p, int p1) {
+		public void HwAsync( int p, int p1 ) {
 			super.Hw(p, p1);
 		}
 
@@ -385,20 +389,20 @@ public class AIDEEditor extends com.aide.ui.AIDEEditor {
 
 		// isWarningColor
 		@Override
-		public boolean ef(int i, int i2) {
+		public boolean ef( int i, int i2 ) {
 			jg<SyntaxError> jgVar = this.KD;
-            if (jgVar == null || !jgVar.u7(i2, i)) {
+            if ( jgVar == null || !jgVar.u7(i2, i) ) {
                 return false;
             }
-			
+
             Enumeration<SyntaxError> Hw = jgVar.Hw(i2, i);
-            while (Hw.hasMoreElements()) {
+            while ( Hw.hasMoreElements() ) {
                 SyntaxError nextElement = Hw.nextElement();
 				// EclipseJavaCodeAnalyzer2 clearErrors 50 -> 112
-				if (nextElement.WB == 112) {
+				if ( nextElement.WB == 112 ) {
 					continue;
 				}
-				if (nextElement.Zo()) {
+				if ( nextElement.Zo() ) {
                     return true;
                 }
             }

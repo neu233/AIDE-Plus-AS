@@ -102,7 +102,7 @@ public class ApkSignerService {
 		} else {
 			//为设置签名文件使用内置签名文件
 			String keyName = "testkey";
-			Class clazz = ApkSignerService.class;
+			Class<ApkSignerService> clazz = ApkSignerService.class;
 
 			InputStream certInputStream = clazz.getResourceAsStream("/keys/" + keyName + ".x509.pem");
 			certificate = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(certInputStream);

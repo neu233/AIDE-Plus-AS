@@ -13,13 +13,13 @@ import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import com.aide.common.KeyStrokeDetector;
-import com.aide.ui.ServiceContainer;
 import com.aide.ui.MainActivity;
+import com.aide.ui.ServiceContainer;
 import com.aide.ui.util.FileSpan;
-import com.aide.ui.views.editor.OEditor;
-import java.io.StringReader;
 import com.aide.ui.views.editor.Model;
+import com.aide.ui.views.editor.OEditor;
 import io.github.zeroaicy.aide.preference.ZeroAicySetting;
+import java.io.StringReader;
 
 
 

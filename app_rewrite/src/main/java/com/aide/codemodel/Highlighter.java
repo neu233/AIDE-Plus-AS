@@ -23,19 +23,20 @@ public class Highlighter {
 
             int startLine = lexer.getLine() + 1;
             int startColumn = lexer.getColumn() + 1;
-            while (true) {
+            
+			while (true) {
                 int nextStyle = lexer.yylex();
-                int line = lexer.getLine() + 1;
-                int column = lexer.getColumn() + 1;
+                int endLine = lexer.getLine() + 1;
+                int endColumn = lexer.getColumn() + 1;
 
 				// 填充风格
-                syntaxTreeStyles.addSyntaxTag(style, 0, startLine, startColumn, line, column);
+                syntaxTreeStyles.addSyntaxTag(style, 0, startLine, startColumn, endLine, endColumn);
 
 				style = nextStyle;
-                startLine = line;
-                startColumn = column;
+                startLine = endLine;
+                startColumn = endColumn;
                 if (nextStyle == -1) break;
-                syntaxTreeStyles.addSyntaxTag(0, 0, startLine, startColumn, line, column);
+                syntaxTreeStyles.addSyntaxTag(0, 0, startLine, startColumn, endLine, endColumn);
             }
         }
 		catch (IOException e) {

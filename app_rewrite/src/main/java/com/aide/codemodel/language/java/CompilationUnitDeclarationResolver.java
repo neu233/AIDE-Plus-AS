@@ -398,7 +398,7 @@ public class CompilationUnitDeclarationResolver extends Compiler {
 
 
 
-	private ResetCompilationUnitDeclaration resetASTVisitor = new ResetCompilationUnitDeclaration();
+	// private ResetCompilationUnitDeclaration resetASTVisitor = new ResetCompilationUnitDeclaration();
 
 	private Set<String> sourcePaths = new HashSet<>();
 	public void setSourceFiles(Set<String> sourcePaths) {
@@ -536,11 +536,6 @@ public class CompilationUnitDeclarationResolver extends Compiler {
 		// this.lookupEnvironment.completeTypeBindings();
 	}
 
-	private void dietParse3(String key, CompilationUnitDeclaration parsedUnit) {
-		CompilationUnitScope unitScope = null;
-		parsedUnit.traverse(resetASTVisitor, unitScope);
-	}
-
 
 
 	private CompilationUnitDeclaration dietParse2(String filePath, CompilationUnitDeclaration other) {
@@ -581,7 +576,7 @@ public class CompilationUnitDeclarationResolver extends Compiler {
 
 	/****************************************************************************************************************************************************************************/
 
-	private static void removeScope(TypeDeclaration enclosingType) {
+	 static void removeScope(TypeDeclaration enclosingType) {
 //		if (enclosingType.scope != null) System.out.println("scope");
 //		if (enclosingType.binding != null) System.out.println("binding");
 //		if (enclosingType.initializerScope != null) System.out.println("initializerScope");
@@ -629,7 +624,7 @@ public class CompilationUnitDeclarationResolver extends Compiler {
 		}
 	}
 
-	private static void removeOldTypes(CompilationUnitDeclaration parsedUnitOld, CompilationUnitDeclarationResolver resolver, boolean removeNull) {
+	 static void removeOldTypes(CompilationUnitDeclaration parsedUnitOld, CompilationUnitDeclarationResolver resolver, boolean removeNull) {
 		char[][] currentPackageName = parsedUnitOld.currentPackage == null ? CharOperation.NO_CHAR_CHAR : parsedUnitOld.currentPackage.tokens;
 
 

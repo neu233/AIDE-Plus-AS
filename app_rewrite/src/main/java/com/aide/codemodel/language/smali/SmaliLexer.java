@@ -1,10 +1,8 @@
 package com.aide.codemodel.language.smali;
 
-import java.io.Reader;
-import java.io.IOException;
-import static java.lang.Math.toIntExact;
-import java.util.Stack;
 import com.aide.codemodel.JFlexLexer;
+import java.util.Stack;
+
 import static com.aide.codemodel.Styles.*;
 
 
@@ -2056,7 +2054,7 @@ public class SmaliLexer implements JFlexLexer {
 	}
 
 	/** Input device. */
-	private Reader zzReader;
+	private java.io.Reader zzReader;
 
 	/** Current state of the DFA. */
 	private int zzState;
@@ -2116,7 +2114,7 @@ public class SmaliLexer implements JFlexLexer {
 	/* user code: */
     private StringBuffer sb = new StringBuffer();
     private String tokenError = null;
-    private int lexerErrors = 0;
+    // private int lexerErrors = 0;
     private Stack<Integer> stateStack = new Stack<>();
     private int apiLevel=30;
 
@@ -2196,7 +2194,7 @@ public class SmaliLexer implements JFlexLexer {
 	 *
 	 * @param   in  the java.io.Reader to read input from.
 	 */
-	public SmaliLexer( Reader in ) {
+	public SmaliLexer( java.io.Reader in ) {
 		this.zzReader = in;
 	}
 
@@ -2223,9 +2221,9 @@ public class SmaliLexer implements JFlexLexer {
 	 * Refills the input buffer.
 	 *
 	 * @return {@code false} iff there was new input.
-	 * @exception IOException  if any I/O-Error occurs
+	 * @exception java.io.IOException  if any I/O-Error occurs
 	 */
-	private boolean zzRefill( ) throws IOException {
+	private boolean zzRefill( ) throws java.io.IOException {
 
 		/* first: make room (if you can) */
 		if ( zzStartRead > 0 ) {
@@ -2261,7 +2259,7 @@ public class SmaliLexer implements JFlexLexer {
 			if ( requested == 0 ) {
 				throw new java.io.EOFException("Scan buffer limit reached [" + zzBuffer.length + "]");
 			} else {
-				throw new IOException(
+				throw new java.io.IOException(
 					"Reader returned 0 characters. See JFlex examples/zero-reader for a workaround.");
 			}
 		}
@@ -2292,9 +2290,9 @@ public class SmaliLexer implements JFlexLexer {
 	/**
 	 * Closes the input reader.
 	 *
-	 * @throws IOException if the reader could not be closed.
+	 * @throws java.io.IOException if the reader could not be closed.
 	 */
-	public final void yyclose( ) throws IOException {
+	public final void yyclose( ) throws java.io.IOException {
 		zzAtEOF = true; // indicate end of file
 		zzEndRead = zzStartRead; // invalidate buffer
 
@@ -2316,7 +2314,7 @@ public class SmaliLexer implements JFlexLexer {
 	 *
 	 * @param reader The new input stream.
 	 */
-	public final void yyreset( Reader reader ) {
+	public final void yyreset( java.io.Reader reader ) {
 		zzReader = reader;
 		zzEOFDone = false;
 		yyResetPosition();
@@ -2458,9 +2456,9 @@ public class SmaliLexer implements JFlexLexer {
 	 * or an I/O-Error occurs.
 	 *
 	 * @return the next token.
-	 * @exception IOException if any I/O-Error occurs.
+	 * @exception java.io.IOException if any I/O-Error occurs.
 	 */
-	public int yylex( ) throws IOException {
+	public int yylex( ) throws java.io.IOException {
 		int zzInput;
 		int zzAction;
 

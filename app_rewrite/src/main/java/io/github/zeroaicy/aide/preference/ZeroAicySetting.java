@@ -6,25 +6,28 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.text.TextUtils;
-
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
-
+import com.aide.codemodel.language.java.JavaFormatOption;
 import com.aide.ui.rewrite.R;
+import io.github.zeroaicy.aide.utils.Utils;
 
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import io.github.zeroaicy.aide.utils.Utils;
-
-public class ZeroAicySetting {
+public class ZeroAicySetting implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final Map<String, String> gradleCmdLineMap = new LinkedHashMap<String, String>();
     public static SharedPreferences projectServiceSharedPreferences;
     private static SharedPreferences defaultSp;
+    private static SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener;
     private static boolean isWatch;
     private static boolean isReinstall;
+    private Context context;
+    public ZeroAicySetting(Context context) {
+        this.context = context;
+    }
 
     public static SharedPreferences getDefaultSp() {
         return defaultSp;
@@ -34,9 +37,13 @@ public class ZeroAicySetting {
         return defaultSp.getString(key, defValue);
     }
 
+    public static boolean getDefaultSpBoolean(String key, @Nullable boolean defValue) {
+        return defaultSp.getBoolean(key, defValue);
+    }
+
     public static void init(Context context) {
         if (ZeroAicySetting.defaultSp != null) return;
-
+        ZeroAicySetting.onSharedPreferenceChangeListener = new ZeroAicySetting(context);
         ZeroAicySetting.defaultSp = PreferenceManager.getDefaultSharedPreferences(context);
         ZeroAicySetting.projectServiceSharedPreferences = context.getSharedPreferences("ProjectService", 0);
         //初始化一些行为
@@ -79,27 +86,7 @@ public class ZeroAicySetting {
     private static void initFollowSystem(final Context context) {
         if (enableFollowSystem()) {
             //注册监听器
-            ZeroAicySetting.defaultSp.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
-                @Override
-                public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                    if ("light_theme".equals(key)) {
-                        //如果没有启用主题跟随系统，则不处理
-                        if (!enableFollowSystem()) return;
-
-                        if (isNightMode(context)) {
-                            //修改主题为暗主题
-                            if (isLightTheme()) {
-                                //是亮主题才修改防止循环调用
-                                setLightTheme(false);
-                            }
-                        } else {
-                            //是暗主题才修改防止循环调用
-                            //修改主题为亮主题
-                            if (!isLightTheme()) setLightTheme(true);
-                        }
-                    }
-                }
-            });
+            ZeroAicySetting.defaultSp.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
         }
     }
 
@@ -110,7 +97,7 @@ public class ZeroAicySetting {
 
     //等效i.BT()
     public static boolean isLightTheme() {
-        return ZeroAicySetting.defaultSp.getBoolean("light_theme", true);
+        return getDefaultSpBoolean("light_theme", true);
     }
 
     public static void setLightTheme(boolean isLightTheme) {
@@ -122,20 +109,28 @@ public class ZeroAicySetting {
      */
     //启用Drawer
     public static boolean enableActionDrawerLayout() {
-        return ZeroAicySetting.defaultSp.getBoolean("zero_aicy_enable_actionbar_drawer_layout", false);
+        return getDefaultSpBoolean("zero_aicy_enable_actionbar_drawer_layout", false);
     }
 
     public static boolean enableActionBarSpinner() {
-        return ZeroAicySetting.defaultSp.getBoolean("zero_aicy_enable_actionbar_tab_spinner", true);
+        return getDefaultSpBoolean("zero_aicy_enable_actionbar_tab_spinner", true);
     }
 
     public static boolean enableFollowSystem() {
-        return ZeroAicySetting.defaultSp.getBoolean("zero_aicy_enable_follow_system", false);
+        return getDefaultSpBoolean("zero_aicy_enable_follow_system", false);
     }
 
     public static boolean isEnableDetailedLog() {
         if (ZeroAicySetting.defaultSp == null) return false;
-        return ZeroAicySetting.defaultSp.getBoolean("zero_aicy_enable_detailed_log", false);
+        return getDefaultSpBoolean("zero_aicy_enable_detailed_log", false);
+    }
+
+    public static boolean isEnableShowWarning() {
+        return getDefaultSpBoolean("zero_aicy_enable_error_browser_show_warning", true);
+    }
+
+    public static boolean isEnableEclipseJavaFormat() {
+        return getDefaultSpBoolean("zero_aicy_enable_eclipse_java_format", true);
     }
 
     /*
@@ -143,12 +138,12 @@ public class ZeroAicySetting {
      */
     public static boolean isShizukuInstaller() {
         //借用root的开关
-        return ZeroAicySetting.defaultSp.getBoolean("zero_aicy_enable_shizuku_installer", true);
+        return getDefaultSpBoolean("zero_aicy_enable_shizuku_installer", true);
     }
 
     //使用自定义安装器安装
     public static boolean isCustomInstaller() {
-        return ZeroAicySetting.defaultSp.getBoolean("zero_aicy_enable_custom_installer", false);
+        return getDefaultSpBoolean("zero_aicy_enable_custom_installer", false);
     }
 
     //获得自定义安装器
@@ -161,18 +156,23 @@ public class ZeroAicySetting {
     }
 
     public static boolean enableADRT() {
-        return ZeroAicySetting.defaultSp.getBoolean("zero_aicy_enable_adrt", false);
+        return getDefaultSpBoolean("zero_aicy_enable_adrt", false);
     }
 
     /*Java项目解除API限制*/
     public static boolean isEnableAndroidApi() {
-        return ZeroAicySetting.defaultSp.getBoolean("zero_aicy_remove_javaproject_api_limitations", true);
+        String key = "zero_aicy_remove_javaproject_api_limitations";
+        boolean defValue = true;
+        return getDefaultSpBoolean(key, defValue);
     }
 
     /*重定义Apk构建路径*/
     public static boolean isEnableAdjustApkBuildPath() {
-        return ZeroAicySetting.defaultSp.getBoolean("zero_aicy_adjust_apk_build_path", true);
+        return getDefaultSpBoolean("zero_aicy_adjust_apk_build_path", true);
     }
+    /**
+     * 实验室
+     */
 
     //获得Java项目dex的minsdk
     public static int getJavaProjectMinSdkLevel() {
@@ -195,14 +195,17 @@ public class ZeroAicySetting {
     }
 
     /**
-     * 实验室
+     * 工程设置
      */
+    public static boolean isEnableAutoClassComments() {
+        return getDefaultSpBoolean("zero_aicy_enable_auto_class_comments", true);
+    }
 
     /**
      * 默认为true，以后写死
      */
     public static boolean isEnableAapt2() {
-        return ZeroAicySetting.defaultSp.getBoolean("test_zero_aicy_enable_aapt2", true);
+        return getDefaultSpBoolean("test_zero_aicy_enable_aapt2", true);
     }
 
     /**
@@ -211,15 +214,19 @@ public class ZeroAicySetting {
      * useAndroidx true
      */
     public static boolean isEnableViewBinding() {
-        return ZeroAicySetting.defaultSp.getBoolean("test_zero_aicy_enable_view_binding", false);
+        return getDefaultSpBoolean("test_zero_aicy_enable_view_binding", false);
     }
 
     public static boolean isViewBindingAndroidX() {
-        return ZeroAicySetting.defaultSp.getBoolean("test_zero_aicy_enable_view_binding_use_androidx", true);
+        return getDefaultSpBoolean("test_zero_aicy_enable_view_binding_use_androidx", true);
     }
 
     public static boolean isEnableEclipseCompilerForJava() {
-        return ZeroAicySetting.defaultSp.getBoolean("test_zero_aicy_enable_eclipse_compiler_for_java", false);
+        return getDefaultSpBoolean("test_zero_aicy_enable_eclipse_compiler_for_java", false);
+    }
+
+    public static boolean isEnableJavaAdjustSpaces() {
+        return getDefaultSpBoolean(JavaFormatOption.ADJUST_SPACES.getKey(), false);
     }
 
     public static String getCurrentAppHome() {
@@ -232,16 +239,19 @@ public class ZeroAicySetting {
 
     /*半成品*/
     public static boolean isEnableDataBinding() {
-        return ZeroAicySetting.defaultSp.getBoolean("test_zero_aicy_enable_data_binding_use", true);
+        return getDefaultSpBoolean("test_zero_aicy_enable_data_binding_use", true);
     }
+
+    /**
+     * 没有界面的开关
+     */
 
     /**
      * 未实现
      */
     public static boolean isEnableAab() {
-        return ZeroAicySetting.defaultSp.getBoolean("test_zero_aicy_enable_build_aab_apks", false);
+        return getDefaultSpBoolean("test_zero_aicy_enable_build_aab_apks", false);
     }
-
 
     public static Map<String, String> getCommands() {
         if (gradleCmdLineMap.isEmpty()) {
@@ -253,18 +263,52 @@ public class ZeroAicySetting {
     }
 
     /**
-     * 没有界面的开关
-     */
-
-    /**
      * d8子进程是否扩容
      */
     public static boolean isEnableEnsureCapacity() {
-        return ZeroAicySetting.defaultSp.getBoolean("test_zero_aicy_enable_ensure_capacity", true);
+        return getDefaultSpBoolean("test_zero_aicy_enable_ensure_capacity", true);
     }
 
     public static boolean disableEnableEnsureCapacity() {
         return ZeroAicySetting.defaultSp.edit().putBoolean("test_zero_aicy_enable_ensure_capacity", false).commit();
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if ("light_theme".equals(key)) {
+            //如果没有启用主题跟随系统，则不处理
+            if (!enableFollowSystem()) return;
+
+            if (isNightMode(context)) {
+                //修改主题为暗主题
+                if (isLightTheme()) {
+                    //是亮主题才修改防止循环调用
+                    setLightTheme(false);
+                }
+            } else {
+                //是暗主题才修改防止循环调用
+                //修改主题为亮主题
+                if (!isLightTheme()) setLightTheme(true);
+            }
+        }
+
+        if ("test_zero_aicy_enable_eclipse_compiler_for_java".equals(key)) {
+            if (isEnableEclipseCompilerForJava()) {
+                // ecj模式禁用 JavaFormatOption.ADJUST_SPACES
+                // 默认启用
+                ZeroAicySetting.defaultSp.edit()
+                        .putBoolean(JavaFormatOption.ADJUST_SPACES.getKey(), false)
+                        .putBoolean("zero_aicy_enable_eclipse_java_format", true).commit();
+
+            }
+        } else if (JavaFormatOption.ADJUST_SPACES.getKey().equals(key)) {
+            if (isEnableEclipseCompilerForJava() && isEnableJavaAdjustSpaces()) {
+                // ecj模式禁用 JavaFormatOption.ADJUST_SPACES
+                ZeroAicySetting.defaultSp.edit()
+                        .putBoolean(JavaFormatOption.ADJUST_SPACES.getKey(), false).commit();
+            }
+        }
+
+
+    }
 }

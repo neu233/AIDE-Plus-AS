@@ -2,7 +2,6 @@ package com.aide.codemodel.language.java;
 
 import com.aide.codemodel.api.Model;
 import com.aide.codemodel.api.abstraction.CodeRenderer;
-import com.aide.codemodel.api.abstraction.Syntax;
 
 public class JavaLanguagePro extends JavaLanguage {
 

@@ -192,12 +192,12 @@ public class ScopeTypeQuerier{
 
 			try{
 				//嗅探一下，d8打不开zip，不报路径😭
-				new ZipFile(libFile);
+				new ZipFile(libFile).close();
 			}
 			catch (IOException e){
 				// 坏的jar
 				libFile.delete();
-				throw new Error(libFilePath + "不是一个zip文件", e);
+				throw new Error(libFilePath + "zip文件不完整或错误", e);
 			}
 
 			String libFileNameLowerCase = fileName.toLowerCase();
@@ -311,7 +311,7 @@ public class ScopeTypeQuerier{
 				// 
 				String filesPath = ((BuildGradle.FilesDependency)dependency).getFilesPath(curProjectPath);
 				this.scopeTypeMap.put(filesPath, scopeType);
-				if ( scopeType == scopeType.runtimeOnly ){
+				if ( scopeType == ScopeType.runtimeOnly ){
 					addRuntimeOnlyLib(filesPath);
 				}
 				continue;

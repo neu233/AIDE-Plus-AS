@@ -1,12 +1,11 @@
 package com.aide.codemodel.language.java;
-import javax.tools.DiagnosticListener;
-import javax.tools.JavaFileObject;
-import javax.tools.Diagnostic;
 import com.aide.codemodel.api.ErrorTable;
-import com.aide.codemodel.api.FileSpace;
 import com.aide.codemodel.api.FileEntry;
 import com.aide.codemodel.api.abstraction.Language;
 import java.util.Locale;
+import javax.tools.Diagnostic;
+import javax.tools.DiagnosticListener;
+import javax.tools.JavaFileObject;
 
 public class ErrorTableDiagnosticListener implements DiagnosticListener<JavaFileObject>{
 	ErrorTable errorTable;

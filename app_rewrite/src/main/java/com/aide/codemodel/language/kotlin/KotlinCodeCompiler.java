@@ -66,7 +66,7 @@ public class KotlinCodeCompiler implements com.aide.codemodel.api.abstraction.Co
 		}
 		*/
 
-		HashMap<Integer, FileSpace.Assembly> assemblyMap = fileSpaceReflect.get("assemblyMap");
+		HashMap<Integer, Assembly> assemblyMap = fileSpaceReflect.get("assemblyMap");
 
 		OrderedMapOfIntInt assemblyReferences = fileSpaceReflect.get("assemblyReferences");
 		// AppLog.println_d("assemblyReferences -> %s",  assemblyReferences);
@@ -120,7 +120,7 @@ public class KotlinCodeCompiler implements com.aide.codemodel.api.abstraction.Co
 	}
 
 
-	private int findMainProjectAssemblyId(OrderedMapOfIntInt.Iterator default_Iterator, HashMap<Integer, FileSpace.Assembly> assemblyMap) {
+	private int findMainProjectAssemblyId(OrderedMapOfIntInt.Iterator default_Iterator, HashMap<Integer, Assembly> assemblyMap) {
 		SetOfInt referencedSet = new SetOfInt();
 		// 重置
 		default_Iterator.init();

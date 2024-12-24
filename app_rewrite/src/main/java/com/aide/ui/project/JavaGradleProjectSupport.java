@@ -264,7 +264,7 @@ public class JavaGradleProjectSupport implements ProjectSupport {
 		arrayList.add(ClassPath.Entry.AndroidFramework);
 		arrayList.add(ClassPath.Entry.Libraries);
 
-		for (BuildGradle.Dependency dependency : getProjectDependencies(projectDir)) {
+		for (Dependency dependency : getProjectDependencies(projectDir)) {
 			if (dependency instanceof BuildGradle.MavenDependency) {
 				for (String mavenDependenciePath : ServiceContainer.getMavenService().resolveFullDependencyTree(null, (BuildGradle.MavenDependency) dependency)) {
 					if (mavenDependenciePath.endsWith(".jar")) {
@@ -276,8 +276,8 @@ public class JavaGradleProjectSupport implements ProjectSupport {
 				if (dirPath != null) {
 					addLibFileTree(dirPath, projectDir, arrayList, true);
 				}
-			} else if (dependency instanceof BuildGradle.FilesDependency) {
-				FilesDependency filesDependency = (BuildGradle.FilesDependency)dependency;
+			} else if (dependency instanceof FilesDependency) {
+				FilesDependency filesDependency = (FilesDependency)dependency;
 				arrayList.add(new ClassPath.Entry("lib", filesDependency.getFilesPath(projectDir), false, true));
 			}
 		}
@@ -374,7 +374,7 @@ public class JavaGradleProjectSupport implements ProjectSupport {
 			List<Dependency> projectDependencies = getProjectDependencies(projectPath);
 
 			// 优先解析此项目声明的依赖
-			for (BuildGradle.Dependency dependency : projectDependencies) {
+			for (Dependency dependency : projectDependencies) {
 				if (dependency instanceof BuildGradle.MavenDependency) {
 					// 解析maven依赖
 					ServiceContainer.getMavenService().resolvingMavenDependency((BuildGradle.MavenDependency)dependency);
@@ -382,7 +382,7 @@ public class JavaGradleProjectSupport implements ProjectSupport {
 			}
 
 			// 解析库项目
-			for (BuildGradle.Dependency dependency : projectDependencies) {
+			for (Dependency dependency : projectDependencies) {
 				if (dependency instanceof BuildGradle.ProjectDependency) {
 					BuildGradle.ProjectDependency projectDependency = (BuildGradle.ProjectDependency)dependency;
 
@@ -404,7 +404,7 @@ public class JavaGradleProjectSupport implements ProjectSupport {
 	static BuildGradle buildGradle = ZeroAicyExtensionInterface.getBuildGradle();
 	static BuildGradleExt buildGradleExt = new BuildGradleExt();
 
-	public static List<BuildGradle.Dependency> getProjectDependencies(String projectPath) {
+	public static List<Dependency> getProjectDependencies(String projectPath) {
 		String buildGradlePath = GradleTools.getBuildGradlePath(projectPath);
 		if (!FileSystem.isFileAndNotZip(buildGradlePath)) {
 			return Collections.emptyList();
@@ -420,13 +420,13 @@ public class JavaGradleProjectSupport implements ProjectSupport {
 			if (lastBuildGradle.subProjectsDependencies.size() > 0 
 				|| lastBuildGradle.allProjectsDependencies.size() > 0) {
 
-				List<BuildGradle.Dependency> dependencies = new ArrayList<>();
-				for (BuildGradle.Dependency dependency : lastBuildGradle.subProjectsDependencies) {
+				List<Dependency> dependencies = new ArrayList<>();
+				for (Dependency dependency : lastBuildGradle.subProjectsDependencies) {
 					if (dependency instanceof BuildGradle.MavenDependency) {
 						dependencies.add(dependency);
 					}
 				}
-				for (BuildGradle.Dependency dependency2 : lastBuildGradle.allProjectsDependencies) {
+				for (Dependency dependency2 : lastBuildGradle.allProjectsDependencies) {
 					if (dependency2 instanceof BuildGradle.MavenDependency) {
 						dependencies.add(dependency2);
 					}
@@ -458,9 +458,9 @@ public class JavaGradleProjectSupport implements ProjectSupport {
 			return;
 		}
 
-		List<BuildGradle.Dependency> projectDependencies = getProjectDependencies(projectPath);
+		List<Dependency> projectDependencies = getProjectDependencies(projectPath);
 
-		for (BuildGradle.Dependency dependency : projectDependencies) {
+		for (Dependency dependency : projectDependencies) {
 
 			/* maven依赖
 			 if (dependency instanceof BuildGradle.MavenDependency) {
@@ -593,9 +593,9 @@ public class JavaGradleProjectSupport implements ProjectSupport {
 		ArrayList<BuildGradle.MavenDependency> arrayList = new ArrayList<>();
 		for (String str : ServiceContainer.getProjectService().getLibraryMapping().keySet()) {
 			if (GradleTools.isGradleProject(str)) {
-				Iterator<BuildGradle.Dependency> it = getProjectDependencies(str).iterator();
+				Iterator<Dependency> it = getProjectDependencies(str).iterator();
 				while (it.hasNext()) {
-					BuildGradle.Dependency dependency = it.next();
+					Dependency dependency = it.next();
 					if (dependency instanceof BuildGradle.MavenDependency) {
 
 						Iterator<BuildGradle.MavenDependency> it2 = ServiceContainer.getMavenService().getNotExistsLocalCache(null, (BuildGradle.MavenDependency)dependency).iterator();
@@ -1094,14 +1094,14 @@ public class JavaGradleProjectSupport implements ProjectSupport {
 	 * 模板
 	 */
 	@Override
-	public TemplateService.TemplateGroup[] getTemplateGroups() {
+	public TemplateGroup[] getTemplateGroups() {
 
 		int templateGroupId = 3;
 		String templateGroupName = "Java Application";
 
 		boolean hasAppPackageName = false;
 		Template template =
-			new TemplateService.Template(
+			new Template(
 			// 可以为null
 			JavaGradleProjectSupport.this, 
 			// 组所在序号 2是Mobile Game 3是Java项目
@@ -1126,7 +1126,7 @@ public class JavaGradleProjectSupport implements ProjectSupport {
 		// 修复创建后不打开项目的bug
 		String templateName = "Java Gradle Application";
 		TemplateGroup javaGradleApplicationTemplateGroup = 
-			new TemplateService.TemplateGroup(
+			new TemplateGroup(
 			// 模板名称
 			templateName, 
 			// 模板信息
@@ -1140,7 +1140,7 @@ public class JavaGradleProjectSupport implements ProjectSupport {
 			// 主项目相对路径
 			"console");
 
-		return new TemplateService.TemplateGroup[]{javaGradleApplicationTemplateGroup};
+		return new TemplateGroup[]{javaGradleApplicationTemplateGroup};
     }
 
 	/*

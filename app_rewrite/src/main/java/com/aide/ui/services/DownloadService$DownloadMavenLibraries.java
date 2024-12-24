@@ -15,10 +15,10 @@ import java.util.List;
 public class DownloadService$DownloadMavenLibraries extends DownloadMavenLibraries {
 
 	public DownloadService$DownloadMavenLibraries(
-		com.aide.ui.services.DownloadService downloadService, 
+		DownloadService downloadService,
 		Activity activity,
-		List<com.aide.ui.util.BuildGradle.MavenDependency> deps,
-		List<com.aide.ui.util.BuildGradle.RemoteRepository> remoteRepositorys,
+		List<BuildGradle.MavenDependency> deps,
+		List<BuildGradle.RemoteRepository> remoteRepositorys,
 		Runnable completeCallback) {
 			
 		// 调用

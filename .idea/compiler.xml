@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="17">
+    <bytecodeTargetLevel target="1.8">
+      <module name="AIDE-Plus.aaptcompiler" target="21" />
+      <module name="AIDE-Plus.res-parse" target="21" />
       <module name="AIDE-Plus.termux.app" target="21" />
       <module name="AIDE-Plus.termux.terminal-emulator" target="21" />
       <module name="AIDE-Plus.termux.terminal-view" target="21" />

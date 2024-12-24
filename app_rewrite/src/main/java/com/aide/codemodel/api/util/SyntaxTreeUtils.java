@@ -1,6 +1,5 @@
 package com.aide.codemodel.api.util;
 
-import abcd.zh;
 import com.aide.codemodel.api.ArrayType;
 import com.aide.codemodel.api.ClassType;
 import com.aide.codemodel.api.Entity;
@@ -13,11 +12,11 @@ import com.aide.codemodel.api.SyntaxTree;
 import com.aide.codemodel.api.Type;
 import com.aide.codemodel.api.abstraction.Syntax;
 import com.aide.codemodel.api.collections.SetOf;
+import com.aide.codemodel.api.excpetions.UnknownEntityException;
 import com.aide.codemodel.language.java.JavaCodeAnalyzer;
 import com.aide.codemodel.language.java.JavaTypeSystem;
-import java.util.Arrays;
-import com.aide.codemodel.api.excpetions.UnknownEntityException;
 import com.aide.common.AppLog;
+import java.util.Arrays;
 
 public class SyntaxTreeUtils {
 
@@ -197,8 +196,8 @@ public class SyntaxTreeUtils {
 						 ClassType classType = (ClassType)expressionNodeType;
 						 expressionNodeType = classType.getSuperType();
 						 }*/
-						SetOf allSuperTypes = ((ClassType) expressionNodeType).getAllSuperTypes();
-						SetOf.Iterator default_Iterator = allSuperTypes.default_Iterator;
+						SetOf<Type> allSuperTypes = ((ClassType) expressionNodeType).getAllSuperTypes();
+						SetOf<Type>.Iterator default_Iterator = allSuperTypes.default_Iterator;
 						default_Iterator.init();
 						JavaTypeSystem javaTypeSystem = JavaCodeAnalyzer.a.yS(javaCodeAnalyzer$a);
 						while (default_Iterator.hasMoreElements()) {
@@ -428,7 +427,7 @@ public class SyntaxTreeUtils {
 		return false;
 	}
 
-	private int EQ(int syntaxTag) {
+	public int EQ(int syntaxTag) {
 		// 5511177 [ 1 4 12 13 19 21 23 ]
 		int newValue;  
 		switch (syntaxTag) {  

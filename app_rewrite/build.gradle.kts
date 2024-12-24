@@ -50,12 +50,12 @@ dependencies {
     api("org.jetbrains.kotlin:kotlin-stdlib:2.0.21")
     // r8 必须脱糖否则只能安卓13使用
     //api project(':kotlin')
-    api(projects.appAideBase){
+    api(projects.appAideBase) {
         isTransitive = true
     }
 
 
-    api(projects.compiletion.xml.resParse){
+    api(projects.compiletion.xml.resParse) {
         isTransitive = true
     }
 
@@ -83,6 +83,13 @@ dependencies {
 
     // jgit 7.0.0.202409031743-r
     api("org.eclipse.jgit:org.eclipse.jgit:7.0.0.202409031743-r")
+
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on
+    implementation("org.bouncycastle:bcprov-jdk18on:1.79") // 改用本地jar，远程依赖有问题
+
+    // java-formatter依赖库 后期与java-formatter合并
+    api("org.eclipse.platform:org.eclipse.text:3.14.100")
+    compileOnly("org.osgi:org.osgi.framework:1.10.0")
 
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")

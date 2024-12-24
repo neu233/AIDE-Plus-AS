@@ -7,6 +7,7 @@ import org.eclipse.jgit.api.*;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.Process;
+import android.text.TextUtils;
 import com.aide.common.AppLog;
 import com.aide.common.StreamUtilities;
 import com.aide.ui.scm.ExternalGitService;
@@ -35,6 +36,7 @@ import org.eclipse.jgit.lib.ObjectStream;
 import org.eclipse.jgit.lib.ProgressMonitor;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.StoredConfig;
+import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.storage.file.FileBasedConfig;
 import org.eclipse.jgit.submodule.SubmoduleStatus;
@@ -47,7 +49,6 @@ import org.eclipse.jgit.transport.URIish;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.util.FS;
 import org.eclipse.jgit.util.SystemReader;
-import android.text.TextUtils;
 
 /* loaded from: /storage/emulated/0/AppProjects1/.ZeroAicy/git/AIDE+/build/jadx/gitImpl.dex */
 public class ZeroAicyExternalGitService extends ExternalGitService {
@@ -133,8 +134,6 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
     /* loaded from: /storage/emulated/0/AppProjects1/.ZeroAicy/git/AIDE+/build/jadx/gitImpl.dex */
     private class GitServiceImpl extends IExternalGitService.Sub {
 		public class AideCredentialsProvider extends CredentialsProvider {
-
-
             final IExternalGitServiceListener externalGitServiceListener;
 
             AideCredentialsProvider(GitServiceImpl gitServiceImpl, IExternalGitServiceListener IExternalGitServiceListener) {
@@ -206,7 +205,8 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 				return true;
             }
 
-            public boolean get(URIish uRIish, CredentialItem[] credentialItemArr) {
+            @Override
+			public boolean get(URIish uRIish, CredentialItem... credentialItemArr) {
 				for (CredentialItem credentialItem : credentialItemArr) {
 					if (!get(uRIish, credentialItem)) {
 						return false;
@@ -219,7 +219,8 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
                 return true;
             }
 
-            public boolean supports(CredentialItem[] credentialItemArr) {
+            @Override
+			public boolean supports(CredentialItem... credentialItemArr) {
 				for (CredentialItem credentialItem : credentialItemArr) {
 					if (!support(credentialItem)) {
 						return false;
@@ -236,7 +237,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
             private IExternalGitServiceListener externalGitServiceListener;
 
-            final /* synthetic */ GitServiceImpl gitServiceImpl;
+            final GitServiceImpl gitServiceImpl;
 
             public AideProgressMonitor(GitServiceImpl gitServiceImpl, IExternalGitServiceListener IExternalGitServiceListener) {
 				this.gitServiceImpl = gitServiceImpl;
@@ -332,16 +333,12 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
                     Process.killProcess(Process.myPid());
                     return;
                 }
-                try {
+                {
                     String oy = oy(th);
                     if (oy == null) {
                         oy = "";
                     }
                     IExternalGitServiceListener.qi(str + " failed: " + oy);
-                    return;
-                }
-				catch (Exception e2) {
-                    AppLog.e(e2);
                     return;
                 }
             }
@@ -359,85 +356,73 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
         }
 
         private void Bx(IExternalGitServiceListener IExternalGitServiceListener) {
-            try {
-                synchronized (this.jw) {
-                    if (this.fY) {
-                        this.fY = false;
-                        try {
-                            IExternalGitServiceListener.oP();
-                        }
-						catch (Exception e) {
-                            AppLog.e(e);
-                        }
-                    }
-                }
-            }
-			catch (Throwable th) {
-            }
+            synchronized (this.jw) {
+				if (this.fY) {
+					this.fY = false;
+					IExternalGitServiceListener.oP();
+				}
+			}
         }
 
         private void CU(String str, List<ModifiedFile> list, Iterable<String> iterable, int i, Set<String> set, boolean z) {
-            try {
-                for (String str2 : iterable) {
-                    if (set == null || !set.contains(str2)) {
-                        list.add(new ModifiedFile(new File(str, str2).getPath(), i));
-                    }
-                }
-            }
-			catch (Throwable th) {
-            }
+			for (String str2 : iterable) {
+				if (set == null || !set.contains(str2)) {
+					list.add(new ModifiedFile(new File(str, str2).getPath(), i));
+				}
+			}
+		}
+
+        private void Ev(String str, List<ModifiedFile> list, String str2, IExternalGitServiceListener IExternalGitServiceListener) throws Exception {
+			Git open = Git.open(new File(str));
+			try {
+				AddCommand add = open.add();
+				boolean z = false;
+				for (ModifiedFile modifiedFile : list) {
+					if (modifiedFile.v5() || modifiedFile.gn() || modifiedFile.Zo() || modifiedFile.Hw()) {
+						add.addFilepattern(BR(str, modifiedFile.WB));
+						z = true;
+					}
+				}
+				if (z) {
+					add.call();
+				}
+				Bx(IExternalGitServiceListener);
+				CommitCommand commit = open.commit();
+				commit.setAll(false);
+				commit.setMessage(str2);
+				Iterator<ModifiedFile> it = list.iterator();
+				while (it.hasNext()) {
+					commit.setOnly(BR(str, it.next().WB));
+				}
+				commit.call();
+			}
+			finally {
+				open.getRepository().close();
+			}
+
         }
 
-        private void Ev(String str, List<ModifiedFile> list, String str2, IExternalGitServiceListener IExternalGitServiceListener) {
-            try {
-                Git open = Git.open(new File(str));
-                try {
-                    AddCommand add = open.add();
-                    boolean z = false;
-                    for (ModifiedFile modifiedFile : list) {
-                        if (modifiedFile.v5() || modifiedFile.gn() || modifiedFile.Zo() || modifiedFile.Hw()) {
-                            add.addFilepattern(BR(str, modifiedFile.WB));
-                            z = true;
-                        }
-                    }
-                    if (z) {
-                        add.call();
-                    }
-                    Bx(IExternalGitServiceListener);
-                    CommitCommand commit = open.commit();
-                    commit.setAll(false);
-                    commit.setMessage(str2);
-                    Iterator<ModifiedFile> it = list.iterator();
-                    while (it.hasNext()) {
-                        commit.setOnly(BR(str, it.next().WB));
-                    }
-                    commit.call();
-                }
-				finally {
-                    open.getRepository().close();
-                }
-            }
-			catch (Throwable th) {
-            }
-        }
+        private void Lz(Git git, String str, OutputStream outputStream) throws IOException {
+            RevWalk revWalk = null;
+			try {
+				revWalk = new RevWalk(git.getRepository());
+				RevTree tree = revWalk.parseCommit(git.getRepository().resolve("HEAD")).getTree();
 
-        private void Lz(Git git, String str, OutputStream outputStream) {
-            try {
-                ObjectStream openStream = git.getRepository().open(TreeWalk.forPath(git.getRepository(), str, new RevWalk(git.getRepository()).parseCommit(git.getRepository().resolve("HEAD")).getTree()).getObjectId(0), 3).openStream();
+				ObjectStream openStream = git.getRepository().open(TreeWalk.forPath(git.getRepository(), str, tree).getObjectId(0), 3).openStream();
                 try {
                     StreamUtilities.transferStream(openStream, outputStream);
                 }
 				finally {
-                    openStream.close();
+                    IOUtils.close(openStream);
                 }
             }
-			catch (Throwable th) {
-            }
+			finally {
+				IOUtils.close(revWalk);
+			}
         }
 
         private void aq(GitConfiguration gitConfiguration) {
             synchronized (this.qp) {
-
 				String sshFilePath = gitConfiguration.jw;
 				if (sshFilePath != null 
 					&& sshFilePath.endsWith(".ssh")) {
@@ -457,21 +442,20 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 				if (!TextUtils.isEmpty(userName)
 					&& !TextUtils.isEmpty(userEmail)) {
-						// 是否需要更新
+					// 是否需要更新
 					boolean isUpdate = !userName.equals(this.userName) 
 						|| !userEmail.equals(this.userEmail);
-						
+
 					if (isUpdate) {
 						FileWriter fileWriter = null;
-						
+						PrintWriter printWriter = null;
 						try {
 							File gitconfigFile = new File(FileSystem.getCacheDir(), ".gitconfig");
 							// 删除文件
 							gitconfigFile.delete();
 
 							fileWriter = new FileWriter(gitconfigFile);
-
-							PrintWriter printWriter = new PrintWriter(fileWriter);
+							printWriter = new PrintWriter(fileWriter);
 							printWriter.println("[user]");
 							printWriter.println("\tname = " + userName.trim());
 							printWriter.println("\temail = " + userEmail.trim());
@@ -483,27 +467,25 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 							AppLog.e(e);
 						}
 						finally {
-							IOUtils.close(fileWriter);
+							IOUtils.close(printWriter);
+							IOUtils.close(fileWriter);							
 						}
-
 					}
 				}
 			}
 		}
 
 
-		private void fY(String str, String str2, IExternalGitServiceListener IExternalGitServiceListener) {
+		private void addOriginRemote(String gitDir, String originRemoteUrl, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
-				Git open = Git.open(new File(str));
+				Git open = Git.open(new File(gitDir));
 				try {
 					StoredConfig config = open.getRepository().getConfig();
-					config.setString("remote", "origin", "url", str2);
+					config.setString("remote", "origin", "url", originRemoteUrl);
 					config.save();
-					open.getRepository().close();
 				}
-				catch (Throwable th) {
-					open.getRepository().close();
-
+				finally {
+					IOUtils.close(open.getRepository());
 				}
 			}
 			catch (Throwable th2) {
@@ -540,6 +522,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public void Bl(GitConfiguration gitConfiguration, String str, List<ModifiedFile> list, String str2, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				aq(gitConfiguration);
@@ -552,10 +535,12 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
-		public void Cd(GitConfiguration gitConfiguration, String str, IExternalGitServiceListener IExternalGitServiceListener) {
+
+		@Override
+		public void Cd(GitConfiguration gitConfiguration, String gitDir, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				aq(gitConfiguration);
-				Git open = Git.open(new File(str));
+				Git open = Git.open(new File(gitDir));
 				try {
 					PushCommand push = open.push();
 					push.setCredentialsProvider(pO(IExternalGitServiceListener));
@@ -584,10 +569,10 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 			}
 			catch (Throwable th2) {
 				if (th2.getCause() instanceof NoRemoteRepositoryException) {
-					String nV = IExternalGitServiceListener.nV("Please specifiy a valid remote repository url:");
-					if (nV != null) {
-						fY(str, nV, IExternalGitServiceListener);
-						Cd(gitConfiguration, str, IExternalGitServiceListener);
+					String originRemoteUrl = IExternalGitServiceListener.nV("Please specifiy a valid remote repository url:");
+					if (originRemoteUrl != null) {
+						addOriginRemote(gitDir, originRemoteUrl, IExternalGitServiceListener);
+						Cd(gitConfiguration, gitDir, IExternalGitServiceListener);
 						return;
 					}
 					return;
@@ -597,6 +582,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public void HE(String str, String str2, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				Git open = Git.open(new File(str));
@@ -619,6 +605,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public void IE(GitConfiguration gitConfiguration, String str, String str2, String str3, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				aq(gitConfiguration);
@@ -647,6 +634,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public String JT(String str, String str2, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				Git open = Git.open(new File(str));
@@ -669,6 +657,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 			return null;
 		}
 
+		@Override
 		public void MN(String str, String str2, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				Git open = Git.open(new File(str));
@@ -689,6 +678,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public List<String> cS(String str, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				Git open = Git.open(new File(str));
@@ -714,6 +704,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public void cancel() {
 			synchronized (this.jw) {
 				this.fY = true;
@@ -721,6 +712,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public void cz(String str, String str2, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				Git open = Git.open(new File(str));
@@ -743,6 +735,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public GitStatus el(String str, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				Git open = Git.open(new File(str));
@@ -763,6 +756,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public void of(GitConfiguration gitConfiguration, String str, String str2, List<String> list, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				aq(gitConfiguration);
@@ -788,6 +782,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public void wN(GitConfiguration gitConfiguration, String str, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				aq(gitConfiguration);
@@ -827,6 +822,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public void wX(String str, String str2, String str3, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				Git open = Git.open(new File(str));
@@ -856,6 +852,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public void yj(String str, List<ModifiedFile> list, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				Git open = Git.open(new File(str));
@@ -897,6 +894,7 @@ public class ZeroAicyExternalGitService extends ExternalGitService {
 
 		}
 
+		@Override
 		public String zg(String str, IExternalGitServiceListener IExternalGitServiceListener) {
 			try {
 				Git open = Git.open(new File(str));

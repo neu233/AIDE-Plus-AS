@@ -27,12 +27,14 @@ import android.webkit.MimeTypeMap;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.content.FileProvider;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.aide.common.AndroidHelper;
 import com.aide.common.AppLog;
 import com.aide.ui.MainActivity;
 import com.aide.ui.ServiceContainer;
 import com.aide.ui.rewrite.R;
+import com.aide.ui.services.OpenFileService;
 import com.aide.ui.util.FileSpan;
 import com.aide.ui.util.FileSystem;
 import com.aide.ui.views.SplitView;
@@ -52,17 +54,26 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+import android.view.Display;
 
 public class ZeroAicyMainActivity extends MainActivity {
 
 
-	private static final String TAG_15955545567 = "ZeroAicyMainActivity";
+	// 用于通知AIDE CodeModel
+	@SuppressWarnings("unused") 
+	private static final String TAG_1595554556 = "ZeroAicyMainActivity";
 
 	private static final String TAG = "ZeroAicyMainActivity";
-	
+
 	static ZeroAicyExtensionInterface zeroAicyExtensionInterface;
+
+	boolean isRecreate = false;
 	@Override
 	public void onCreate(Bundle bundle) {
+		if (isRecreate) {
+			return;
+		}
+
 		super.onCreate(bundle);
 		// 隐藏Home键
 		getActionBar().setDisplayShowHomeEnabled(false);
@@ -77,20 +88,55 @@ public class ZeroAicyMainActivity extends MainActivity {
 		}
 	}
 
+	private boolean isExit = false;
 	@Override
 	public void BT() {
 		// 若没有需要保存的文件
 		// 则 finish()
+		OpenFileService openFileService = ServiceContainer.getOpenFileService();
+		if (!openFileService.U2()) {
+			this.isExit = true;
+		}
 		super.BT();
+
 	}
-	
+
+	@Override
+	public void recreate() {
+		this.isExit = false;
+		this.isRecreate = true;
+		super.recreate();
+	}
+
 	@Override
 	public void finish() {
 		super.finish();
-		// 强制退出，防止ServiceContainer::shutdown()与异步导致的错误
-		System.exit(0);
-		android.os.Process.killProcess(android.os.Process.myPid());
+		exit();
 	}
+
+	@Override
+	protected void onDestroy() {
+
+//		//  Trying to restart engine service
+//		// ServiceContainer.shutdown()
+//		EngineService engineService = ServiceContainer.getEngineService();
+//		// 
+//		engineService.lp();
+//		
+		super.onDestroy();
+		exit();
+	}
+
+	private void exit() {
+		if (this.isExit) {
+			this.isExit = false;
+			// 强制退出，防止ServiceContainer::shutdown()与异步导致的错误
+			System.exit(0);
+			android.os.Process.killProcess(android.os.Process.myPid());
+		}
+
+	}
+
 
 	/**
 	 * 是否启用DrawerLayout
@@ -100,11 +146,10 @@ public class ZeroAicyMainActivity extends MainActivity {
 			&& ZeroAicySetting.enableActionDrawerLayout();
 	}
 
-
-
 	public void q7Async() {
 		super.q7();
 	}
+
 	@Override
 	public void q7() {
 		// -> Jl() -> com.aide.ui.m::FH
@@ -332,8 +377,17 @@ public class ZeroAicyMainActivity extends MainActivity {
 
 	//当前屏幕的高度
 	public static float Zo(Context context) {
-        try {
-            return ((WindowManager) context.getSystemService("window")).getDefaultDisplay().getHeight() / context.getResources().getDisplayMetrics().density;
+		try {
+
+			@SuppressWarnings("deprecation") 
+				Display defaultDisplay = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ? 
+				context.getDisplay() 
+				: ((WindowManager) context.getSystemService("window")).getDefaultDisplay();
+
+
+			// Display defaultDisplay = ((WindowManager) context.getSystemService("window")).getDefaultDisplay();
+			int height = defaultDisplay.getHeight();
+			return height / context.getResources().getDisplayMetrics().density;
         }
 		catch (Throwable t) {
 			throw new RuntimeException(t);
@@ -361,7 +415,7 @@ public class ZeroAicyMainActivity extends MainActivity {
 		q7();
 		if (z) {
             boolean isLandscape = isLandscape();
-			if (isLandscape && ((com.aide.common.AndroidHelper.getScreenHeightInDp(this) > 800.0f || getSplitView().isHorizontal() && com.aide.common.AndroidHelper.getScreenHeightInDp(this) >= 540.0f))) {
+			if (isLandscape && ((AndroidHelper.getScreenHeightInDp(this) > 800.0f || getSplitView().isHorizontal() && AndroidHelper.getScreenHeightInDp(this) >= 540.0f))) {
 				return;
 			}
 			Ws(false);
@@ -387,43 +441,53 @@ public class ZeroAicyMainActivity extends MainActivity {
 
 	@Override
 	public void openFile(String str) {
-		String suffixName = FileSystem.getSuffixName(str);
+		String suffixName = FileSystem.getSuffixName(str).toLowerCase();
 		String mimeTypeFromExtension = MimeTypeMap.getSingleton().getMimeTypeFromExtension(suffixName);
 
-		if (!suffixName.equals("java") 
+		if (mimeTypeFromExtension != null 
+			&& !mimeTypeFromExtension.startsWith("text")
+			&& !mimeTypeFromExtension.equals("application/javascript")
+
+			&& !suffixName.equals("java") 
 			&& !suffixName.equals("class") 
 			&& !suffixName.equals("xml") 
 			&& !suffixName.equals("svg") 
-		
-			&& mimeTypeFromExtension != null 
-			&& !mimeTypeFromExtension.startsWith("text")) {
 
+			&& !suffixName.equals("js") 
+			&& !suffixName.equals("css") 
+			) {
+
+
+			Intent intent = new Intent();
+			intent.setAction("android.intent.action.VIEW");
+
+			Uri fromFile = null;
 			if (Build.VERSION.SDK_INT >= 24) {
-				Intent intent = new Intent();
-				intent.setAction("android.intent.action.VIEW");
-				intent.setDataAndType(Uri.fromFile(new File(str)), mimeTypeFromExtension);
-				try {
-					gn(this, intent);
-					startActivity(intent);
-					Probelytics.BT(this, intent);
-					return;
-				}
-				catch (ActivityNotFoundException unused) {
-					Context VH = ServiceContainer.getContext();
-					Toast.makeText(VH, "No handler found for type " + mimeTypeFromExtension, 0).show();
-					return;
-				}
+				fromFile = FileProvider.getUriForFile(this, FileSystem.j3(), new File(str));
+				intent.addFlags(1);
+			} else {
+				fromFile = Uri.fromFile(new File(str));
 			}
-
+			intent.setDataAndType(fromFile, mimeTypeFromExtension);
+			try {
+				gn(this, intent);
+				startActivity(intent);
+				Probelytics.BT(this, intent);
+			}
+			catch (ActivityNotFoundException unused) {
+				Context VH = ServiceContainer.getContext();
+				Toast.makeText(VH, "No handler found for type " + mimeTypeFromExtension, 0).show();
+			}
 			return;
 		}
+
 		if (FileSystem.isEmptyFile(str)) {
 			return;
 		}
-		
+
 		AppLog.d(TAG, "openFile this %s", this);
 		AppLog.d(TAG, "ServiceContainer isShutdowned %s", String.valueOf(ServiceContainer.isShutdowned()));
-		
+
 		aq(new FileSpan(str, 1, 1, 1, 1));
 		ServiceContainer.getProjectService().openFile(str);
 
@@ -540,7 +604,7 @@ public class ZeroAicyMainActivity extends MainActivity {
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		RepairBUG1(menu);
-		if (!com.aide.ui.ServiceContainer.isTrainerMode()) {
+		if (!ServiceContainer.isTrainerMode()) {
 			RepairBUG2(menu);
 		}
 		boolean onPrepareOptionsMenu = super.onPrepareOptionsMenu(menu);

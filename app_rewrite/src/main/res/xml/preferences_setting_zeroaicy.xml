@@ -30,6 +30,11 @@
                 android:key="zero_aicy_enable_detailed_log"
                 android:summary="是否打印更详细的日志"
                 android:defaultValue="false" />
+			<SwitchPreference
+				android:title="启用警告⚠️显示"
+				android:summary="显示编译器的警告内容"
+				android:key="zero_aicy_enable_error_browser_show_warning"
+				android:defaultValue="true" />
 			
         </PreferenceCategory>
 
@@ -66,6 +71,12 @@
 				android:title="代码高亮配置"
 				android:key="zero_aicy_preference_highlight" />
 		</PreferenceCategory>
+		<SwitchPreference
+			android:title="启用EclipseJavaFormat"
+			android:summary="启用ecj时建议用此格式化方案"
+			android:key="zero_aicy_enable_eclipse_java_format"
+			android:defaultValue="true" />
+		
 	</PreferenceScreen>
 
     <PreferenceScreen
@@ -143,7 +154,20 @@
         </PreferenceCategory>
 
     </PreferenceScreen>
-
+	<PreferenceScreen
+		android:title="工程设置">
+		<PreferenceCategory
+			android:title="添加新类">
+			<SwitchPreference
+                android:title="类头部注释"
+                android:key="zero_aicy_enable_auto_class_comments"
+                android:summary="新建类时自动在开头添加一段注释\nAIDE 以及作者(git版本控制中编辑)"
+                android:defaultValue="true" />
+            
+		</PreferenceCategory>
+		
+	</PreferenceScreen>
+		
 	<PreferenceScreen
         android:title="实验室"
         android:summary="不稳定的功能">

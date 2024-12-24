@@ -5,9 +5,10 @@ import android.util.SparseArray;
 import com.aide.codemodel.api.ErrorTable;
 import com.aide.codemodel.api.FileEntry;
 import com.aide.codemodel.api.FileSpace;
+import com.aide.codemodel.api.HighlighterType;
 import com.aide.codemodel.api.Model;
 import com.aide.codemodel.api.SyntaxTree;
-import com.aide.codemodel.api.abstraction.Language;
+import com.aide.codemodel.api.callback.HighlighterCallback;
 import com.aide.codemodel.api.collections.FunctionOfIntInt;
 import com.aide.codemodel.api.collections.OrderedMapOfIntInt;
 import com.aide.codemodel.api.collections.SetOfFileEntry;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.eclipse.jdt.core.compiler.CategorizedProblem;
-import org.eclipse.jdt.core.compiler.CharOperation;
+import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.internal.compiler.ClassFile;
 import org.eclipse.jdt.internal.compiler.CompilationResult;
 import org.eclipse.jdt.internal.compiler.ICompilerRequestor;
@@ -37,7 +38,6 @@ import org.eclipse.jdt.internal.compiler.ast.CompilationUnitDeclaration;
 import org.eclipse.jdt.internal.compiler.batch.CompilationUnit;
 import org.eclipse.jdt.internal.compiler.batch.FileSystem;
 import org.eclipse.jdt.internal.compiler.classfmt.ClassFileConstants;
-import org.eclipse.jdt.internal.compiler.env.ICompilationUnit;
 import org.eclipse.jdt.internal.compiler.env.INameEnvironment;
 import org.eclipse.jdt.internal.compiler.env.NameEnvironmentAnswer;
 import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
@@ -127,18 +127,19 @@ public class ProjectEnvironment {
 
 		// 构建项目依赖信息并返回 androidJarAssemblyId(bootclasspath)
 		int androidJarAssemblyId = initSolutionProjects(projects, assemblyMap, fileSpaceReflect);
+		
 		// 填充项目依赖
 		fillProjectReferences(androidJarAssemblyId, projects, assemblyMap, fileSpaceReflect);
-
+		
 		if (androidJarAssemblyId < 0) {
 			throw new Error("not found [android.jar | rt.jar](bootclasspath)");
 		}
+		
 		// android.jar AssemblyId[路径为android.jar]
 		String bootclasspath = FileSpace.Assembly.Zo(assemblyMap.get(androidJarAssemblyId));
 
 		// 填充项目信息
 		for (int i = 0, size = projects.size(); i < size; i++) {
-
 			SolutionProject project = projects.valueAt(i);
 			if (!project.isModule) {
 				continue;
@@ -162,9 +163,47 @@ public class ProjectEnvironment {
 		 //*/
 
 	}
+	
+	private static int findMainProjectAssemblyId(OrderedMapOfIntInt assemblyReferences, Map<Integer, FileSpace.Assembly> assemblyMap) {
+		SetOfInt referencedSet = new SetOfInt();
+		
+		OrderedMapOfIntInt.Iterator default_Iterator = assemblyReferences.default_Iterator;
+		// 重置
+		default_Iterator.init();
+		// 遍历
+		while (default_Iterator.hasMoreElements()) {
+			int key = default_Iterator.nextKey();
+			int referenced = default_Iterator.nextValue();
 
+			// 自己会依赖自己，排除
+			if (key != referenced 
+				&& !referencedSet.contains(referenced)) {
+				referencedSet.put(referenced);
+			}
+		}
+
+
+		for (Integer assemblyId : assemblyMap.keySet()) {
+			// int assemblyId = assemblyIdInteger.intValue();
+			if (referencedSet.contains(assemblyId)) {
+				continue;
+			}
+			return assemblyId;
+		}
+		return -1;
+	}
+	
+	
 	private static int initSolutionProjects(SparseArray<SolutionProject> projects, Map<Integer, FileSpace.Assembly> assemblyMap, ReflectPie fileSpaceReflect) {
 		int androidJarAssemblyId = -1;
+		
+		OrderedMapOfIntInt assemblyReferences = fileSpaceReflect.get("assemblyReferences");
+		// AppLog.println_d("assemblyReferences -> %s",  assemblyReferences);
+
+		// OrderedMapOfIntInt允许多个相同的key
+		// 应该是 int int 对
+		int mainProjectAssemblyId = findMainProjectAssemblyId(assemblyReferences, assemblyMap);
+		
 		for (Map.Entry<Integer, FileSpace.Assembly> entry : assemblyMap.entrySet()) {
 			Integer assemblyId = entry.getKey();
 			FileSpace.Assembly assembly = entry.getValue();
@@ -175,15 +214,19 @@ public class ProjectEnvironment {
 				androidJarAssemblyId = assemblyId;
 				continue;
 			}
-
+			boolean isMainModule = assemblyId == mainProjectAssemblyId;
 			// 创建项目
-			SolutionProject project = new SolutionProject(assemblyId, assembly);
+			SolutionProject project = new SolutionProject(assemblyId, assembly, isMainModule);
+			
 			projects.put(assemblyId, project);
 		}
+		
+		
 		return androidJarAssemblyId;
 	}
 
 	private static void fillProjectReferences(int androidJarAssemblyId, SparseArray<SolutionProject> projects, Map<Integer, FileSpace.Assembly> assemblyMap, ReflectPie fileSpaceReflect) {
+		
 		OrderedMapOfIntInt assemblyReferences = getAssemblyReferences(fileSpaceReflect);
 		OrderedMapOfIntInt.Iterator referencesIterator = assemblyReferences.default_Iterator;
 		referencesIterator.init();
@@ -232,8 +275,8 @@ public class ProjectEnvironment {
 			compilerOptions.complianceLevel = ClassFileConstants.JDK23;
 			compilerOptions.originalComplianceLevel = ClassFileConstants.JDK23;
 			compilerOptions.originalSourceLevel = ClassFileConstants.JDK23;
-
-			compilerOptions.targetJDK = ClassFileConstants.JDK23;
+			// 防止输出的 class asm不识别
+			compilerOptions.targetJDK = ClassFileConstants.JDK9;
 
 		}
 
@@ -254,7 +297,7 @@ public class ProjectEnvironment {
 	final Model model;
 	final FileSpace fileSpace;
 	final ErrorTable errorTable;
-
+	final HighlighterCallback highlighterCallback;
 	FileSystem environment;
 	// 增量语义分析器实现以及增量编译器实现
 	public final CompilationUnitDeclarationResolver2 resolver;
@@ -264,7 +307,8 @@ public class ProjectEnvironment {
 		this.model = model;
 		this.fileSpace = model.fileSpace;
 		this.errorTable = model.errorTable;
-
+		this.highlighterCallback = model.highlighterCallback;
+		
 		this.solutionProject = solutionProject;
 		this.bootclasspath = bootclasspath;
 
@@ -335,10 +379,10 @@ public class ProjectEnvironment {
 
 
 	public CompilationUnitDeclaration resolve3(SyntaxTree syntaxTree) {
-		return resolve3(syntaxTree.getFile(), syntaxTree.getLanguage());
+		return resolve3(syntaxTree.getFile());
 	}
 
-	public CompilationUnitDeclaration resolve3(FileEntry fileEntry, Language language) {
+	public CompilationUnitDeclaration resolve3(FileEntry fileEntry) {
 		this.resolver.lookupEnvironment.reset();
 
 		String pathString = fileEntry.getPathString();
@@ -359,35 +403,20 @@ public class ProjectEnvironment {
 			AppLog.println_d("没有解析 %s ", pathString);
 			return result;
 		}
-
-		CategorizedProblem[] problems = result.compilationResult.getAllProblems();
-		if (problems == null) {
-			return result;
-		}
-		for (CategorizedProblem rawProblem : problems) {
-			DefaultProblem problem = (DefaultProblem) rawProblem;
-			int line = problem.getSourceLineNumber();
-			int column = problem.column;
-			int endColumn = (problem.column + problem.getSourceEnd() - problem.getSourceStart()) + 1;
-
-			String msg = problem.getMessage();
-			if (problem.isError()) {
-				// AppLog.d("JavaCodeAnalyzer:: ECJ 错误文件(" + syntaxTree.getFile().getPathString() + ")");
-				this.errorTable.Hw(fileEntry, language, line, column, line, endColumn, msg, 20);
-
-
-			} else if (problem.isWarning()) {
-				// AppLog.d("JavaCodeAnalyzer:: ECJ 警告文件(" + syntaxTree.getFile().getPathString() + ")");
-				this.errorTable.addSemanticWarning(fileEntry, language, line, column, line, endColumn, msg, 49);
-			}
-		}
 		return result;
 	}
 
 	public void compile(SyntaxTree syntaxTree) throws Throwable {
-		this.resolver.lookupEnvironment.reset();
+		
 
 		FileEntry fileEntry = syntaxTree.getFile();
+		if( this.fileSpace.isRJavaFileEntry(fileEntry) && !this.solutionProject.isMainModule){
+			// 非MainModule的R不可编译
+			return;
+		}
+		
+		this.resolver.lookupEnvironment.reset();
+
 		String pathString = fileEntry.getPathString();
 
 		char[] data;
@@ -414,6 +443,11 @@ public class ProjectEnvironment {
 			return;
 		}
 		boolean hasError = false;
+		
+		
+		// clear
+		this.highlighterCallback.releaseSyntaxTree();
+		
 		CategorizedProblem[] problems = compilationResult.getAllProblems();
 		int problemsLength = problems == null ? 0 : problems.length;
 
@@ -433,10 +467,22 @@ public class ProjectEnvironment {
 				// AppLog.d("JavaCodeAnalyzer:: ECJ 警告文件(" + syntaxTree.getFile().getPathString() + ")");
 				// 添加警告⚠️
 				errorTable.lg(fileEntry, syntaxTree.getLanguage(), line, column, line, endColumn, msg, 49);
+				
+				// 设置 unuse 变量颜色值
+				switch( problem.getID()){
+					case IProblem.LocalVariableIsNeverUsed:
+					case IProblem.ArgumentIsNeverUsed:
+					case IProblem.UnusedPrivateField:
+					case IProblem.ExceptionParameterIsNeverUsed:
+					case IProblem.UnusedObjectAllocation:
+						this.highlighterCallback.found(HighlighterType.UnUsed, line, column, line, endColumn);
+						break;
+				}
 			}
-
 		}
-
+		// 完成
+		this.highlighterCallback.fileFinished(fileEntry);
+		
 		if (!hasError) {
 			ClassFile[] classFiles = result.compilationResult.getClassFiles();
 			writeClassFilesToDisk(fileEntry, classFiles, this.getReleaseOutputPath());
@@ -667,7 +713,8 @@ public class ProjectEnvironment {
 		final FileSpace.Assembly assembly;
 
 		final String projectPath;
-
+		
+		final boolean isMainModule;
 		final boolean isModule;
 		final boolean isJar;
 		final boolean isAar;
@@ -676,7 +723,7 @@ public class ProjectEnvironment {
 
 		final Set<SolutionProject> projectReferences = new HashSet<>();
 
-		public SolutionProject(int assemblyId, FileSpace.Assembly assembly) {
+		public SolutionProject(int assemblyId, FileSpace.Assembly assembly, boolean isMainModule) {
 			this.assemblyId = assemblyId;
 			this.assembly = assembly;
 			this.assemblyName = FileSpace.Assembly.VH(assembly);
@@ -689,7 +736,7 @@ public class ProjectEnvironment {
 			this.isJar = isFile && projectPath.endsWith(".jar");
 			// 非文件，aar，jar才是 gradle module
 			this.isModule = !isAar && !isJar && !isFile;
-
+			this.isMainModule = isMainModule;
 			this.releaseOutputPath = FileSpace.Assembly.getReleaseOutputPath(assembly);
 
 		}

@@ -169,7 +169,7 @@ public class ThreadPoolService implements ExecutorService, ThreadFactory {
 	private static Thread uiThread = uiHandler.getLooper().getThread();
 
 
-	public static final boolean post(Runnable r) {
+	public static final boolean postOfUi(Runnable r) {
 		return uiHandler.post(r);
 	}
 	public static final boolean postDelayedOfUi(Runnable r, long delayMillis) {

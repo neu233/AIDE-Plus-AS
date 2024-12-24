@@ -3,31 +3,30 @@ import abcd.o8;
 import com.aide.common.MessageBox;
 import com.aide.common.ValueRunnable;
 import com.aide.ui.AppPreferences;
+import com.aide.ui.MainActivity;
 import com.aide.ui.ServiceContainer;
+import com.aide.ui.build.android.SigningService;
 import com.aide.ui.build.android.n;
 import com.aide.ui.build.java.RunJavaActivity;
 import com.aide.ui.build.java.RunTrainerJavaActivity;
 import com.aide.ui.build.packagingservice.IExternalPackagingServiceListener;
 import com.aide.ui.project.JavaGradleProjectSupport;
+import com.aide.ui.project.internal.GradleTools;
 import com.aide.ui.services.ErrorService;
+import com.aide.ui.services.ProjectService;
+import com.aide.ui.util.BuildGradle;
+import io.github.zeroaicy.aide.extend.ZeroAicyExtensionInterface;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import com.aide.ui.services.ProjectService;
-import com.aide.ui.project.AndroidProjectSupport;
-import io.github.zeroaicy.aide.extend.ZeroAicyExtensionInterface;
-import com.aide.ui.project.internal.GradleTools;
-import com.aide.ui.util.BuildGradle;
-import com.aide.ui.build.android.SigningService;
-import com.aide.ui.MainActivity;
 
-public class JavaGradleProjectBuildService implements IBuildService, abcd.o8 {
+public class JavaGradleProjectBuildService implements IBuildService, o8 {
 
 	public static JavaProjectBuildService javaProjectBuildService = new JavaProjectBuildService();
 
 	@Override
 	public a VH() {
-		return o8.a.JAVA;
+		return a.JAVA;
 	}
 
 	@Override
@@ -81,7 +80,7 @@ public class JavaGradleProjectBuildService implements IBuildService, abcd.o8 {
 
 		private boolean buildRefresh;
 
-		private com.aide.ui.build.android.n packagingService;
+		private n packagingService;
 
 		private int v5;
 
@@ -349,8 +348,8 @@ public class JavaGradleProjectBuildService implements IBuildService, abcd.o8 {
 		}
 
 		@Override
-		public o8.a VH() {
-			return o8.a.JAVA;
+		public a VH() {
+			return a.JAVA;
 
 		}
 

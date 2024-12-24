@@ -403,10 +403,10 @@ class JavaProjectSupport2 implements ProjectSupport {
     }
 
     @MethodMark(method = 2950406777596539456L)
-    public List<Course.File> getTrainerCourses( ) {
+    public List<File> getTrainerCourses( ) {
         try {
-            File file = new Course.File("course_java", 1, new String[]{"com.aide.ui", "com.aide.trainer.java"});
-			return Collections.<Course.File>singletonList(file);
+            File file = new File("course_java", 1, new String[]{"com.aide.ui", "com.aide.trainer.java"});
+			return Collections.<File>singletonList(file);
         }
 		catch (Throwable th) {
             if ( exceptionEnabled ) {

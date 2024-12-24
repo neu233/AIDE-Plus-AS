@@ -21,7 +21,7 @@ import com.aide.common.AppLog;
 
 @Keep
 public class ClassReader {
-	private static final String TAG3 = "ZeroAicyClassReader";
+	private static final String TAG3  = "ZeroAicyClassReader";
 
 	private static final String TAG = "ZeroAicyClassReader";
 
@@ -75,27 +75,37 @@ public class ClassReader {
 			onSharedPreferenceChanged = new SharedPreferences.OnSharedPreferenceChangeListener(){
 				@Override
 				public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
+					boolean hasChanged;
 					switch (key) {
 						case useReaderClassKey:
 							//默认使用新ReaderClass
 							ClassReader.useReaderClassFromZeroAicy = sp.getBoolean(useReaderClassKey, true);
+							hasChanged = true;
 							break;
 						case disableDefaultMethodKey:
 							//默认不禁用默认方法
 							ClassReader.disableDefaultMethod = sp.getBoolean(disableDefaultMethodKey, false);
+							hasChanged = true;
 							break;
 						case disableMethodCodeKey:
 							//默认禁用方法代码
 							// disableMethodCode
 							ClassReader.disableMethodCode = sp.getBoolean(disableMethodCodeKey, true);
-							
+							hasChanged = true;
 							break;
+						default :
+							hasChanged = false;
+							
+						break;
 					}
-
-					AppLog.d(TAG, "useReaderClassFromZeroAicy改变为: " +  ClassReader.useReaderClassFromZeroAicy);
-					AppLog.d(TAG, "disableDefaultMethod改变为: " +  ClassReader.disableDefaultMethod);
+					if( hasChanged ){
+						AppLog.d(TAG, "useReaderClassFromZeroAicy改变为: " +  ClassReader.useReaderClassFromZeroAicy);
+						AppLog.d(TAG, "disableDefaultMethod改变为: " +  ClassReader.disableDefaultMethod);
+						AppLog.d(TAG, "disableMethodCode改变为: " +  ClassReader.disableMethodCode);
+					}
 				}
 			};
+			
 			defaultSharedPreferences.registerOnSharedPreferenceChangeListener(onSharedPreferenceChanged);
 			//默认使用新ReaderClass
 			useReaderClassFromZeroAicy = defaultSharedPreferences.getBoolean(useReaderClassKey, true);
@@ -105,11 +115,6 @@ public class ClassReader {
 			// disableMethodCode
 			ClassReader.disableMethodCode = defaultSharedPreferences.getBoolean(disableMethodCodeKey, true);
 			
-			//失败了
-			if( false && !ClassReader.disableMethodCode && !ContextUtil.isMainProcess()){
-				// 只需要主进程可以开启
-				ClassReader.disableMethodCode = true;
-			}
 			if (isDynamic && dynamicDexClassLoader != null) {
 				ReflectPie onClass = ReflectPie.onClass(DefaultMethodAllowedListClass, dynamicDexClassLoader);
 				onClass.call("setDisableDefaultMethod", disableDefaultMethod);

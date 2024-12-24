@@ -1,26 +1,6 @@
 package com.aide.ui.project;
 
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.aide.common.AppLog;
-import com.aide.common.MessageBox;
-import com.aide.ui.rewrite.R;
-import com.aide.ui.services.ProjectSupport;
-import com.aide.ui.util.FileSystem;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import com.aide.common.ValueRunnable;
-import com.aide.engine.EngineSolution;
-import com.aide.ui.services.TemplateService.TemplateGroup;
-import com.aide.ui.services.TemplateService;
-import com.aide.ui.util.ClassPath;
-import com.aide.ui.ServiceContainer;
-import com.aide.ui.services.ProjectService;
-import com.aide.ui.build.BuildServiceCollect;
-import com.aide.ui.util.ClassPath.Entry;
+
 /*
 public class EclipseJavaProjectSupport implements ProjectSupport {
 

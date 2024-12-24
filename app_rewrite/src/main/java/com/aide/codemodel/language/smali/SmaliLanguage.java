@@ -1,19 +1,15 @@
 package com.aide.codemodel.language.smali;
 
-import abcd.ga;
-import abcd.ia;
-import abcd.ra;
 import com.aide.codemodel.HighlighterSyntax;
+import com.aide.codemodel.api.abstraction.CodeAnalyzer;
+import com.aide.codemodel.api.abstraction.CodeRenderer;
 import com.aide.codemodel.api.abstraction.FormatOption;
 import com.aide.codemodel.api.abstraction.Language;
+import com.aide.codemodel.api.abstraction.SignatureAnalyzer;
 import com.aide.codemodel.api.abstraction.Syntax;
 import com.aide.codemodel.api.abstraction.Tools;
-import com.google.android.gms.internal.ads.oa;
-import java.util.Set;
-import com.aide.codemodel.api.abstraction.CodeRenderer;
-import com.aide.codemodel.api.abstraction.CodeAnalyzer;
-import com.aide.codemodel.api.abstraction.SignatureAnalyzer;
 import com.aide.codemodel.api.abstraction.TypeSystem;
+import java.util.Set;
 
 public class SmaliLanguage implements Language {
 
@@ -22,11 +18,11 @@ public class SmaliLanguage implements Language {
     // DW() -> shrink
 	//public class SmaliLanguage implements na{
 
-	private final SmaliCodeModel myCodeModel;
+	// private final SmaliCodeModel myCodeModel;
 	HighlighterSyntax highlighterSyntax = new HighlighterSyntax();
 	
 	public SmaliLanguage(SmaliCodeModel codeModel) {
-		myCodeModel = codeModel;
+		// myCodeModel = codeModel;
 	}
 
 	@Override

@@ -318,7 +318,7 @@ public class ZeroAicyExtensionInterface {
 	/*
 	 * 释放Parcel
 	 *	在createFromParcel调用
-	 *	p1 source v0decompressionParcel返回的
+	 *	p1 source v0 decompressionParcel返回的
 	 #	invoke-static {p1, v0}, Lio/github/zeroaicy/aide/extend/ZeroAicyExtensionInterface;->recycleParcelableParcel(Landroid/os/Parcel;Landroid/os/Parcel;)V
 	 *
 	 */
@@ -587,10 +587,16 @@ public class ZeroAicyExtensionInterface {
 		}
 		return appId;
 	}
+	
+	
+	public static SyntaxStyleType getSyntaxStyleType(int type){
+		return SyntaxStyleType.getStyleTypeOfHighlighterType(type);
+	}
 	/**
 	 * Lcom/aide/engine/Engine$c;->Ws
 	 */
 	@Keep
+	@Deprecated
 	public static SyntaxStyleType getSyntaxStyleType( Syntax syntax, int syntaxTag ) {
         try {
 			/*
@@ -659,7 +665,7 @@ public class ZeroAicyExtensionInterface {
 	 * 必须返回 ArrayAdapter
 	 */
 	@Keep
-	public static ArrayAdapter getEditorCompletionAdapter( AIDEEditor aideEditor, List<SourceEntity> sourceEntitys ) {
+	public static ArrayAdapter<SourceEntity> getEditorCompletionAdapter( AIDEEditor aideEditor, List<SourceEntity> sourceEntitys ) {
 		return new EditorCompletionAdapter(aideEditor, sourceEntitys);
 	}
 

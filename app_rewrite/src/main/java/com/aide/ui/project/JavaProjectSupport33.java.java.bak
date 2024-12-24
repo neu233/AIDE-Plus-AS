@@ -1,0 +1,931 @@
+package com.aide.ui.project;
+
+//
+// Decompiled by Jadx - 1991ms
+//
+
+import abcd.c0;
+import abcd.fe;
+import com.aide.common.ValueRunnable;
+import com.aide.engine.EngineSolution;
+import com.aide.ui.ServiceContainer;
+import com.aide.ui.build.BuildServiceCollect;
+import com.aide.ui.project.internal.MakeJavaEngineSolution;
+import com.aide.ui.services.ProjectSupport;
+import com.aide.ui.services.TemplateService;
+import com.aide.ui.trainer.Course;
+import com.aide.ui.util.ClassPath;
+import com.aide.ui.util.FileSystem;
+import com.probelytics.Probelytics;
+import com.probelytics.annotation.ExceptionEnabled;
+import com.probelytics.annotation.MethodMark;
+import com.probelytics.annotation.ParametersEnabled;
+import com.probelytics.annotation.TypeMark;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+@TypeMark(clazz = 2793693412414817632L, container = 2793693412414817632L, user = true)
+ class JavaProjectSupport33.java implements ProjectSupport {
+
+    @ExceptionEnabled
+    private static boolean exceptionEnabled;
+
+    @ParametersEnabled
+    private static boolean parametersEnabled;
+
+    static {
+        Probelytics.onClass(JavaProjectSupport.class);
+    }
+
+    @MethodMark(method = 825214525633549800L)
+    public JavaProjectSupport33.java() {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(391666163359204104L, (Object) null);
+            }
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 391666163359204104L, (Object) null);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -1232158009758640033L)
+    public static String I(String str, String str2) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-1773787202765954299L, (Object) null, str, str2);
+            }
+            for (String str3 : dx(str)) {
+                if (FileSystem.isPrefix(str3, str2)) {
+                    return FileSystem.getRelativePath(str3, str2).replace('/', '.');
+                }
+            }
+            return null;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -1773787202765954299L, (Object) null, str, str2);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -232277570221021000L)
+    public static String Mz(String str, boolean z) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(551602789501091844L, (Object) null, str, new Boolean(z));
+            }
+            return vJ(str, z) + "/dex/jars";
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 551602789501091844L, (Object) null, str, new Boolean(z));
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -1614000723129821520L)
+    private boolean Qq() {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(1033257694606972960L, this);
+            }
+            int i = 0;
+            for (String str : dx(ServiceContainer.getProjectService().getCurrentAppHome())) {
+                i += FileSystem.J8(str, x9(), new String[]{".java"});
+                if (i >= x9()) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 1033257694606972960L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -5099425147315256304L)
+    public static String Sf(String str, boolean z) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(6940714751171552300L, (Object) null, str, new Boolean(z));
+            }
+            return vJ(str, z) + "/dex/classes.dex.zip";
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 6940714751171552300L, (Object) null, str, new Boolean(z));
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 3030592237722467200L)
+    public static String ca(Map<String, List<String>> map, String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-671951478432254660L, (Object) null, map, str);
+            }
+            for (String str2 : sG(map)) {
+                if (FileSystem.isPrefix(str2, str)) {
+                    return FileSystem.getRelativePath(str2, str).replace('/', '.');
+                }
+            }
+            return null;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -671951478432254660L, (Object) null, map, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -3518927663961977092L)
+    public static String[] cb(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(2300870452191153304L, (Object) null, str);
+            }
+            ArrayList arrayList = new ArrayList();
+            for (ClassPath.Entry entry : new ClassPath().getConfiguration(g3(str)).Zo) {
+                if (entry.isLibKind()) {
+                    arrayList.add(entry.resolveFilePath(str));
+                }
+            }
+            return (String[]) arrayList.toArray(new String[arrayList.size()]);
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 2300870452191153304L, (Object) null, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -78934457821712405L)
+    public static String[] dx(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-5284948926816338715L, (Object) null, str);
+            }
+            ArrayList arrayList = new ArrayList();
+            for (ClassPath.Entry entry : new ClassPath().getConfiguration(g3(str)).Zo) {
+                if (entry.isSrcKind()) {
+                    arrayList.add(entry.resolveFilePath(str));
+                }
+            }
+            return (String[]) arrayList.toArray(new String[arrayList.size()]);
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -5284948926816338715L, (Object) null, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -1949508141307515464L)
+    public static String ef(String str, boolean z) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-4341413986724372964L, (Object) null, str, new Boolean(z));
+            }
+            return vJ(str, z) + "/dex";
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -4341413986724372964L, (Object) null, str, new Boolean(z));
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 8755896817411124560L)
+    public static String g3(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(2547595195144711764L, (Object) null, str);
+            }
+            return str + "/.classpath";
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 2547595195144711764L, (Object) null, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 4648406669837999944L)
+    public static String[] sG(Map<String, List<String>> map) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(932316593701375520L, (Object) null, map);
+            }
+            ArrayList arrayList = new ArrayList();
+            for (String str : map.keySet()) {
+                for (ClassPath.Entry entry : new ClassPath().getConfiguration(g3(str)).Zo) {
+                    if (entry.isSrcKind()) {
+                        arrayList.add(entry.resolveFilePath(str));
+                    }
+                }
+            }
+            String[] strArr = new String[arrayList.size()];
+            arrayList.toArray(strArr);
+            return strArr;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 932316593701375520L, (Object) null, map);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -4153953601361983419L)
+    public static String vJ(String str, boolean z) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(1367789976640152271L, (Object) null, str, new Boolean(z));
+            }
+            for (ClassPath.Entry entry : new ClassPath().getConfiguration(g3(str)).Zo) {
+                if (entry.isOutputIKind()) {
+                    String resolveFilePath = entry.resolveFilePath(str);
+                    if (z) {
+                        return resolveFilePath + "/debug";
+                    }
+                    return resolveFilePath + "/release";
+                }
+            }
+            if (z) {
+                return str + "/bin/debug";
+            }
+            return str + "/bin/release";
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 1367789976640152271L, (Object) null, str, new Boolean(z));
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -1587184037009814155L)
+    private int x9() {
+        try {
+            if (!parametersEnabled) {
+                return 2;
+            }
+            Probelytics.printlnParameters(335761148619763803L, this);
+            return 2;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 335761148619763803L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -6443555734859431011L)
+    public boolean J8() {
+        try {
+            if (!parametersEnabled) {
+                return false;
+            }
+            Probelytics.printlnParameters(6117126614163032755L, this);
+            return false;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 6117126614163032755L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -440288102385704928L)
+    public void Mr() {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-15643471048435296L, this);
+            }
+            ServiceContainer.getLicenseService().cn(ServiceContainer.getMainActivity(), 0x7f0d0611, "large_project");
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -15643471048435296L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -3588802356686619115L)
+    public void P8(String str, String str2) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(294812127363169395L, this, str, str2);
+            }
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 294812127363169395L, this, str, str2);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 1503419889918348787L)
+    public void SI(String str, ValueRunnable<String> valueRunnable) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-1855678251007064891L, this, str, valueRunnable);
+            }
+            fe.DW(str, valueRunnable);
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -1855678251007064891L, this, str, valueRunnable);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -5448397745718363264L)
+    public boolean Zo(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(2727107145079476664L, this, str);
+            }
+            return fe.j6(str);
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 2727107145079476664L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -3130973725782187887L)
+    public boolean a8(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-1658865502523695353L, this, str);
+            }
+            return Arrays.asList(cb(ServiceContainer.getProjectService().getCurrentAppHome())).contains(str);
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -1658865502523695353L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 823499853340058705L)
+    public void addJarLib(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(1981618901340942695L, this, str);
+            }
+            String currentAppHome = ServiceContainer.getProjectService().getCurrentAppHome();
+            List list = new ClassPath().getConfiguration(g3(currentAppHome)).Zo;
+            Iterator it = list.iterator();
+            while (true) {
+                if (!it.hasNext()) {
+                    break;
+                }
+                ClassPath.Entry entry = (ClassPath.Entry) it.next();
+                if (entry.isLibKind() && entry.resolveFilePath(currentAppHome).equals(str)) {
+                    list.remove(entry);
+                    break;
+                }
+            }
+            ClassPath.Hw(g3(currentAppHome), list);
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 1981618901340942695L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 2609982001950720552L)
+    public void buildProject(boolean z) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.Ws(6551052663397932620L, this, z);
+            }
+            BuildServiceCollect.javaProjectBuildService.XL(z, ServiceContainer.getProjectService().er());
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 6551052663397932620L, this, new Boolean(z));
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 34310010300078232L)
+    public void cn(List<String> list, boolean z) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(4288878217891909980L, this, list, new Boolean(z));
+            }
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 4288878217891909980L, this, list, new Boolean(z));
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 889606723063076857L)
+    public boolean containJarLib(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-2007612208033038345L, this, str);
+            }
+            if (str.toLowerCase().endsWith(".jar")) {
+                if (!Arrays.asList(cb(ServiceContainer.getProjectService().getCurrentAppHome())).contains(str)) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -2007612208033038345L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 3584963242686687232L)
+    public void ei(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-3465622584135908980L, this, str);
+            }
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -3465622584135908980L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 207667827863841625L)
+    public boolean gW() {
+        try {
+            if (!parametersEnabled) {
+                return false;
+            }
+            Probelytics.printlnParameters(311964585125593823L, this);
+            return false;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 311964585125593823L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -4074485849944653473L)
+    public List<String> getAddToProjectAdvise(String str) {
+        try {
+            if (!parametersEnabled) {
+                return null;
+            }
+            Probelytics.printlnParameters(-2610082531592807255L, this, str);
+            return null;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -2610082531592807255L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -864283519017835288L)
+    public int getOpenProjectNameStringId(String str) {
+        try {
+            if (!parametersEnabled) {
+                return 0x7f0d002e;
+            }
+            Probelytics.printlnParameters(-1082840353118477184L, this, str);
+            return 0x7f0d002e;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -1082840353118477184L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -1379907216978699111L)
+    public List<String> getProductFlavors(String str) {
+        try {
+            if (!parametersEnabled) {
+                return null;
+            }
+            Probelytics.printlnParameters(384500213864065539L, this, str);
+            return null;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 384500213864065539L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -1039601680179618204L)
+    public String getProjectAttributeHtmlString() {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(1496832615736448696L, this);
+            }
+            String str = ("<b>Java Project:</b><br/><br/>" + ServiceContainer.getProjectService().getCurrentAppHome() + "<br/><br/>") + "<i>Library JARs:</i><br/><br/>";
+            String[] cb = cb(ServiceContainer.getProjectService().getCurrentAppHome());
+            if (cb.length == 0) {
+                return str + "&lt;none&gt;<br/><br/>";
+            }
+            for (String str2 : cb) {
+                if (!FileSystem.exists(str2)) {
+                    str = str + "(NOT FOUND) ";
+                }
+                str = str + str2 + "<br/><br/>";
+            }
+            return str;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 1496832615736448696L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -18331867418089656L)
+    public String getProjectPackageName() {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(6669876335521596692L, this);
+            }
+            return ServiceContainer.getContext().getPackageName();
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 6669876335521596692L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -1255404153364128255L)
+    public TemplateService.TemplateGroup[] getTemplateGroups() {
+        boolean z;
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(1131067569338544863L, this);
+            }
+            if (!ServiceContainer.isAggregateVersion() && !ServiceContainer.appId.equals("com.aide.ui")) {
+                z = false;
+                return new TemplateService.TemplateGroup[]{new TemplateService.TemplateGroup("Java Application", new TemplateService.Template(this, 3, "Java Application", "Java", "MyJavaConsoleApp", false, false, "com.aide.ui", "JAVA", "course_java", z), 0x7f07007b, "JavaConsole.zip", new String[]{"Main.java"}, (String) null)};
+            }
+            z = true;
+            return new TemplateService.TemplateGroup[]{new TemplateService.TemplateGroup("Java Application", new TemplateService.Template(this, 3, "Java Application", "Java", "MyJavaConsoleApp", false, false, "com.aide.ui", "JAVA", "course_java", z), 0x7f07007b, "JavaConsole.zip", new String[]{"Main.java"}, (String) null)};
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 1131067569338544863L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 2950406777596539456L)
+    public List<Course.File> getTrainerCourses() {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-1751453124824682264L, this);
+            }
+            return Arrays.asList(new Course.File("course_java", 1, new String[]{"com.aide.ui", "com.aide.trainer.java"}));
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -1751453124824682264L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -417465410313150680L)
+    public void gn() {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-3585970868152192L, this);
+            }
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -3585970868152192L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 2602308603967916175L)
+    public void init(String str, Map<String, List<String>> map, List<String> list) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-6129825337551654335L, this, str, map, list);
+            }
+            map.put(str, new ArrayList());
+            list.add(str);
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -6129825337551654335L, this, str, map, list);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -1348480900015018075L)
+    public boolean isInCurrentProjectDirectory(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-1502946952403260497L, this, str);
+            }
+            Iterator it = ServiceContainer.getProjectService().getLibraryMapping().keySet().iterator();
+            while (it.hasNext()) {
+                if (FileSystem.isPrefix((String) it.next(), str)) {
+                    return true;
+                }
+            }
+            for (String str2 : dx(ServiceContainer.getProjectService().getCurrentAppHome())) {
+                if (FileSystem.isPrefix(str2, str)) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -1502946952403260497L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -570152165363486784L)
+    public boolean isPremium() {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-69811361997947040L, this);
+            }
+            if (ServiceContainer.isAggregateVersion() || ServiceContainer.getLicenseService().Ws()) {
+                return false;
+            }
+            if (c0.Ws(ServiceContainer.getMainActivity(), "AllowSavingOneJavaFileInNonPremium", new double[]{1.0d, 0.0d})) {
+                return Qq();
+            }
+            return true;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -69811361997947040L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 7129499176044610200L)
+    public boolean isSupport(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(1013175581687134208L, this, str);
+            }
+            if (FileSystem.exists(g3(str))) {
+                if (!FileSystem.exists(str + "/AndroidManifest.xml")) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 1013175581687134208L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 5050030786987684784L)
+    public boolean isVersionSupport(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-4833072011717200944L, this, str);
+            }
+            if (!ServiceContainer.isAggregateVersion() && !ServiceContainer.appId.equals("com.aide.ui")) {
+                if (!ServiceContainer.appId.equals("com.aide.trainer.java")) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -4833072011717200944L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 6506233914607290985L)
+    public void j6() {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(1581057273621888879L, this);
+            }
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 1581057273621888879L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -4696716385342169281L)
+    public boolean lg() {
+        try {
+            if (!parametersEnabled) {
+                return true;
+            }
+            Probelytics.printlnParameters(4081838800878329337L, this);
+            return true;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 4081838800878329337L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -1468446800406435000L)
+    public EngineSolution makeEngineSolution() {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-3872239307417140704L, this);
+            }
+            return MakeJavaEngineSolution.DW(ServiceContainer.getProjectService().getCurrentAppHome(), ServiceContainer.getProjectService().getAndroidJarPath(), (String) null);
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -3872239307417140704L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -3641730026299000867L)
+    public void nw(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-3427879366614745133L, this, str);
+            }
+            String currentAppHome = ServiceContainer.getProjectService().getCurrentAppHome();
+            List list = new ClassPath().getConfiguration(g3(currentAppHome)).Zo;
+            list.add(new ClassPath.Entry("lib", FileSystem.removePrefix(currentAppHome, str), false));
+            ClassPath.Hw(g3(currentAppHome), list);
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -3427879366614745133L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -359481658356851144L)
+    public int rN(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-100285065325905132L, this, str);
+            }
+            return fe.Hw(str);
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -100285065325905132L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -82167400608941088L)
+    public String sh(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-7013994048444584208L, this, str);
+            }
+            String[] sG = sG(ServiceContainer.getProjectService().getLibraryMapping());
+            if (!str.startsWith("/")) {
+                str = "/" + str;
+            }
+            for (String str2 : sG) {
+                String str3 = str2 + str;
+                if (FileSystem.exists(str3)) {
+                    return str3;
+                }
+            }
+            return null;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -7013994048444584208L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 642355415680964120L)
+    public String tp(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-1557429322153859008L, this, str);
+            }
+            if (isVersionSupport(str)) {
+                return null;
+            }
+            return "com.aide.ui";
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -1557429322153859008L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 4688557158630911056L)
+    public boolean u7(String str) {
+        try {
+            if (!parametersEnabled) {
+                return false;
+            }
+            Probelytics.printlnParameters(3903443620038632736L, this, str);
+            return false;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 3903443620038632736L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -1781888940704881800L)
+    public String v5(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(-4328879974228677312L, this, str);
+            }
+            String ca = ca(ServiceContainer.getProjectService().getLibraryMapping(), FileSystem.getParent(str));
+            if (ca == null) {
+                return str;
+            }
+            return ca.replace('.', '/') + "/" + FileSystem.getName(str);
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -4328879974228677312L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -142575311183543395L)
+    public boolean verifyResourcesDownload() {
+        try {
+            if (!parametersEnabled) {
+                return false;
+            }
+            Probelytics.printlnParameters(-7089856552801447365L, this);
+            return false;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, -7089856552801447365L, this);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = 1003945709493297000L)
+    public boolean vy(String str) {
+        try {
+            if (!parametersEnabled) {
+                return false;
+            }
+            Probelytics.printlnParameters(1738458739672370240L, this, str);
+            return false;
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 1738458739672370240L, this, str);
+            }
+            
+        }
+    }
+
+    @MethodMark(method = -1775220633938098065L)
+    public int we(String str) {
+        try {
+            if (parametersEnabled) {
+                Probelytics.printlnParameters(1676999377948974401L, this, str);
+            }
+            return fe.FH(str);
+        } catch (Throwable th) {
+            if (exceptionEnabled) {
+                Probelytics.printlnException(th, 1676999377948974401L, this, str);
+            }
+            
+        }
+    }
+}
+

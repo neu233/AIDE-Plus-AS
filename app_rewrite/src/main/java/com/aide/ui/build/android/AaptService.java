@@ -145,93 +145,6 @@ public class AaptService {
 		syntaxErrors.add(syntaxError);
 	}
 
-
-    private Map<String, List<SyntaxError>> resolvingError3(String mainProjectPath, Map<String, String> androidManifestMap, String errorInfo) {
-
-        HashMap<String, List<SyntaxError>> fileSyntaxErrorsMap = new HashMap<>();
-		System.out.println("androidManifestMap " + androidManifestMap);
-		try {
-			// errorInfo.replace("\nerror:", "error:");
-			String[] lines = errorInfo.split("\n");
-
-			for (String errorContent : lines) {
-
-				if (TextUtils.isEmpty(errorContent)) {
-					// 空行
-					putSyntaxError(fileSyntaxErrorsMap, mainProjectPath, errorContent);
-					continue;
-				}
-
-				try {
-					// ':' 所在偏移量
-					int colonIndex = errorContent.indexOf(':');
-
-					if (colonIndex <= 0) {
-						// 未知错误类型
-						putSyntaxError(fileSyntaxErrorsMap, mainProjectPath, errorContent);
-						continue;
-					}
-
-					String errorFilePath = errorContent.substring(0, colonIndex);
-					// 是文件
-					if (!FileSystem.KD(errorFilePath)) {
-						putSyntaxError(fileSyntaxErrorsMap, mainProjectPath, errorContent);
-						continue;
-					}
-
-					// 第二个 ':'起点偏移量
-					int secondColonStart = colonIndex + 1;
-					int secondColonIndex = errorContent.indexOf(':', secondColonStart);
-
-					if (secondColonIndex < 0) {
-						secondColonIndex = errorContent.indexOf(' ', secondColonStart);
-					}
-					if (secondColonIndex < 0) {
-						continue;
-					}
-
-					int errorLineNumber;
-					try {
-						errorLineNumber = Integer.parseInt(errorContent.substring(secondColonStart, secondColonIndex));
-					}
-					catch (NumberFormatException unused) {
-						errorLineNumber = 1;
-					}
-
-					String error = errorContent.substring(secondColonIndex + 1, errorContent.length()).trim();
-
-					while (error.toLowerCase().startsWith("error:")) {
-						error = error.substring("error:".length(), error.length()).trim();
-					}
-
-					if (androidManifestMap.containsKey(errorFilePath)) {
-						errorFilePath = androidManifestMap.get(errorFilePath);
-						error = "in generated file: " + error;
-						errorLineNumber = 1;
-					}
-
-					SyntaxError syntaxError = makeSyntaxError("aapt", errorLineNumber, error);
-					if (!fileSyntaxErrorsMap.containsKey(errorFilePath)) {
-						System.out.println("put errorFilePath " + errorFilePath);
-
-						fileSyntaxErrorsMap.put(errorFilePath, new ArrayList<SyntaxError>());
-					}
-					List<SyntaxError> syntaxErrors = fileSyntaxErrorsMap.get(errorFilePath);
-					syntaxErrors.add(syntaxError);
-				}
-				catch (Exception e) {
-					AppLog.e(e);
-				}
-			}
-			System.out.println("fileSyntaxErrorsMap keys: " + fileSyntaxErrorsMap.keySet());
-			return fileSyntaxErrorsMap;
-		}
-		catch (Throwable th) {
-			throw new Error(th);
-		}
-
-    }
-
 	/**
 	 * 会调用AndroidProjectBuildService$c::vJ
 	 * 然后在切换到主线程运行AndroidProjectBuildService$c$c类
@@ -486,7 +399,7 @@ public class AaptService {
     }
 	@Keep
     public void init(String flavour) {
-		Map Z1 = AndroidProjectSupport.Z1(ServiceContainer.getProjectService().getLibraryMapping(), flavour);
+		Map<String, String> Z1 = AndroidProjectSupport.Z1(ServiceContainer.getProjectService().getLibraryMapping(), flavour);
 		for (String projectPath : ServiceContainer.getProjectService().getLibraryMapping().keySet()) {
 
 			String ye = AndroidProjectSupport.ye(projectPath, flavour);

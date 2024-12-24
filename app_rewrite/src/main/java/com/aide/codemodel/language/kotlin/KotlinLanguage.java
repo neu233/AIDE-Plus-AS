@@ -13,10 +13,10 @@ import com.aide.codemodel.api.abstraction.TypeSystem;
 import java.util.Set;
 
 public class KotlinLanguage implements Language {
-    private final KotlinCodeModel codeModel;
+    // private final KotlinCodeModel codeModel;
     private KotlinTools kotlinTools;
     public KotlinLanguage(KotlinCodeModel codeModel) {
-        this.codeModel = codeModel;
+        //this.codeModel = codeModel;
         Model model = codeModel.model;
 		if (model != null)
             this.kotlinTools = new KotlinTools(model);

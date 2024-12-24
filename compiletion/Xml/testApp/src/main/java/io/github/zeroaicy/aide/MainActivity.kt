@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         getAndroidJar()
 
 
-        testFindViewAttrValue()
+        testFindViewAttr()
 
 
     }

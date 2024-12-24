@@ -19,7 +19,7 @@ android {
         //noinspection HighAppVersionCode
         versionCode = 2008210017
         // [3.2.210316]
-        versionName = "2.3.2.0"
+        versionName = "2.3.2.7"
 
         //multiDexEnabled = true
 
@@ -96,6 +96,8 @@ android {
             pickFirsts += "org/eclipse/jdt/internal/compiler/parser/*/*/*"
             pickFirsts += "org/eclipse/jdt/internal/*/*/*/*/*/*"
 
+            pickFirsts += "about_files/*"
+
         }
         jniLibs {
             useLegacyPackaging = true
@@ -171,6 +173,7 @@ configurations.all {
     //exclude("com.google.guava","guava")
     exclude("net.java.dev.jna", "jna")
     exclude("net.java.dev.jna", "jna-platform")
+    exclude("org.bouncycastle","bcprov-jdk15on")
 }
 
 

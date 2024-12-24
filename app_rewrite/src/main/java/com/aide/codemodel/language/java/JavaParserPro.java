@@ -33,10 +33,10 @@ public class JavaParserPro extends JavaParser{
 	 * 如果方法体中只有一条语句，其是return语句，那么大括号可以省略，且去掉return关键字
 	 */
 	// 此方法处理的是 IDENTIFIER -> 样式
-	public boolean parserLambdaExpression() throws Parser.a{
+	public boolean parserLambdaExpression() throws a{
 		return false;
 	}
-	public boolean parserLambdaExpression2() throws Parser.a{
+	public boolean parserLambdaExpression2() throws a{
 		/* LambdaExpression
 		 *  	IDENTIFIER || PARAMETERS parameters
 		 *      -
@@ -98,14 +98,14 @@ public class JavaParserPro extends JavaParser{
 			}else{
 				call("g3");
 				accept(27); // -
-				throw new Parser.a();
+				throw new a();
 			}
 			if ( this.currentSyntaxTag == /* > */ 48 ){
 				declareNodeFormCurrentSyntaxTag(); // >
 			}else{
 				call("g3");
 				accept(48); // >
-				throw new Parser.a();
+				throw new a();
 			}
 
 			if ( this.currentSyntaxTag == 8 ){
@@ -131,12 +131,12 @@ public class JavaParserPro extends JavaParser{
 			e.printStackTrace();
 			// currentNodeOffset
 			this.currentNodeOffset = lastNodeOffset;
-			throw new Parser.a();
+			throw new a();
 		}				
 
 	}
 
-	private void parserLambdaParameters(int analyzeParens) throws Parser.a{
+	private void parserLambdaParameters(int analyzeParens) throws a{
 		if ( analyzeParens == LAMBDA ){
 			// () -> 
 			// declareParentNode(191, 0); // PARAMETER

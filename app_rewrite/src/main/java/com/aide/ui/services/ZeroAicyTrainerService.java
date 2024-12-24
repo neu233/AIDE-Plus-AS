@@ -35,7 +35,7 @@ public class ZeroAicyTrainerService extends TrainerService {
 			super(false);
 			// 使用父构造器的实现
 			// 并发
-			this.j6 = new Vector<com.aide.ui.trainer.Course.XmlInfo>();
+			this.j6 = new Vector<XmlInfo>();
 			// 异步初始化
 			executorsService.submit(new Runnable(){
 					@Override
@@ -48,7 +48,7 @@ public class ZeroAicyTrainerService extends TrainerService {
 		// 阻塞点
 		// this.EQ = this.tp.P8(this.j6.getCurrentLessonId());
 		@Override
-		public com.aide.ui.trainer.Course.XmlInfo P8(String string) {
+		public XmlInfo P8(String string) {
 			// 没准备好就阻塞[实在没办法了]
 			// 不过卡顿检测并没有检测到耗时
 			if (!inited.get()) {
@@ -88,14 +88,14 @@ public class ZeroAicyTrainerService extends TrainerService {
 			synchronized (this.j6) {
 				int index = 0;
 				for (ProjectSupport projectSupport : ServiceContainer.getProjectSupports()) {
-					List<com.aide.ui.trainer.Course.File> trainerCourses = projectSupport.getTrainerCourses();
+					List<File> trainerCourses = projectSupport.getTrainerCourses();
 					if (trainerCourses == null) {
 						continue;
 					}
-					for (com.aide.ui.trainer.Course.File cVar : trainerCourses) {
+					for (File cVar : trainerCourses) {
 						index = index + 1;
 						try {
-							com.aide.ui.trainer.Course.XmlInfo vy = parseCourseXmlFile(cVar.fileName, index, cVar);
+							XmlInfo vy = parseCourseXmlFile(cVar.fileName, index, cVar);
 							if (vy.j3()) {
 								this.j6.add(vy);
 							}
@@ -106,7 +106,7 @@ public class ZeroAicyTrainerService extends TrainerService {
 					}
 
 				}
-				Collections.sort(this.j6, new com.aide.ui.trainer.Course.a());
+				Collections.sort(this.j6, new a());
 			}
 			// 采用回调方式调用
 			J0();

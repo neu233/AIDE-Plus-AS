@@ -1,9 +1,8 @@
 
 package com.aide.common;
 
-import io.github.zeroaicy.util.Log;
-import io.github.zeroaicy.util.ContextUtil;
 import io.github.zeroaicy.aide.preference.ZeroAicySetting;
+import io.github.zeroaicy.util.Log;
 
 /**
  * AIDE日志类
@@ -34,7 +33,13 @@ public class AppLog{
         Log.e("AIDE", th.toString(), th);
     }
 
-
+    public static void d(Throwable th){
+        AppLog.d("AIDE", th);
+    }
+	public static void d(String TAG, Throwable th){
+        if ( isPrintLog() )Log.d(TAG, Log.getStackTraceString(th));
+    }
+	
 	public static void d(String TAG, String msg){
 		if ( isPrintLog() ) Log.d(TAG, msg);
     }

@@ -19,8 +19,97 @@ import com.aide.codemodel.api.callback.UsageSearcherCallback;
 import com.aide.codemodel.api.abstraction.CodeModel;
 import com.aide.codemodel.language.java.JavaCodeModelPro;
 import com.aide.engine.EngineSolution;
+import com.aide.codemodel.api.FileEntry;
+import com.aide.codemodel.api.SyntaxTreeStyles;
+import com.aide.codemodel.api.abstraction.Language;
+import com.aide.common.AppLog;
 
 public class ZeroAicyModel extends AIDEModel {
+
+	public static class HighlighterCallback2 implements HighlighterCallback {
+		HighlighterCallback highlighterCallback;
+
+		public HighlighterCallback2( HighlighterCallback highlighterCallback ) {
+			this.highlighterCallback = highlighterCallback;
+		}
+
+		@Override
+		public void addSyntaxTreeStyles( Language language, SyntaxTreeStyles syntaxTreeStyles ) {
+			this.highlighterCallback.addSyntaxTreeStyles(language, syntaxTreeStyles);
+			AppLog.e(new Throwable());
+
+		}
+
+		@Override
+		public void delegateFound( Language language, int startLine, int startColumn, int endLine, int endColumn ) {
+			this.highlighterCallback.delegateFound(language, startLine, startColumn, endLine, endColumn);
+			AppLog.e(new Throwable());
+
+		}
+
+		@Override
+		public void fileFinished( FileEntry fileEntry ) {
+			this.highlighterCallback.fileFinished(fileEntry);
+
+			AppLog.e(new Throwable());
+		}
+
+		@Override
+		public void identifierFound( Language language, int startLine, int startColumn, int endLine, int endColumn ) {
+			AppLog.e(new Throwable());
+
+		}
+
+		@Override
+		public void j6( ) {
+			this.highlighterCallback.j6();
+			AppLog.e(new Throwable());
+
+		}
+
+		@Override
+		public void keywordFound( Language language, int startLine, int startColumn, int endLine, int endColumn ) {
+			this.highlighterCallback.keywordFound(language, startLine, startColumn, endLine, endColumn);
+			AppLog.e(new Throwable());
+
+		}
+
+		@Override
+		public void namespaceFound( Language language, int startLine, int startColumn, int endLine, int endColumn ) {
+			this.highlighterCallback.namespaceFound(language, startLine, startColumn, endLine, endColumn);
+			AppLog.e(new Throwable());
+
+		}
+
+		@Override
+		public void releaseSyntaxTree( ) {
+			this.highlighterCallback.releaseSyntaxTree();
+			AppLog.e(new Throwable());
+
+		}
+
+		@Override
+		public void typeFound( Language language, int startLine, int startColumn, int endLine, int endColumn ) {
+			this.highlighterCallback.typeFound(language, startLine, startColumn, endLine, endColumn);
+			AppLog.e(new Throwable());
+
+		}
+
+		@Override
+		public void unifedLineFound( FileEntry fileEntry, int p ) {
+			this.highlighterCallback.unifedLineFound(fileEntry, p);
+			AppLog.e(new Throwable());
+
+		}
+
+		@Override
+		public void found( int type, int startLine, int startColumn, int endLine, int endColumn ) {
+			this.highlighterCallback.found(type, startLine, startColumn, endLine, endColumn);
+			AppLog.e(new Throwable());
+			
+		}
+
+	}
 
 	public ZeroAicyModel(
 		OpenFileCallback openFileCallback, 
@@ -58,6 +147,6 @@ public class ZeroAicyModel extends AIDEModel {
 	@Override
 	public void setEngineSolution( EngineSolution engineSolution ) {
 		super.setEngineSolution(engineSolution);
-		
+
 	}
 }

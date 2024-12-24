@@ -5,10 +5,10 @@ import android.util.AttributeSet;
 import com.aide.ui.views.SplitView;
 import com.aide.ui.views.SplitView.OnSplitChangeListener;
 
-public class ZeroAicySplitView extends com.aide.ui.views.SplitView {
+public class ZeroAicySplitView extends SplitView {
 	OnSplitInterceptListener onSplitInterceptListener;
 
-	private SplitView.OnSplitChangeListener listener;
+	private OnSplitChangeListener listener;
 	public void setOnSplitInterceptListener(OnSplitInterceptListener onSplitInterceptListener) {
 		this.onSplitInterceptListener = onSplitInterceptListener;
 	}
@@ -37,7 +37,7 @@ public class ZeroAicySplitView extends com.aide.ui.views.SplitView {
 	}
 
 	@Override
-	public void setOnSplitChangeListener(SplitView.OnSplitChangeListener onSplitChangeListener) {
+	public void setOnSplitChangeListener(OnSplitChangeListener onSplitChangeListener) {
 		super.setOnSplitChangeListener(onSplitChangeListener);
 		this.listener = onSplitChangeListener;
 		

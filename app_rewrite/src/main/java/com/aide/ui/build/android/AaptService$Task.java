@@ -244,7 +244,7 @@ public class AaptService$Task {
 			} else {
 				AppLog.d("Merging " + mainProjectMergedManifestPath);
 				// 合并
-				String mergedInfo = com.aide.ui.build.android.l.j6(AaptService.getContext(this.aaptService), mainProjectMergedManifestPath, mainProjectInjectedManifestPath, variantManifestPaths, subProjectInjectedManifestPaths);
+				String mergedInfo = l.j6(AaptService.getContext(this.aaptService), mainProjectMergedManifestPath, mainProjectInjectedManifestPath, variantManifestPaths, subProjectInjectedManifestPaths);
 				if (mergedInfo != null) {
 					return new AaptService$ErrorResult(mergedInfo);
 				}
@@ -581,7 +581,7 @@ public class AaptService$Task {
                 }
                 File buildConfigJavaFile = new File(buildConfigJavaParentDirectory, "BuildConfig.java");
                 if (!this.XL || !buildConfigJavaFile.exists()) {
-                    com.aide.ui.build.android.c.j6(buildConfigJavaFile, packageName, this.isRrelease);
+                    c.j6(buildConfigJavaFile, packageName, this.isRrelease);
                 }
             }
         }

@@ -3,11 +3,10 @@
 //
 package com.aide.ui.build.android;
 
-import com.aide.ui.build.android.AaptService;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.Map;
 import com.aide.common.AppLog;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Callable;
 
 class AaptService$Callable implements Callable<AaptService$ErrorResult> {
     final AaptService aaptService;

@@ -32,10 +32,13 @@ dependencies {
 
     // 太多错误了，直接引用jar包
     api(files("libs/xml-completion-jaxp.jar"))
+
+    //implementation(projects.compiletion.jaxp)
+
     api(projects.compiletion.xml.layoutlibApi)
 
 
-    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.24")
+    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.20")
     api("androidx.collection:collection-ktx:1.4.5")
 
     api("org.jetbrains:annotations:24.1.0")
@@ -44,7 +47,7 @@ dependencies {
     api("com.android.tools:annotations:31.7.3")
     api("com.android.tools:common:31.7.3")
     api("com.android.tools.build:aapt2-proto:8.3.2-10880808")
-    api("com.google.protobuf:protobuf-java:3.25.3")
+    api("com.google.protobuf:protobuf-java:4.28.2")
 
 
     testImplementation("junit:junit:4.13.2")

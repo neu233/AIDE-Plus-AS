@@ -326,29 +326,6 @@ public class EclipseJavaCodeAnalyzer extends JavaCodeAnalyzer {
 
     }
 
-	private static Set<String> method(FileSpace fileSpace, ProjectEnvironment projectEnvironment, int assemblyId) {
-		Set<String> sourcePaths = new HashSet<>();
-		SetOfFileEntry solutionFiles = fileSpace.getSolutionFiles();
-		SetOfFileEntry.Iterator solutionFilesIterator = solutionFiles.default_Iterator;
-		solutionFilesIterator.init();
-		while (solutionFilesIterator.hasMoreElements()) {
-			FileEntry file = solutionFilesIterator.nextKey();
-			int assembly = fileSpace.getAssembly(file);
-			if (!projectEnvironment.containsId(assembly)) {
-				continue;
-			}
-			if (fileSpace.isRJavaFileEntry(file) && assembly != assemblyId) {
-				continue;
-			}
-
-			String pathString = file.getPathString();
-			String toLowerCase = pathString.toLowerCase();
-			if (toLowerCase.endsWith(".java")) {
-				sourcePaths.add(pathString);
-			}
-		}
-		return sourcePaths;
-	}
 
 
 

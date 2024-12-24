@@ -133,7 +133,7 @@ public class DefaultTools implements Tools {
 	}
 
 	@Override
-	public HashtableOfInt<Tools.a> XL(SyntaxTree syntaxTree, f2 f2, int p, int p1, int p2) {
+	public HashtableOfInt<a> XL(SyntaxTree syntaxTree, f2 f2, int p, int p1, int p2) {
 		// TODO: Implement this method
 		return null;
 	}
@@ -215,7 +215,7 @@ public class DefaultTools implements Tools {
 	}
 
 	@Override
-	public HashtableOfInt<Tools.a> j6(SyntaxTree syntaxTree, f2 f2, int p, int p1, int p2) {
+	public HashtableOfInt<a> j6(SyntaxTree syntaxTree, f2 f2, int p, int p1, int p2) {
 		// TODO: Implement this method
 		return null;
 	}
@@ -226,7 +226,7 @@ public class DefaultTools implements Tools {
 	}
 
 	@Override
-	public HashtableOfInt<Tools.a> nw(SyntaxTree syntaxTree, f2 f2, int p, int p1, int p2) {
+	public HashtableOfInt<a> nw(SyntaxTree syntaxTree, f2 f2, int p, int p1, int p2) {
 		// TODO: Implement this method
 		return null;
 	}

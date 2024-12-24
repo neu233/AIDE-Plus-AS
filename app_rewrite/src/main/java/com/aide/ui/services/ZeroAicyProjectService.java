@@ -27,8 +27,7 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
-import io.github.zeroaicy.aide.utils.AndroidManifestParser;
-import io.github.zeroaicy.aide.preference.ZeroAicySetting;
+import java.util.TreeMap;
 
 public class ZeroAicyProjectService extends ProjectService {
 	/**
@@ -54,24 +53,24 @@ public class ZeroAicyProjectService extends ProjectService {
 		return getProjectServiceThreadPoolService();
 	}
 
-	private static ProjectService singleton;
+	// private static ProjectService singleton;
 	public static ProjectService getSingleton() {
-		if (singleton == null) {
-			singleton = new ZeroAicyProjectService();
-			AppLog.d(TAG,  "替换ZeroAicyProjectService");
-		}
-		return singleton;
+		/*if (singleton == null) {
+		 singleton = new ZeroAicyProjectService();
+		 AppLog.d(TAG,  "替换ZeroAicyProjectService");
+		 }*/
+		return new ZeroAicyProjectService();
 	}
 
 	/**
 	 * 必须在主线程调用
 	 */
+	@SuppressWarnings("deprecation") 
 	public static void showProgressDialog(Activity activity, String string, final Runnable asynTask, final Runnable onUiTask) {
 		final ProgressDialog show = ProgressDialog.show(activity, null, string, true, false);
 		show.getWindow().addFlags(128);
 		show.getWindow().clearFlags(2);
 
-		//*
 		final Runnable syncTask = new Runnable(){
 			@Override
 			public void run() {
@@ -80,23 +79,12 @@ public class ZeroAicyProjectService extends ProjectService {
 				}
 				finally {
 					if (onUiTask != null) {
-						executorsService.post(onUiTask);
+						ThreadPoolService.postOfUi(onUiTask);
 					}
 				}
 			}
 		};
-		/*/
-		 Runnable syncTask = () -> {
-		 try {
-		 show.dismiss();
-		 }
-		 finally {
-		 if (onUiTask != null) {
-		 executorsService.post(onUiTask);
-		 }
-		 }
-		 };
-		 //*/
+
 
 		executorsService.submit(new Runnable(){
 				@Override
@@ -107,7 +95,7 @@ public class ZeroAicyProjectService extends ProjectService {
 						}
 					}
 					finally {
-						executorsService.post(syncTask);
+						ThreadPoolService.postOfUi(syncTask);
 					}
 				}
 			});
@@ -139,6 +127,7 @@ public class ZeroAicyProjectService extends ProjectService {
 			// Collections.synchronizedMap(new HashMap<String, List<String>>());
 			// 项目路径 -> 所有maven依赖
 			this.libraryMapping = new HashMap<String, List<String>>(){
+				public static final long serialVersionUID = 0x1;
 				@Override
 				public List<String> put(String key, List<String> value) {
 					if (!ZeroAicyProjectService.executorsService.isCurrentThread()) {
@@ -239,7 +228,7 @@ public class ZeroAicyProjectService extends ProjectService {
 			List<String> librarys = this.getLibraryMapping().get(this.currentAppHome);
 			// 异步bug修复
 			if (librarys == null 
-				&& librarys.contains(filePath)) {
+				|| librarys.contains(filePath)) {
 				return true;
 			}
 
@@ -411,7 +400,7 @@ public class ZeroAicyProjectService extends ProjectService {
 		this.jJ(); // 关闭项目
 
 		// 同步主线程 已关闭项目
-		executorsService.post(new Runnable(){
+		ThreadPoolService.postOfUi(new Runnable(){
 				@Override
 				public void run() {
 					// 关闭项目 关闭所有已打开文件
@@ -684,6 +673,7 @@ public class ZeroAicyProjectService extends ProjectService {
 				}
 			}
 		}
+
 		this.pojectSupport = getProjectSupport(this.currentAppHome);
 
 		// this.initAsync();
@@ -702,23 +692,25 @@ public class ZeroAicyProjectService extends ProjectService {
 		// 等待EngineServiceConnection
 
 		// 当dx() 现于此运行会置空锁
-		Object lock = this.engineServiceConnectionLock;
-		if (lock != null) {
-			synchronized (lock) {
-				try {
-					// 等待5s防止死锁
-					AppLog.d("Waiting EngineServiceConnection");
-					lock.wait(5000);
+		/*
+		 Object lock = this.engineServiceConnectionLock;
+		 if (lock != null) {
+		 synchronized (lock) {
+		 try {
+		 // 等待5s防止死锁
+		 AppLog.d("Waiting EngineServiceConnection");
+		 lock.wait(5000);
 
-				}
-				catch (Throwable e) {}
-			}
-
-		}
+		 }
+		 catch (Throwable e) {
+		 AppLog.d(TAG, e);
+		 }
+		 }
+		 }*/
 
 		// 完成EngineServiceConnection，执行 jJ
 		// 同步EngineService
-		this.jJ();
+		// this.jJ();
 	}
 
 	/*******************************************************************/
@@ -736,13 +728,23 @@ public class ZeroAicyProjectService extends ProjectService {
 	 * 接收EngineService回调，否则无法同步
 	 */
 	private Object engineServiceConnectionLock = new Object();
+
 	@Override
 	public void dx() {
+		super.dx();
+
+	}
+
+	public void dx2() {
 		// EngineService$EngineServiceConnection::onServiceConnected() -> EngineService::Mr()
 		// jJ() 
 		// 通知执行 jJAsync()
 		Object engineServiceConnectionLock = this.engineServiceConnectionLock;
-		if (engineServiceConnectionLock == null) return;
+
+		if (engineServiceConnectionLock == null) {
+			jJ();
+			return;
+		}
 
 		synchronized (engineServiceConnectionLock) {
 			// 
@@ -753,31 +755,42 @@ public class ZeroAicyProjectService extends ProjectService {
 			// 通知
 			lock.notifyAll();
 		}
-
 	}
+
 	/**
 	 * 必将在executorsService运行且只有一个线程
 	 */
 	protected void jJAsync() {
-
+		final EngineService engineService;
 		//super.jJ();
-		EngineService engineService = ServiceContainer.getEngineService();
-		if (engineService == null) {
+		if (ServiceContainer.isShutdowned() || (engineService = ServiceContainer.getEngineService()) == null) {
+			AppLog.d(TAG, "not found engine service");
 			return;
 		}
 
-		synchronized (engineService) {
+		EngineSolution engineSolution;
 
+		synchronized (engineService) {
 			if (this.currentAppHome != null 
 				&& this.pojectSupport != null) {
-				engineService.setEngineSolution(this.pojectSupport.makeEngineSolution());
+				engineSolution = this.pojectSupport.makeEngineSolution();
 			} else {
 				// 置空
-				engineService.setEngineSolution(new EngineSolution(new ArrayList(), (String) null, CodeModelFactory.findCodeModels(ServiceContainer.Hw()), ServiceContainer.Hw()));
+
+				List<String> hw = ServiceContainer.Hw();
+				TreeMap<String, List<String>> findCodeModels = CodeModelFactory.findCodeModels(hw);
+				List emptyList = Collections.emptyList();
+				engineSolution = new EngineSolution(emptyList, (String) null, findCodeModels, hw);
 			}
-			engineService.ef();
-			engineService.ei();
-			engineService.ei();
+			try {
+				// 设置 engineSolution
+				engineService.setEngineSolution(engineSolution);		
+				engineService.ef();
+				engineService.ei();
+			}
+			catch (Throwable e) {
+				AppLog.d(TAG, e);
+			} 
 		}
 	}
 
@@ -848,7 +861,7 @@ public class ZeroAicyProjectService extends ProjectService {
 		ServiceContainer.getDebugger().ef();
 
 		//在主线程执行showProgressDialog
-		executorsService.post(new Runnable(){
+		ThreadPoolService.postOfUi(new Runnable(){
 				@Override
 				public void run() {
 					MainActivity mainActivity = ServiceContainer.getMainActivity();
@@ -940,6 +953,8 @@ public class ZeroAicyProjectService extends ProjectService {
 		}
 
 
+		// 重置仓库依赖
+		ServiceContainer.getMavenService().resetDepMap();
 		// 填充this.libraryMapping[修改this.libraryMapping中]
 		// libraryMapping是所有子项目目录[aar也算且包含当前项目目录]
 		this.pojectSupport.init(this.currentAppHome, this.libraryMapping, this.mainAppWearApps);

@@ -1,9 +1,5 @@
 package com.aide.codemodel.language.java;
 
-import abcd.hy;
-import abcd.i2;
-import abcd.m1;
-import abcd.th;
 import com.aide.codemodel.api.ErrorTable;
 import com.aide.codemodel.api.FileEntry;
 import com.aide.codemodel.api.FileSpace;
@@ -16,24 +12,14 @@ import com.aide.codemodel.api.collections.FunctionOfIntInt;
 import com.aide.codemodel.api.collections.OrderedMapOfIntInt;
 import com.aide.codemodel.api.collections.SetOfFileEntry;
 import com.aide.common.AppLog;
-import com.probelytics.Probelytics;
-import com.probelytics.annotation.ExceptionEnabled;
-import com.probelytics.annotation.FieldMark;
-import com.probelytics.annotation.MethodMark;
-import com.probelytics.annotation.ParametersEnabled;
-import com.probelytics.annotation.TypeMark;
 import io.github.zeroaicy.util.reflect.ReflectPie;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class EclipseJavaCodeCompiler implements CodeCompiler {
 
 	public final Language language;
-	private final Model model;
+	// private final Model model;
 
 	private FileSpace fileSpace;
 	private ReflectPie fileSpaceReflect;
@@ -43,7 +29,7 @@ public class EclipseJavaCodeCompiler implements CodeCompiler {
 	public FileEntry fileEntry;
 
 	public EclipseJavaCodeCompiler(Model model, JavaLanguage language) {
-		this.model = model;
+		// this.model = model;
 		this.language = language;
 		AppLog.println_d("<init> %s", this.getClass());
 
@@ -61,7 +47,7 @@ public class EclipseJavaCodeCompiler implements CodeCompiler {
 	private JavaCodeModelPro javaCodeModelPro;
 
 	public EclipseJavaCodeCompiler(Model model, JavaCodeModelPro javaCodeModelPro) {
-		this.model = model;
+		// this.model = model;
 		this.javaCodeModelPro = javaCodeModelPro;
 		this.language = javaCodeModelPro.javaLanguage;
 

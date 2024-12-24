@@ -267,6 +267,7 @@ public class MakeJksKeyStore {
 	/**
 	 * certValidityYears 证书有效期年份
 	 */
+	@SuppressWarnings({"deprecation"})
     public static KeySet createKey(String keyAlgorithm, int keySize, String keyName,
 								   String certSignatureAlgorithm, int certValidityYears, JksKeyStoreInfo info) {
         try {
