@@ -1,7 +1,5 @@
 package io.github.zeroaicy.aide.completion;
 
-import java.util.*;
-
 import android.content.Context;
 import android.util.Pair;
 import com.aide.codemodel.api.ClassType;
@@ -40,7 +38,6 @@ import io.github.zeroaicy.aide.aaptcompiler.interfaces.widgets.WidgetTable;
 import io.github.zeroaicy.aide.aaptcompiler.permissions.Permission;
 import io.github.zeroaicy.aide.aaptcompiler.utils.PatternsKt;
 import io.github.zeroaicy.aide.aaptcompiler.utils.StyleUtils;
-import io.github.zeroaicy.util.ContextUtil;
 import io.github.zeroaicy.util.Log;
 import java.io.File;
 import java.io.IOException;

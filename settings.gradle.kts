@@ -63,7 +63,12 @@ include(":appAideBase")
 include(":app_rewrite")
 
 
-include(":aaptcompiler")
-include(":layoutlib-api")
-///include(":jaxp")
-include(":res-parse")
+include(":compiletion:jaxp")
+
+include(":compiletion:Xml:testApp")
+include(":compiletion:Xml:aaptcompiler")
+include(":compiletion:Xml:layoutlib-api")
+include(":compiletion:Xml:res-parse")
+
+include(":compiletion:Kotlin:kotlinc")
+include(":compiletion:Kotlin:the-unsafe")

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editor_aar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入AAR" />
+
+    <Button
+        android:id="@+id/load_aar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="解压加载" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editor_namespace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入NameSpace"
+        android:text="http://schemas.android.com/apk/res/android" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editor_attr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="android:layout_width"
+        android:hint="输入attr" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editor_prefix"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="\@"
+        android:hint="输入prefix" />
+
+    <Button
+        android:id="@+id/find_attr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查找" />
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="清空" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:text="Log:"
+            android:id="@+id/output_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </ScrollView>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

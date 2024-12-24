@@ -55,7 +55,7 @@ dependencies {
     }
 
 
-    api(projects.resParse){
+    api(projects.compiletion.xml.resParse){
         isTransitive = true
     }
 
