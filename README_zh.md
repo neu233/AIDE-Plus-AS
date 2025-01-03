@@ -13,9 +13,6 @@
 
 - [README of English](README.md)
 
-
-## 功能
-
 ### 已实现功能
 - [x] 构建服务优化和重写
 - [x] aapt更替为aapt2
@@ -45,12 +42,16 @@
 - [x] 新增一些基础的语法补全
 - [x] 修复软件内的git问题
 - [x] apk资源对齐
+- [x] Java项目支持安卓api
+- [x] 已实现部分日志丢失
 
 ### 计划实现
 - [x] Lambda实现 (ecj)
 - [ ] 更多补全 (Lsp)
 - [ ] 支持cmake构建(Java项目)
 - [ ] Apks/AAB的生成(未添加)
+- [ ] 清单文件编辑
+- [ ] 矢量图获取
 
 > [!TIP]
 > 不要使用debug进行，不然dex没有添加进apk
@@ -78,9 +79,10 @@ chmod +x ./gradlew
 ```
 
 
-
-
-
+## 相关资源
+- [AIDE-Ndk-Install](https://github.com/ZeroAicy/AIDE-Ndk-Install)
+- [AIDE-Repair](https://github.com/ZeroAicy/AIDE-Repair)
+- [Cmake-Build]()
 
 # 相关信息
 - QQ群
