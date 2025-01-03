@@ -30,8 +30,8 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build APK for ${{ task.flavor }}
-      run: ./gradlew :app:assemble${{ task.flavor }}Release
+    - name: Build APK for ${{ matrix.flavor }}
+      run: ./gradlew :app:assemble${{ matrix.flavor }}Release
 
     - name: Get TAG_VERSION_NAME from build.gradle.kts
       id: get_version_info
