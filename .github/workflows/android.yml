@@ -36,7 +36,7 @@ jobs:
     - name: Get TAG_VERSION_NAME from build.gradle.kts
       id: get_version_info
       run: |
-        TAG_VERSION_NAME=$(grep "val TAG_VERSION_NAME =" build.gradle.kts | awk '{print $3}' | tr -d "'")
+        TAG_VERSION_NAME=$(grep "val TAG_VERSION_NAME =" build.gradle.kts | awk '{print $4}' | tr -d '"')
         echo "TAG_VERSION_NAME=${TAG_VERSION_NAME}" >> $GITHUB_ENV
 
       # 重命名
