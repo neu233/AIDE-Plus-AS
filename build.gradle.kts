@@ -12,3 +12,7 @@ allprojects {
     //noinspection GrDeprecatedAPIUsage
     buildDir = file("${rootProject.rootDir.path}/build/${project.path.substring(1).replace(':', '-')}")
 }
+
+ext{
+    val TAG_VERSION_NAME = "2.3.2.9"
+}

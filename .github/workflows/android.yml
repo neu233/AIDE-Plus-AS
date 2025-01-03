@@ -13,6 +13,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      # 矩阵功能，为每个包构建
+      matrix:
+        flavor: [ default, termux ]
+        task: [ Default, Termux ]
+
     steps:
     - uses: actions/checkout@v4
     - name: set up JDK 21
@@ -24,36 +30,30 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew :app:assembleRelease
-    
-    # 获取版本
-    - name: Get versionName and versionCode from build.gradle.kts
+
+    - name: Build APK for ${{ task.flavor }}
+      run: ./gradlew :app:assemble${{ task.flavor }}Release
+
+    - name: Get TAG_VERSION_NAME from build.gradle.kts
       id: get_version_info
       run: |
-        VERSION_NAME=$(grep "version =" build.gradle.kts | awk '{print $3}' | tr -d "'")
-        echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
-        VERSION_CODE=$(grep "versionCode =" build.gradle.kts | awk '{print $3}')
-        echo "VERSION_CODE=${VERSION_CODE}" >> $GITHUB_ENV
-        RELEASE_NAME="v${VERSION_NAME}-${VERSION_CODE}"
-        echo "RELEASE_NAME=${RELEASE_NAME}" >> $GITHUB_ENV
-        ASSET_NAME="AIDE-Plus_${VERSION_NAME}.apk"
-        echo "ASSET_NAME=${ASSET_NAME}" >> $GITHUB_ENV
+        TAG_VERSION_NAME=$(grep "val TAG_VERSION_NAME =" build.gradle.kts | awk '{print $3}' | tr -d "'")
+        echo "TAG_VERSION_NAME=${TAG_VERSION_NAME}" >> $GITHUB_ENV
 
-    # 重命名
-    - name: Rename APK
-      run: mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/${{ env.ASSET_NAME }}
+      # 重命名
+    - name: Rename APK for ${{ matrix.flavor }}
+      run: mv build/app/outputs/apk/${{ matrix.flavor }}/release/app-${{ matrix.flavor }}-release.apk build/app/outputs/apk/${{ matrix.flavor }}/release/AIDE-${{ matrix.task }}.apk
+
     - name: Upload  APK
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.ASSET_NAME }}
-        path: build/app/outputs/apk/release/${{ env.ASSET_NAME }}
+        name: AIDE-${{ matrix.flavor }}.apk
+        path: build/app/outputs/apk/${{ matrix.flavor }}/release/AIDE-${{ matrix.task }}.apk
     # 发布到 Release
-    - name: Upload APK to GitHub Release
+    - name: Upload APK for ${{ matrix.flavor }} to GitHub Release
       uses: softprops/action-gh-release@v2
-      if: startsWith(github.ref, 'refs/tags/')
       with:
-        tag_name: ${{ env.VERSION_NAME }}
+        tag_name: ${{ env.TAG_VERSION_NAME }}
         repository: neu233/AIDE-Plus-AS
-        files: build/app/outputs/apk/release/${{ env.ASSET_NAME }}
+        files: build/app/outputs/apk/${{ matrix.flavor }}/release/AIDE-${{ matrix.task }}.apk
         token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}

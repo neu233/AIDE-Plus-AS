@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.AndroidResources
 import com.android.tools.build.apkzlib.zip.ZFile
 import java.io.ByteArrayOutputStream
 import java.nio.file.Files
@@ -7,8 +8,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
-
-
 
 android {
 
@@ -26,8 +25,6 @@ android {
             storeFile = file("debug.jks")
         }
     }
-
-
 
     namespace = "io.github.zeroaicy.aide"
     compileSdk = 35
@@ -62,9 +59,7 @@ android {
 
         buildConfigField("String", "GIT_HASH", "\"${gitCommitHash}\"")
 
-
         //multiDexEnabled = true
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -72,23 +67,51 @@ android {
 
     productFlavors {
         create("default") {
+
             dimension = "api"
             versionNameSuffix = ""
             isDefault = true
             signingConfig = signingConfigs.getByName("debug1")
+            resourcePrefix = "default_"
 
+            androidResources {
+                val publicXmlFile =
+                    project.rootProject.file("${project(":appAideBase").projectDir.path}/src/main/res/values/public.xml")
+                val publicTxtFile =
+                    project.rootProject.file("${layout.buildDirectory.asFile.get().path}/default_public.txt")
+                val applicationId = "io.github.zeroaicy.aide"
+                createPublicTxt(
+                    packageName = applicationId,
+                    publicXmlFile = publicXmlFile,
+                    publicTxtFile = publicTxtFile
+                )
+            }
         }
 
         create("termux") {
+
             dimension = "api"
             versionNameSuffix = "-termux"
             applicationId = "io.github.zeroaicy.aide2"
-            dependencies {
-                // termux
-//                api(":termux:termux-app")
-                api(projects.termux.termuxApp)
-            }
+            resourcePrefix = "termux_"
             signingConfig = signingConfigs.getByName("debug1")
+
+            dependencies {
+                api(projects.termux.termuxApp) // termux
+            }
+
+            androidResources {
+                val publicXmlFile =
+                    project.rootProject.file("${project(":appAideBase").projectDir.path}/src/main/res/values/public.xml")
+                val publicTxtFile =
+                    project.rootProject.file("${layout.buildDirectory.asFile.get().path}/termux_public.txt")
+                val applicationId = "io.github.zeroaicy.aide2"
+                createPublicTxt(
+                    packageName = applicationId,
+                    publicXmlFile = publicXmlFile,
+                    publicTxtFile = publicTxtFile
+                )
+            }
 
         }
     }
@@ -100,7 +123,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-
             signingConfig = signingConfigs.getByName("debug1")
         }
         debug {
@@ -112,6 +134,7 @@ android {
             signingConfig = signingConfigs.getByName("debug1")
         }
     }
+
     compileOptions {
         isCoreLibraryDesugaringEnabled = isRelease
         sourceCompatibility = JavaVersion.VERSION_21
@@ -166,37 +189,6 @@ android {
             pickFirsts += "/lib/*/*"
         }
     }
-    androidResources {
-        val publicXmlFile =
-            project.rootProject.file("${project(":appAideBase").projectDir.path}/src/main/res/values/public.xml")
-        val publicTxtFile =
-            project.rootProject.file("${layout.buildDirectory.asFile.get().path}/public.txt")
-
-        // 创建父目录并确保 publicTxtFile 存在
-        publicTxtFile.parentFile?.mkdirs()
-        publicTxtFile.createNewFile()
-
-        // 解析 public.xml 文件并将内容写入 public.txt
-        val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance()
-            .newDocumentBuilder()
-            .parse(publicXmlFile)
-            .documentElement
-            .getElementsByTagName("public")
-
-        for (i in 0 until nodes.length) {
-            val node = nodes.item(i)
-            val type = node.attributes.getNamedItem("type").nodeValue
-            val name = node.attributes.getNamedItem("name").nodeValue
-            val id = node.attributes.getNamedItem("id").nodeValue
-            publicTxtFile.appendText("${android.defaultConfig.applicationId}:$type/$name = $id\n")
-        }
-
-        // 添加稳定 ID 参数
-        @Suppress("DEPRECATION")
-        additionalParameters("--stable-ids", publicTxtFile.path)
-
-    }
-
 
 
     buildFeatures {
@@ -362,4 +354,34 @@ afterEvaluate {
 fun String.camelToKebab(): String {
     val kebab = this.replace(Regex("([a-z])([A-Z])"), "$1-$2").lowercase()
     return kebab.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+}
+
+
+fun AndroidResources.createPublicTxt(
+    packageName: String,
+    publicXmlFile : File,
+    publicTxtFile : File,
+) {
+    // 创建父目录并确保 publicTxtFile 存在
+    publicTxtFile.parentFile?.mkdirs()
+    publicTxtFile.createNewFile()
+
+    // 解析 public.xml 文件并将内容写入 public.txt
+    val nodes = javax.xml.parsers.DocumentBuilderFactory.newInstance()
+        .newDocumentBuilder()
+        .parse(publicXmlFile)
+        .documentElement
+        .getElementsByTagName("public")
+
+    for (i in 0 until nodes.length) {
+        val node = nodes.item(i)
+        val type = node.attributes.getNamedItem("type").nodeValue
+        val name = node.attributes.getNamedItem("name").nodeValue
+        val id = node.attributes.getNamedItem("id").nodeValue
+        publicTxtFile.appendText("$packageName:$type/$name = $id\n")
+    }
+
+    // 添加稳定 ID 参数
+    @Suppress("DEPRECATION")
+    additionalParameters("--stable-ids", publicTxtFile.path)
 }
