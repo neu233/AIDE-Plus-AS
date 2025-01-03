@@ -8,5 +8,14 @@
 	
 	<color name="editor_syntax_argument_identifier">#FFAAEEEE</color>
 	<color name="editor_syntax_argument_identifier_light">#FF000000</color>
+
+	<color name="custom_indicator_colors_yellow_500">#ffde03</color>
+	<color name="custom_indicator_colors_blue_700">#0336ff</color>
+	<color name="custom_indicator_colors_red_500">#ff0266</color>
+	<integer-array name="loading_indicator_color">
+		<item>@color/custom_indicator_colors_yellow_500</item>
+		<item>@color/custom_indicator_colors_blue_700</item>
+		<item>@color/custom_indicator_colors_red_500</item>
+	</integer-array>
     
 </resources>

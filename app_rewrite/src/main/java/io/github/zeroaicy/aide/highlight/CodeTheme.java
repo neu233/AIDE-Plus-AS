@@ -1,7 +1,6 @@
 package io.github.zeroaicy.aide.highlight;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import io.github.zeroaicy.util.ContextUtil;
@@ -32,8 +31,7 @@ public class CodeTheme {
 
 	}
 
-	@SuppressLint("ApplySharedPref")
-    public static void restore(boolean isLight ) {
+	public static void restore( boolean isLight ) {
 		for ( ColorKind colorKind : colorKindMap.values() ) {
 			colorKind.restoreDefault(isLight);
 		}
@@ -53,8 +51,8 @@ public class CodeTheme {
 
 
 		// 加载自定义高亮
-		Map<String, Object> customColorMap = new HashMap<>(codeThemePreferences.getAll());
-		Set<String> keySet = new HashSet<>(customColorMap.keySet());
+		Map<String, Object> customColorMap = new HashMap<String, Object>(codeThemePreferences.getAll());
+		Set<String> keySet = new HashSet<String>(customColorMap.keySet());
 		for ( String key : keySet ) {
 			Object value = customColorMap.get(key);
 			// 处理旧版
@@ -125,12 +123,12 @@ public class CodeTheme {
 
 
 	public static long combineInt2Long( int low, int high ) {
-		return ( (long)low & 0xFFFFFFFFL) | ( ( (long)high << 32 ) & 0xFFFFFFFF00000000L);
+		return ( (long)low & 0xFFFFFFFFl ) | ( ( (long)high << 32 ) & 0xFFFFFFFF00000000l );
 	}
 	public static int[] separateLong2int( Long val ) {
 		int[] ret = new int[2];
-		ret[0] = (int) (0xFFFFFFFFL & val );
-		ret[1] = (int) ( (0xFFFFFFFF00000000L & val ) >> 32 );
+		ret[0] = (int) ( 0xFFFFFFFFl & val );
+		ret[1] = (int) ( ( 0xFFFFFFFF00000000l & val ) >> 32 );
 		return ret;
 	}
 

@@ -19,12 +19,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = JavaVersion.VERSION_21.toString()
+    }
+
+    lint {
+        abortOnError = false
+        baseline = file("lint-baseline.xml")
     }
 }
 
@@ -33,7 +38,7 @@ dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     implementation("org.lsposed.hiddenapibypass:hiddenapibypass:4.3")
 
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.0.0")
     implementation("io.github.itsaky:nb-javac-android:17.0.0.3")
     implementation("org.jetbrains.intellij.deps:trove4j:1.0.20200330")
     implementation("org.jdom:jdom:2.0.2")

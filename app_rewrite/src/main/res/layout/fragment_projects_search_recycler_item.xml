@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/project_searchbar_recycler_card"
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_width="match_parent">
+
+        <ImageView
+            android:id="@+id/project_searchbar_recycler_icon"
+            android:contentDescription="SB"
+            android:importantForAccessibility="no"
+            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:src="@drawable/ic_l_design_light"
+            tools:ignore="HardcodedText" />
+
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:gravity="center_vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+        <TextView
+                android:id="@+id/project_searchbar_recycler_title"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:textAppearance="?attr/textAppearanceBody2"
+                tools:text="@string/app_name" />
+
+            <TextView
+                android:id="@+id/project_searchbar_recycler_subtitle"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textAppearance="?attr/textAppearanceCaption"
+                tools:text="Brooklyn, NY" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

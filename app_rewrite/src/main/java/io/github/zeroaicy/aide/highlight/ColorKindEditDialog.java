@@ -1,5 +1,4 @@
 package io.github.zeroaicy.aide.highlight;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -65,10 +64,9 @@ public class ColorKindEditDialog extends AlertDialog implements ColorPickerView.
 		}
 	}
 
-	@SuppressLint("InflateParams")
-    private void setUp(int color) {
-		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		this.mLayout = inflater.inflate(R.layout.dialog_color_theme_edit, null);
+	private void setUp(int color) {
+		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService("layout_inflater");
+		this.mLayout = inflater.inflate(R.layout.dialog_color_theme_edit, (ViewGroup) null);
 
 		this.mLayout.getViewTreeObserver().addOnGlobalLayoutListener(this);
 
@@ -89,27 +87,30 @@ public class ColorKindEditDialog extends AlertDialog implements ColorPickerView.
 		typefaceStyleRadioGroup.setOnCheckedChangeListener(this);
 
 		this.mHexDefaultTextColor = this.mHexVal.getTextColors();
-		this.mHexVal.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId !=  EditorInfo.IME_ACTION_DONE) {
-                return false;
-            }
-            InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-            String s = mHexVal.getText().toString();
-            if (s.length() > 5 || s.length() < 10) {
-                try {
-                    int c = ColorPickerPreference.convertToColorInt(s);
-                    mColorPicker.setColor(c, true);
-                    mHexVal.setTextColor(mHexDefaultTextColor);
-                }
-                catch (IllegalArgumentException e) {
-                    mHexVal.setTextColor(-65536);
-                }
-            } else {
-                mHexVal.setTextColor(-65536);
-            }
-            return true;
-        });
+		this.mHexVal.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+				@Override
+				public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+					if (actionId !=  EditorInfo.IME_ACTION_DONE) {
+						return false;
+					}
+					InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService("input_method");
+					imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+					String s = mHexVal.getText().toString();
+					if (s.length() > 5 || s.length() < 10) {
+						try {
+							int c = ColorPickerPreference.convertToColorInt(s.toString());
+							mColorPicker.setColor(c, true);
+							mHexVal.setTextColor(mHexDefaultTextColor);
+						}
+						catch (IllegalArgumentException e) {
+							mHexVal.setTextColor(-65536);
+						}
+					} else {
+						mHexVal.setTextColor(-65536);
+					}
+					return true;
+				}
+			});
 		((LinearLayout) this.mOldColor.getParent()).setPadding(Math.round(this.mColorPicker.getDrawingOffset()), 0, Math.round(this.mColorPicker.getDrawingOffset()), 0);
 		this.mOldColor.setOnClickListener(this);
 		this.mNewColor.setOnClickListener(this);
@@ -141,13 +142,23 @@ public class ColorKindEditDialog extends AlertDialog implements ColorPickerView.
 	public void setTypefaceStyleValue(int typefaceStyleValue) {
 		this.typefaceStyleValue = typefaceStyleValue;
 		
-		int checkedRadioButtonId = switch (typefaceStyleValue) {
-            case Typeface.BOLD -> R.id.typeface_style_radio_bold;
-            case Typeface.ITALIC -> R.id.typeface_style_radio_italic;
-            case Typeface.BOLD_ITALIC -> R.id.typeface_style_radio_bold_italic;
-            default -> R.id.typeface_style_radio_normal;
-        };
-        this.typefaceStyleRadioGroup.check(checkedRadioButtonId);
+		int checkedRadioButtonId;
+		switch (typefaceStyleValue) {
+			case Typeface.NORMAL:
+			default:
+				checkedRadioButtonId = R.id.typeface_style_radio_normal;
+				break;
+			case Typeface.BOLD:
+				checkedRadioButtonId = R.id.typeface_style_radio_bold;
+				break;
+			case Typeface.ITALIC:
+				checkedRadioButtonId = R.id.typeface_style_radio_italic;
+				break;
+			case Typeface.BOLD_ITALIC:
+				checkedRadioButtonId = R.id.typeface_style_radio_bold_italic;
+				break;
+		}
+		this.typefaceStyleRadioGroup.check(checkedRadioButtonId);
 	}
 
 	public int getTypefaceStyleValue() {

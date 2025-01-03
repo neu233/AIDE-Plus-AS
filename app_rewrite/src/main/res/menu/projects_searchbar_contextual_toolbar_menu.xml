@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AppCompatResource">
+
+
+    <item
+        android:id="@+id/commitMenuSelectAll"
+        android:title="@string/commit_options_menu_select_all"
+        android:showAsAction="always|withText" />
+    <item
+        android:id="@+id/commitMenuInverse"
+        android:title="@string/commit_options_menu_inverse"
+        android:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/commitMenuClear"
+        android:title="@string/command_logcat_clear"
+        android:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/commitMenuDelete"
+        android:title="@string/command_files_delete"
+        android:showAsAction="always|withText" />
+
+
+
+</menu>

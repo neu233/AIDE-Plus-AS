@@ -1,5 +1,6 @@
 package io.github.zeroaicy.aide.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -249,7 +250,8 @@ public class ZeroAicyMainActivity extends MainActivity {
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	ZeroAicySplitView zeroAicySplitView;
-	public void setUpDrawerLayout() {
+	@SuppressLint("ClickableViewAccessibility")
+    public void setUpDrawerLayout() {
 
 		this.mDrawerLayout = findViewById(R.id.mainDrawerLayout);
 
@@ -264,14 +266,11 @@ public class ZeroAicyMainActivity extends MainActivity {
 		this.mDrawerLayout.addDrawerListener(mDrawerToggle);
         this.mDrawerToggle.syncState();
 
-		this.mDrawerLayout.setOnTouchListener(new View.OnTouchListener(){
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if (event.getAction() == MotionEvent.ACTION_DOWN)
-						mDrawerLayout.close();
-					return true;
-				}
-			});
+		this.mDrawerLayout.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN)
+                mDrawerLayout.close();
+            return true;
+        });
 
 		this.mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener(){
 				@Override
@@ -352,7 +351,8 @@ public class ZeroAicyMainActivity extends MainActivity {
 	/**
 	 * 申请 所有文件访问权限
 	 */
-	public void requestManageExternalStorage() {
+	@SuppressLint("WrongConstant")
+    public void requestManageExternalStorage() {
 		XXPermissions.with(this).
 			permission(android.Manifest.permission.MANAGE_EXTERNAL_STORAGE)
 			.request(new OnPermissionCallback(){
@@ -382,7 +382,7 @@ public class ZeroAicyMainActivity extends MainActivity {
 			@SuppressWarnings("deprecation") 
 				Display defaultDisplay = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ? 
 				context.getDisplay() 
-				: ((WindowManager) context.getSystemService("window")).getDefaultDisplay();
+				: ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
 
 			// Display defaultDisplay = ((WindowManager) context.getSystemService("window")).getDefaultDisplay();
@@ -464,7 +464,7 @@ public class ZeroAicyMainActivity extends MainActivity {
 			Uri fromFile = null;
 			if (Build.VERSION.SDK_INT >= 24) {
 				fromFile = FileProvider.getUriForFile(this, FileSystem.j3(), new File(str));
-				intent.addFlags(1);
+				intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 			} else {
 				fromFile = Uri.fromFile(new File(str));
 			}
@@ -476,7 +476,7 @@ public class ZeroAicyMainActivity extends MainActivity {
 			}
 			catch (ActivityNotFoundException unused) {
 				Context VH = ServiceContainer.getContext();
-				Toast.makeText(VH, "No handler found for type " + mimeTypeFromExtension, 0).show();
+				Toast.makeText(VH, "No handler found for type " + mimeTypeFromExtension, Toast.LENGTH_SHORT).show();
 			}
 			return;
 		}

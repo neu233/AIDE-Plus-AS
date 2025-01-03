@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_home">
+
+    <include app:graph="@navigation/nav_projects" />
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="io.github.zeroaicy.aide.activity.fragment.HomeFragment"
+        android:label="home" />
+
+    <include app:graph="@navigation/nav_projects" />
+
+
+</navigation>

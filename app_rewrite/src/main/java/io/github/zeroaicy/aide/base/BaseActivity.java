@@ -1,14 +1,16 @@
 package io.github.zeroaicy.aide.base;
-import android.content.res.*;
-import android.graphics.*;
-import android.os.*;
-import android.view.*;
-import androidx.appcompat.app.*;
-import androidx.core.content.*;
-import com.aide.ui.rewrite.*;
-import io.github.zeroaicy.aide.preference.*;
-import io.github.zeroaicy.util.*;
-import android.app.*;
+import android.app.Activity;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import androidx.core.content.ContextCompat;
+import io.github.zeroaicy.aide.preference.ZeroAicySetting;
+import io.github.zeroaicy.util.BarUtils;
 
 public class BaseActivity extends Activity {
 	@Override

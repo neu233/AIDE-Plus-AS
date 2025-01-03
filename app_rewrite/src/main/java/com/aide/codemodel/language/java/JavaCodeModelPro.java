@@ -185,10 +185,12 @@ public class JavaCodeModelPro implements CodeModel {
 		if( this.projectEnvironments == null ){
 			return;
 		}
+		
 		for( int index = 0, size = projectEnvironments.size(); index < size; index++){
 			ProjectEnvironment projectEnvironment = projectEnvironments.valueAt(index);
 			projectEnvironment.reset();
 		}
+		
 		projectEnvironments.clear();
 		projectEnvironments = null;
 	}

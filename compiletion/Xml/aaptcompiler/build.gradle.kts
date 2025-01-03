@@ -20,20 +20,25 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
+    }
+
+    lint {
+        abortOnError = false
+        baseline = file("lint-baseline.xml")
     }
 }
 
 dependencies {
 
     // 太多错误了，直接引用jar包
-    api(files("libs/xml-completion-jaxp.jar"))
+    //api(files("libs/xml-completion-jaxp.jar"))
 
-    //implementation(projects.compiletion.jaxp)
+    api(projects.compiletion.jaxp)
 
     api(projects.compiletion.xml.layoutlibApi)
 

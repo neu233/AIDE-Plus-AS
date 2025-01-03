@@ -40,7 +40,9 @@ public class EngineSolutionProject implements Parcelable {
     final String jw;
     final boolean k2;
     final List<String> kf;
+	
     final String mb;
+	
     final boolean n5;
     final boolean q7;
     final List<String> qp;

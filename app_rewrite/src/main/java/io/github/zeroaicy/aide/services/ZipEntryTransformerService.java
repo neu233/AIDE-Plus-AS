@@ -92,7 +92,9 @@ public class ZipEntryTransformerService {
 		ZipInputStream zipFileInput = null;
 		try {
 			zipFileInput = new ZipInputStream(new FileInputStream(zipFilePath));
+			
 			ZipEntry originalZipEntry;
+			
 			while ((originalZipEntry = zipFileInput.getNextEntry()) != null) {
 				ZipEntry newZipEntry = originalZipEntry;
 
@@ -103,6 +105,11 @@ public class ZipEntryTransformerService {
 						continue;
 					}
 				}
+				if( newZipEntry.isDirectory()){
+					// 过滤文件夹
+					continue;
+				}
+				
 				// 转换器未修改
 				if (newZipEntry == originalZipEntry) {
 					newZipEntry = new ZipEntry(originalZipEntry.getName());
@@ -121,6 +128,7 @@ public class ZipEntryTransformerService {
 
 
 				packagingZipOutput.putNextEntry(newZipEntry);
+				
 				IOUtils.streamTransfer(zipFileInput, packagingZipOutput);
 				//Entry写入完成
 				packagingZipOutput.closeEntry();

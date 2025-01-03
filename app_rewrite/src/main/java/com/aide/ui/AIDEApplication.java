@@ -8,7 +8,6 @@ import androidx.multidex.MultiDexApplication;
 import com.aide.ui.marketing.b;
 import com.aide.ui.rewrite.R;
 import io.github.zeroaicy.util.ContextUtil;
-import com.probelytics.Probelytics;
 
 public class AIDEApplication extends MultiDexApplication{
 	public void onCreate() {

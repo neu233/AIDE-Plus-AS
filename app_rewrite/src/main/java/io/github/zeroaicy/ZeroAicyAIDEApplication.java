@@ -1,5 +1,6 @@
 package io.github.zeroaicy;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -8,6 +9,9 @@ import android.os.StrictMode;
 import com.aide.common.AppLog;
 import com.aide.ui.AIDEApplication;
 import com.aide.ui.ServiceContainer;
+import com.blankj.utilcode.util.Utils;
+import com.hjq.language.MultiLanguages;
+import com.hjq.permissions.XXPermissions;
 import io.github.zeroaicy.aide.highlight.CodeTheme;
 import io.github.zeroaicy.aide.preference.ZeroAicySetting;
 import io.github.zeroaicy.aide.shizuku.ShizukuUtil;
@@ -113,8 +117,21 @@ public class ZeroAicyAIDEApplication extends AIDEApplication {
 			edit.putInt("ShownVersion", 0).apply();
 		}
 
+		// 初始化语种切换框架
+		MultiLanguages.init(this);
+
+		XXPermissions.setCheckMode(false);
+
+		Utils.init(this);
+
 		// Return if this application is not in debug mode 
 		AppLog.d(TAG, "Application初始化耗时: " + (System.currentTimeMillis() - now) + "ms");
+	}
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		// 绑定语种
+		super.attachBaseContext(MultiLanguages.attach(base));
 	}
 
 	private void attachLogcat() {

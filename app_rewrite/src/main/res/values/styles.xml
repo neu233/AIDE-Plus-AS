@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Toolbar_Contextual">
+        <item name="colorControlNormal">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Toolbar_Contextual_Title" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textSize"
+            tools:ignore="PrivateResource">@dimen/m3_toolbar_text_size_title</item>
+    </style>
+
+    <style name="Toolbar_WithCloseButton">
+        <item name="navigationContentDescription">@string/toolbar_navigation_close_description</item>
+        <item name="navigationIcon">@drawable/ic_close_vd_theme_24px</item>
+    </style>
+
+
+    <style name="FullScreenDialog" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:ignore="NewApi">shortEdges</item>
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+
+    <style name="BottomSheetDialog.Scrollable" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheet.Modal.Scrollable</item>
+    </style>
+
+    <style name="BottomSheet.Modal.Scrollable" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="paddingBottomSystemWindowInsets">false</item>
+    </style>
+
+</resources>

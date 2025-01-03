@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:orientation="vertical">
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:padding="18dp"
+            android:paddingEnd="25dp"
+            android:paddingStart="25dp">
+
+
+            <ImageView
+                android:id="@+id/icon"
+                android:contentDescription="SB"
+                android:importantForAccessibility="no"
+                android:layout_height="45dp"
+                android:layout_width="45dp"
+                android:src="@drawable/ic_l_design_light"
+                tools:ignore="HardcodedText" />
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:paddingEnd="10dp"
+                android:paddingStart="25dp">
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@android:style/TextAppearance.Material.Title"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:text="@string/activity_manifest_default_config"
+                    android:textSize="18sp"
+                    tools:ignore="NestedWeights" />
+
+                <TextView
+                    android:id="@+id/subTitle"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:text="@string/activity_manifest_default_config"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

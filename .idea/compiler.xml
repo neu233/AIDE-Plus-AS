@@ -3,11 +3,10 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
       <module name="AIDE-Plus.aaptcompiler" target="21" />
+      <module name="AIDE-Plus.compiletion.Xml.testApp" target="21" />
+      <module name="AIDE-Plus.material" target="21" />
       <module name="AIDE-Plus.res-parse" target="21" />
       <module name="AIDE-Plus.termux.app" target="21" />
-      <module name="AIDE-Plus.termux.terminal-emulator" target="21" />
-      <module name="AIDE-Plus.termux.terminal-view" target="21" />
-      <module name="AIDE-Plus.termux.termux-shared" target="21" />
       <module name="AIDE-Plus.xml-completion.aaptcompiler" target="21" />
       <module name="AIDE-Plus.xml-completion.res-parse" target="21" />
     </bytecodeTargetLevel>

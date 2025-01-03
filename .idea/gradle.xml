@@ -4,13 +4,15 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="testRunner" value="CHOOSE_PER_TEST" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../AppData/Local/Gradle/wrapper/dists/gradle-8.9-bin/90cnw93cvbtalezasaz0blq0a/gradle-8.9" />
-        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
+        <option name="gradleJvm" value="jbr-21 (2)" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Test" />
+            <option value="$PROJECT_DIR$/Test/testTermuxApp" />
+            <option value="$PROJECT_DIR$/Test/testXmlApp" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/appAideBase" />
             <option value="$PROJECT_DIR$/app_rewrite" />
@@ -22,11 +24,15 @@
             <option value="$PROJECT_DIR$/compiletion/Xml/aaptcompiler" />
             <option value="$PROJECT_DIR$/compiletion/Xml/layoutlib-api" />
             <option value="$PROJECT_DIR$/compiletion/Xml/res-parse" />
-            <option value="$PROJECT_DIR$/compiletion/Xml/testApp" />
             <option value="$PROJECT_DIR$/compiletion/jaxp" />
+            <option value="$PROJECT_DIR$/termux" />
+            <option value="$PROJECT_DIR$/termux/terminal-emulator" />
+            <option value="$PROJECT_DIR$/termux/terminal-view" />
+            <option value="$PROJECT_DIR$/termux/termux-app" />
+            <option value="$PROJECT_DIR$/termux/termux-shared" />
           </set>
         </option>
-        <option name="resolveExternalAnnotations" value="false" />
+        <option name="resolveExternalAnnotations" value="true" />
       </GradleProjectSettings>
     </option>
   </component>

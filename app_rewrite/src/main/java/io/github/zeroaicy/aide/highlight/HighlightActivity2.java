@@ -1,7 +1,3 @@
-/**
- * @Author ZeroAicy
- * @AIDE AIDE+
- */
 package io.github.zeroaicy.aide.highlight;
 import com.aide.ui.ThemedActionbarActivity;
 import android.os.Bundle;

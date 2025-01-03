@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import com.aide.ui.ServiceContainer;
 import com.aide.ui.project.AndroidProjectSupport;
 import io.github.zeroaicy.aide.shizuku.ShizukuUtil;
-import io.github.zeroaicy.util.Log;
 
 
 

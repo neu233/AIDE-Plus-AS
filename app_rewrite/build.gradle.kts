@@ -1,3 +1,5 @@
+import java.io.ByteArrayOutputStream
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -29,11 +31,23 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
+    }
+
+    buildFeatures {
+        viewBinding = true
+        //noinspection DataBindingWithoutKapt
+        dataBinding = true
+        buildConfig = false
+    }
+
+    lint {
+        abortOnError = false
+        baseline = file("lint-baseline.xml")
     }
 }
 
@@ -85,15 +99,47 @@ dependencies {
     api("org.eclipse.jgit:org.eclipse.jgit:7.0.0.202409031743-r")
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on
-    implementation("org.bouncycastle:bcprov-jdk18on:1.79") // 改用本地jar，远程依赖有问题
+    implementation("org.bouncycastle:bcprov-jdk18on:1.79")
 
     // java-formatter依赖库 后期与java-formatter合并
     api("org.eclipse.platform:org.eclipse.text:3.14.100")
     compileOnly("org.osgi:org.osgi.framework:1.10.0")
 
+    //material和androidx库
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.material:material:1.12.0")
+    implementation("com.google.android.material:material:1.13.0-alpha09")
+
+    //导航栏工具
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.5")
+    //多语言工具
+    implementation("com.github.getActivity:MultiLanguages:9.3")
+    //gson
+    implementation("com.google.code.gson:gson:2.11.0")
+    // okhttp
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    //工具库
+    implementation("com.blankj:utilcodex:1.31.1")
+    // svg库
+    implementation("com.github.megatronking:svg-support:1.3.2")
+    implementation("com.romainpiel.svgtoandroid:svgtoandroid:0.1.0")
+    // 权限库
+    implementation("com.github.getActivity:XXPermissions:20.0")
+    // brv比较强大的一个recycler的框架
+    implementation("com.github.liangjingkanji:BRV:1.5.8")
+
+    implementation(platform("io.github.Rosemoe.sora-editor:bom:0.23.5"))
+    implementation("io.github.Rosemoe.sora-editor:editor")
+
+    /*
+    implementation("io.github.Rosemoe.sora-editor:editor-lsp")
+    implementation("io.github.Rosemoe.sora-editor:language-java")
+    implementation("io.github.Rosemoe.sora-editor:language-textmate")
+    implementation("io.github.Rosemoe.sora-editor:language-treesitter")*/
+
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")

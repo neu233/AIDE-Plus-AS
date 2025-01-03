@@ -3,72 +3,67 @@
 //
 package abcd;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import com.aide.common.MessageBox;
+import com.aide.ui.MainActivity;
 import com.aide.ui.ServiceContainer;
-import com.aide.ui.util.FileSystem;
-import com.probelytics.Probelytics;
-import com.probelytics.annotation.ExceptionEnabled;
-import com.probelytics.annotation.FieldMark;
-import com.probelytics.annotation.MethodMark;
-import com.probelytics.annotation.ParametersEnabled;
-import com.probelytics.annotation.TypeMark;
+import com.aide.ui.services.FileBrowserService;
 import com.aide.ui.services.ProjectService;
-import android.text.SpannableString;
-import android.view.View;
-import android.text.style.ClickableSpan;
+import com.aide.ui.util.FileSystem;
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import android.text.Spannable;
-import java.io.File;
-import com.aide.ui.services.FileBrowserService;
-import com.aide.ui.MainActivity;
 
 public class pd extends MessageBox implements DialogInterface.OnClickListener {
-    // no keep
+	// no keep
 	// private AlertDialog k2;
 	//this.k2 = create;
 
+	public pd() {
+	}
 
-    public pd() {}
-
+	@SuppressLint("ResourceType")
     public Dialog onCreateDialog(Activity activity) {
 		ProjectService projectService = ServiceContainer.getProjectService();
 
-		Spanned oldSpanned = Html.fromHtml(projectService.getProjectAttribute());
+		Spanned oldSpanned = Html.fromHtml(projectService.getProjectAttribute(),Html.FROM_HTML_MODE_LEGACY);
 
 		TextView textView = new TextView(activity);
-		textView.setPadding((int) (activity.getResources().getDisplayMetrics().density * 10.0f), (int) (activity.getResources().getDisplayMetrics().density * 10.0f), (int) (activity.getResources().getDisplayMetrics().density * 10.0f), (int) (activity.getResources().getDisplayMetrics().density * 10.0f));
+		textView.setPadding((int) (activity.getResources().getDisplayMetrics().density * 10.0f),
+				(int) (activity.getResources().getDisplayMetrics().density * 10.0f),
+				(int) (activity.getResources().getDisplayMetrics().density * 10.0f),
+				(int) (activity.getResources().getDisplayMetrics().density * 10.0f));
 
 		// 美化
 		Spannable projectInfoSpannable = beautifyProjectInfoDialog(textView, oldSpanned);
 		textView.setText(projectInfoSpannable);
 
-
 		ScrollView scrollView = new ScrollView(activity);
 		scrollView.addView(textView);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		builder.setView(scrollView)
-			.setCancelable(true)
-			.setPositiveButton(0x7f0d05d7, this)
-			.setNeutralButton(0x7f0d05da, this);
+		builder.setView(scrollView).setCancelable(true).setPositiveButton(0x7f0d05d7, this).setNeutralButton(0x7f0d05da,
+				this);
 
 		String currentAppHome = projectService.getCurrentAppHome();
 		builder.setTitle(activity.getResources().getString(0x7f0d05db, "'" + FileSystem.getName(currentAppHome) + "'"));
 
-
 		return builder.create();
 
-    }
+	}
 
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
@@ -76,7 +71,7 @@ public class pd extends MessageBox implements DialogInterface.OnClickListener {
 			dialog.dismiss();
 		} else if (which == DialogInterface.BUTTON_NEUTRAL) {
 			dialog.dismiss();
-            ProjectService projectService = ServiceContainer.getProjectService();
+			ProjectService projectService = ServiceContainer.getProjectService();
 			projectService.showSwitchVariantDialog();
 		}
 	}
@@ -92,7 +87,6 @@ public class pd extends MessageBox implements DialogInterface.OnClickListener {
 		SpannableString fromHtml = new SpannableString(oldSpanned);
 		String fromHtmlString = fromHtml.toString();
 
-
 		Pattern pattern = Pattern.compile("(?:^|\\s)(/\\S+(?:\\s\\S+)*)(?=\\s|$)"); // 匹配以空格或开头开头，以空格或结尾结尾的路径
 
 		Matcher matcher = pattern.matcher(fromHtmlString);
@@ -107,9 +101,8 @@ public class pd extends MessageBox implements DialogInterface.OnClickListener {
 			int start = matcher.start();
 
 			{
-				label: for (int i = start; i < fromHtmlString.length(); i++) {
-					if (fromHtmlString.charAt(i) != ' '
-						&& fromHtmlString.charAt(i) != '\n') {
+				label : for (int i = start; i < fromHtmlString.length(); i++) {
+					if (fromHtmlString.charAt(i) != ' ' && fromHtmlString.charAt(i) != '\n') {
 						start = i;
 						break label;
 					}
@@ -148,10 +141,11 @@ public class pd extends MessageBox implements DialogInterface.OnClickListener {
 			if (fileBrowserService != null) {
 				fileBrowserService.Hw(filePath);
 			}
-            MainActivity mainActivity = ServiceContainer.getMainActivity();
+			MainActivity mainActivity = ServiceContainer.getMainActivity();
 			if (mainActivity != null) {
 				mainActivity.k2();
 			}
 		}
 	}
 }
+

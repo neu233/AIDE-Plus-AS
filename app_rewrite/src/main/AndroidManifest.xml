@@ -17,7 +17,9 @@
     <!-- 拥有完全的网络访问权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 读取系统日志 -->
-    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
     <!-- 查看网络连接 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.android.vending.BILLING" />
@@ -52,6 +54,8 @@
     <!-- com.aide.ui.AIDEApplication -->
     <application
         android:name="io.github.zeroaicy.ZeroAicyAIDEApplication"
+        android:banner="@drawable/banner"
+        android:enableOnBackInvokedCallback="true"
         android:extractNativeLibs="true"
         android:fullBackupContent="@xml/aide_backup_rules"
         android:fullBackupOnly="true"
@@ -60,19 +64,56 @@
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
         android:resizeableActivity="true"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:ignore="UnusedAttribute">
 
 
         <!-- 新增 -->
         <!-- 自定义主题颜色 -->
         <activity
+            android:name="io.github.zeroaicy.aide.highlight.HighlightActivity"
+            android:exported="true" />
+        <activity
+            android:name="io.github.zeroaicy.aide.activity.IconsActivity"
+            android:exported="true" />
+        <activity
+            android:name="io.github.zeroaicy.aide.activity.ManifestEditorActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="io.github.zeroaicy.aide.activity.MainActivityRewrite"
+            android:exported="true" />
+
+        <activity
+            android:name="io.github.zeroaicy.aide.activity.HomeActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|uiMode"
             android:exported="true"
-            android:name="io.github.zeroaicy.aide.highlight.HighlightActivity" />
+            android:icon="@drawable/android_studio"
+            android:launchMode="singleTask"
+            android:screenOrientation="user"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+
 
         <!-- Show Crash Log -->
         <activity
-            android:exported="true"
             android:name="io.github.zeroaicy.util.crash.CrashActivity"
+            android:exported="true"
             android:process=":crash" />
 
         <!-- Shizuku rikka.shizuku.ShizukuProvider  -->

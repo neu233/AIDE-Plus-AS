@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_settings"
+    app:startDestination="@id/fragment_settings">
+
+    <fragment
+        android:id="@+id/fragment_settings"
+        android:name="io.github.zeroaicy.aide.activity.fragment.SettingsFragment"
+        android:label="settings" />
+
+    <action
+        android:id="@+id/action_app_list_fragment_to_modules_fragment"
+        app:destination="@id/fragment_projects"
+        app:enterAnim="@anim/fragment_enter"
+        app:exitAnim="@anim/fragment_exit"
+        app:popEnterAnim="@anim/fragment_enter_pop"
+        app:popExitAnim="@anim/fragment_exit_pop"
+        app:popUpTo="@id/fragment_home"
+        app:popUpToInclusive="true" />
+
+</navigation>

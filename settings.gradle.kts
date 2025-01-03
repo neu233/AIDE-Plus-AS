@@ -59,16 +59,34 @@ dependencyResolutionManagement {
 rootProject.name = "AIDE-Plus"
 include(":app")
 
-include(":appAideBase")
-include(":app_rewrite")
+include(
+    ":app_rewrite",
+    ":appAideBase"
+)
 
 
 include(":compiletion:jaxp")
 
-include(":compiletion:Xml:testApp")
-include(":compiletion:Xml:aaptcompiler")
-include(":compiletion:Xml:layoutlib-api")
-include(":compiletion:Xml:res-parse")
+include(
+    ":compiletion:Xml:aaptcompiler",
+    ":compiletion:Xml:layoutlib-api",
+    ":compiletion:Xml:res-parse"
+)
 
-include(":compiletion:Kotlin:kotlinc")
-include(":compiletion:Kotlin:the-unsafe")
+include(
+    ":compiletion:Kotlin:kotlinc",
+    ":compiletion:Kotlin:the-unsafe"
+)
+
+include(
+    ":termux:termux-shared",
+    ":termux:terminal-emulator",
+    ":termux:terminal-view",
+    ":termux:termux-app",
+)
+
+include(
+    ":Test:testTermuxApp",
+    ":Test:testXmlApp"
+
+)

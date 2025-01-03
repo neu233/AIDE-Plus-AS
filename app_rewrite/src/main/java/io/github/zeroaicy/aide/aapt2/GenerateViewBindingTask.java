@@ -21,13 +21,13 @@ public class GenerateViewBindingTask{
 			throw new NullPointerException("viewbindingClassLoader为null");
 		}
 		
-		ReflectPie.on("ZY.ViewBinding.Utils", viewbindingClassLoader).call("BindingTask", new Object[]{mainProjectResPath, mainProjectGenDir, mainProjectPackageName, isAndroidx});
-		if( false ){
-			AppLog.d("主项目res目录", mainProjectResPath);
-			AppLog.d("主项目gen目录", mainProjectGenDir);
-			AppLog.d("主项目包名", mainProjectPackageName);
-			AppLog.d("isAndroidx", isAndroidx);
-		}
+		ReflectPie.onClass("ZY.ViewBinding.Utils", viewbindingClassLoader).call("BindingTask", new Object[]{mainProjectResPath, mainProjectGenDir, mainProjectPackageName, isAndroidx});
+//		if( false ){
+//			AppLog.d("主项目res目录", mainProjectResPath);
+//			AppLog.d("主项目gen目录", mainProjectGenDir);
+//			AppLog.d("主项目包名", mainProjectPackageName);
+//			AppLog.d("isAndroidx", isAndroidx);
+//		}
     }
 
 	private static String getViewbindingZipPath(){

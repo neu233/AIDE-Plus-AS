@@ -1,4 +1,5 @@
 import com.android.tools.build.apkzlib.zip.ZFile
+import java.io.ByteArrayOutputStream
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -7,24 +8,10 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+
+
 android {
-    namespace = "io.github.zeroaicy.aide"
-    compileSdk = 35
 
-    defaultConfig {
-        applicationId = "io.github.zeroaicy.aide"
-        minSdk = 24
-        //noinspection ExpiredTargetSdkVersion
-        targetSdk = 28
-        //noinspection HighAppVersionCode
-        versionCode = 2008210017
-        // [3.2.210316]
-        versionName = "2.3.2.7"
-
-        //multiDexEnabled = true
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
     signingConfigs {
         create("release") {
             keyAlias = "AIDE+"
@@ -40,6 +27,72 @@ android {
         }
     }
 
+
+
+    namespace = "io.github.zeroaicy.aide"
+    compileSdk = 35
+
+    val gitCommitHash: String by lazy {
+        @Suppress("DEPRECATION")
+        Runtime.getRuntime()
+            .exec("git rev-parse HEAD")
+            .inputStream
+            .bufferedReader()
+            .use { it.readText().trim() }
+    }
+
+    val getCommitHash: () -> String = {
+        val stdout = ByteArrayOutputStream()
+        exec {
+            commandLine("git", "rev-parse", "--short", "HEAD")
+            standardOutput = stdout
+        }
+        stdout.toString().trim()
+    }
+
+    defaultConfig {
+        applicationId = "io.github.zeroaicy.aide"
+        minSdk = 24
+        //noinspection ExpiredTargetSdkVersion
+        targetSdk = 28
+        //noinspection HighAppVersionCode
+        versionCode = 2008210017
+        // [3.2.210316]
+        versionName = "2.3.2.9-${getCommitHash()}"
+
+        buildConfigField("String", "GIT_HASH", "\"${gitCommitHash}\"")
+
+
+        //multiDexEnabled = true
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    flavorDimensions.add("api")
+
+    productFlavors {
+        create("default") {
+            dimension = "api"
+            versionNameSuffix = ""
+            isDefault = true
+            signingConfig = signingConfigs.getByName("debug1")
+
+        }
+
+        create("termux") {
+            dimension = "api"
+            versionNameSuffix = "-termux"
+            applicationId = "io.github.zeroaicy.aide2"
+            dependencies {
+                // termux
+//                api(":termux:termux-app")
+                api(projects.termux.termuxApp)
+            }
+            signingConfig = signingConfigs.getByName("debug1")
+
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -48,7 +101,7 @@ android {
                 "proguard-rules.pro"
             )
 
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = signingConfigs.getByName("debug1")
         }
         debug {
             isMinifyEnabled = false
@@ -61,11 +114,13 @@ android {
     }
     compileOptions {
         isCoreLibraryDesugaringEnabled = isRelease
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
+
+
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 
     packaging {
@@ -83,18 +138,25 @@ android {
             pickFirsts += "/assets/*/*/*"
             pickFirsts += "/assets/*/*"
             pickFirsts += "/assets/*"
+
+
+            pickFirsts += "*/*/*/*/*/*/*/*/*/*/*/*/*/*/*"
+            pickFirsts += "*/*/*/*/*/*/*/*/*/*/*/*/*/*"
+            pickFirsts += "*/*/*/*/*/*/*/*/*/*/*/*/*"
+            pickFirsts += "*/*/*/*/*/*/*/*/*/*//*/*"
+            pickFirsts += "*/*/*/*/*/*/*/*/*/*/*/*"
+            pickFirsts += "*/*/*/*/*/*/*/*/*/*/*"
+            pickFirsts += "*/*/*/*/*/*/*/*/*/*"
+            pickFirsts += "*/*/*/*/*/*/*/*/*"
+            pickFirsts += "*/*/*/*/*/*/*/*"
+            pickFirsts += "*/*/*/*/*/*/*"
+            pickFirsts += "*/*/*/*/*/*"
+            pickFirsts += "*/*/*/*/*"
+            pickFirsts += "*/*/*/*"
+            pickFirsts += "*/*/*"
+            pickFirsts += "*/*"
             pickFirsts += "/*"
 
-
-            pickFirsts += "org/eclipse/jdt/internal/compiler/parser/**"
-            pickFirsts += "org/eclipse/jdt/internal/*/**"
-
-            pickFirsts += "org/eclipse/jdt/core/*/**"
-            pickFirsts += "org/eclipse/jdt/core/**"
-
-            pickFirsts += "org/eclipse/jdt/internal/*/*/*/*"
-            pickFirsts += "org/eclipse/jdt/internal/compiler/parser/*/*/*"
-            pickFirsts += "org/eclipse/jdt/internal/*/*/*/*/*/*"
 
             pickFirsts += "about_files/*"
 
@@ -111,7 +173,7 @@ android {
             project.rootProject.file("${layout.buildDirectory.asFile.get().path}/public.txt")
 
         // 创建父目录并确保 publicTxtFile 存在
-        publicTxtFile.parentFile.mkdirs()
+        publicTxtFile.parentFile?.mkdirs()
         publicTxtFile.createNewFile()
 
         // 解析 public.xml 文件并将内容写入 public.txt
@@ -132,6 +194,7 @@ android {
         // 添加稳定 ID 参数
         @Suppress("DEPRECATION")
         additionalParameters("--stable-ids", publicTxtFile.path)
+
     }
 
 
@@ -139,6 +202,7 @@ android {
     buildFeatures {
         buildConfig = true
         viewBinding = true
+        renderScript = false
     }
     lint {
         abortOnError = false
@@ -153,9 +217,10 @@ dependencies {
 
     /// 项目主体
     api(projects.appRewrite)
+
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.material:material:1.12.0")
+    implementation("com.google.android.material:material:1.13.0-alpha09")
 
     /// 测试用的
     testImplementation("junit:junit:4.13.2")
@@ -166,6 +231,7 @@ dependencies {
     if (isRelease) {
         coreLibraryDesugaring("com.android.tools:desugar_jdk_lib:2.1.3")
     }
+
 }
 
 configurations.all {
@@ -173,7 +239,7 @@ configurations.all {
     //exclude("com.google.guava","guava")
     exclude("net.java.dev.jna", "jna")
     exclude("net.java.dev.jna", "jna-platform")
-    exclude("org.bouncycastle","bcprov-jdk15on")
+    exclude("org.bouncycastle", "bcprov-jdk15on")
 }
 
 
@@ -186,96 +252,114 @@ tasks.withType<Copy> {
 }
 
 
-/*
 configurations.all {
     resolutionStrategy {
         // 对冲突的依赖直接使用最新版本
-        force("")
+        //force("")
         //failOnVersionConflict()
 
     }
 }
-*/
+
 
 
 
 afterEvaluate {
 
-
-    val AppDexCount: (String, Boolean) -> Int = { buildDir, isDebug ->
-        val dexDir = Paths.get(
-            buildDir,
-            "intermediates",
-            "dex",
-            if (isDebug) "debug" else "release",
-            if (isDebug) "mergeDexDebug" else "mergeDexRelease"
-        )
-        if (!Files.exists(dexDir)) 0
-        else {
-            Files.list(dexDir).use { it.count().toInt() }
-        }
-    }
-
-    val copy: (Project, File, Boolean) -> Unit = { project, resFile, isDebug ->
-        val buildDir = project.layout.buildDirectory.asFile.get().path
-        val dexFolder = project.layout.projectDirectory.file("Dex")
-        val appDexCount = AppDexCount(buildDir, isDebug)
-        check(appDexCount != 0) { "Unexpected app dex count" }
-        var dexCount = appDexCount + 2
-        try {
-            ZFile.openReadWrite(resFile).use { zip ->
-                dexFolder.asFile.listFiles()?.forEach {
-                    /// 不允许先添加 AIDE+_2.3.dex
-                    if (it.name.endsWith(".dex") && it.name != "AIDE+_2.3.dex") {
-                        val dexName = "classes${dexCount}.dex"
-                        zip.add(dexName, it.inputStream())
-                        dexCount++
-                    }
-                }
-                val inputStream = project
-                    .layout
-                    .projectDirectory
-                    .file("Dex/AIDE+_2.3.dex")
-                    .asFile
-                    .inputStream()
-                val dexName = "classes${dexCount}.dex"
-                zip.add(dexName, inputStream)
+    tasks.register("launchApp") {
+        doLast {
+            // 定义包名和Activity
+            val packageName = "io.github.zeroaicy.aide"
+            val activityName = "io.github.zeroaicy.aide.activity.HomeActivity"
+            // 执行adb命令
+            exec {
+                commandLine(
+                    project.android.adbExecutable.absolutePath,
+                    "shell",
+                    "am",
+                    "start",
+                    "-n",
+                    "$packageName/$activityName"
+                )
             }
-        } catch (e: Exception) {
-            throw e
         }
     }
 
 
-
-
-    tasks.register("copyDexRelease") {
-        doLast {
-            val zip = layout.buildDirectory.file(
-                "intermediates/optimized_processed_res/release/optimizeReleaseResources/resources-release-optimize.ap_"
-            ).get().asFile
-            copy(project, zip, false)
-        }
-    }
-
-    tasks.register("copyDexDebug") {
-        doLast {
-            val zip = layout.buildDirectory.file(
-                "intermediates/processed_res/debug/processDebugResources/out/resources-debug.ap_"
-            ).get().asFile
-            copy(project, zip, true)
-        }
-    }
-
-
-
+    var taskDefaultName: String?
 
     tasks.configureEach {
-        if (name == "mergeDexRelease") {
-            finalizedBy("copyDexRelease")
-        } else if (name == "mergeDexDebug") {
-            finalizedBy("copyDexDebug")
+        if (name.startsWith("install")) {
+            finalizedBy("launchApp")
+        } else if (name.contains("mergeDex")) {
+            taskDefaultName = name.removePrefix("mergeDex")
+
+            doLast {
+                val buildDir = project.layout.buildDirectory.asFile.get().path
+                val dexFolder = project.layout.projectDirectory.file("Dex")
+
+                val optimizeAp = Paths.get(
+                    buildDir,
+                    "intermediates",
+                    "optimized_processed_res",
+                    taskDefaultName!!,
+                    "optimize${taskDefaultName}Resources",
+                    "resources-${taskDefaultName!!.camelToKebab()}-optimize.ap_"
+                )
+
+                println("optimize.ap_ file in ${optimizeAp.toFile().absolutePath}")
+
+
+                val appDexCount: () -> Int = {
+                    val dexDir = Paths.get(
+                        project.layout.buildDirectory.asFile.get().path,
+                        "intermediates",
+                        "dex",
+                        taskDefaultName!!,
+                        "mergeDex${taskDefaultName}"
+                    )
+                    if (!Files.exists(dexDir)) 0
+                    else {
+                        Files.list(dexDir).use { it.count().toInt() }
+                    }
+                }
+
+                println("app_dex_count: ${appDexCount()}")
+
+                check(appDexCount() != 0) { "Unexpected app dex count" }
+                var dexCount = appDexCount() + 2
+
+                try {
+                    ZFile.openReadWrite(optimizeAp.toFile()).use { zip ->
+                        dexFolder.asFile.listFiles()?.forEach {
+                            /// 不允许先添加 AIDE+_2.3.dex
+                            println("add dex to optimize.ap_ file ${it.absolutePath} rename to classes${dexCount}.dex")
+                            if (it.name.endsWith(".dex") && it.name != "AIDE+_2.3.dex") {
+                                val dexName = "classes${dexCount}.dex"
+                                zip.add(dexName, it.inputStream())
+                                dexCount++
+                            }
+                        }
+                        val inputStream = project
+                            .layout
+                            .projectDirectory
+                            .file("Dex/AIDE+_2.3.dex")
+                            .asFile
+                            .inputStream()
+                        val dexName = "classes${dexCount}.dex"
+                        zip.add(dexName, inputStream)
+                    }
+                } catch (e: Exception) {
+                    throw e
+                }
+            }
         }
+
     }
 }
 
+
+fun String.camelToKebab(): String {
+    val kebab = this.replace(Regex("([a-z])([A-Z])"), "$1-$2").lowercase()
+    return kebab.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+}

@@ -147,6 +147,5 @@ public class ZeroAicyModel extends AIDEModel {
 	@Override
 	public void setEngineSolution( EngineSolution engineSolution ) {
 		super.setEngineSolution(engineSolution);
-
 	}
 }

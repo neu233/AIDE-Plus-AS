@@ -1,0 +1,63 @@
+{
+  "category": [
+    {
+      "icon": "icon/android.png",
+      "title": "Android Project",
+      "type": "android",
+      "templates": [
+        {
+          "icon": "icon/empty.png",
+          "title": "Empty Project",
+          "describes": "",
+          "project": {
+            "type": "android",
+            "main": "app",
+            "minSdk": 21,
+            "replaces": [
+              ".*.xml",
+              ".*.java",
+              ".*.kt",
+              ".*.gradle",
+              ".*.gradle.kts"
+            ],
+            "Languages":[
+              {
+                "name": "Kotlin",
+                "sources": "android/empty_kotlin.zip",
+                "openFile": [
+                  "src/main/java/{$packageName}/MainActivity.kt",
+                  "src/main/res/layout/activity_main.xml",
+                  "src/main/res/layout/AndroidManifest.xml",
+                  "build.gradle.kts"
+                ]
+              },
+              {
+                "name": "Java",
+                "sources": "android/empty_java.zip",
+                "openFile": [
+                  "src/main/java/{$packageName}/MainActivity.java",
+                  "src/main/res/layout/activity_main.xml",
+                  "src/main/res/layout/AndroidManifest.xml",
+                  "build.gradle"
+                ]
+              }
+            ],
+            "configs": [
+              {
+                "namespace": "com.aide",
+                "compileSdk": 35,
+                "minSdk": 21,
+                "targetSdk": 35,
+                "versionCode": 1,
+                "versionName": "1.0.0",
+                "viewBinding": "true",
+                "JavaVersion": "17",
+                "enableAndroidx": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

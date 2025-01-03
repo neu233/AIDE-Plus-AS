@@ -1,7 +1,3 @@
-/**
- * @Author ZeroAicy
- * @AIDE AIDE+
- */
 package com.aide.codemodel.language.java;
 
 import com.aide.codemodel.api.HighlighterType;

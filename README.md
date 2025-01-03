@@ -1,11 +1,31 @@
+<p align="center">
+  <img src="assets/Icon.svg" style="width: 30%;" />
+</p>
+
+
 # AIDE-Plus
+
+[![GitHub contributors](https://img.shields.io/github/contributors/AndroidIDE-CN/AIDE-Plus)](https://github.com/AndroidIDE-CN/AIDE-Plus/graphs/contributors)
+[![GitHub last commit](https://img.shields.io/github/last-commit/AndroidIDE-CN/AIDE-Plus)](https://github.com/AndroidIDE-CN/AIDE-Plus/commits/)
+[![Total downloads](https://img.shields.io/github/downloads/AndroidIDE-CN/AIDE-Plus/total)](https://github.com/AndroidIDE-CN/AIDE-Plus/releases)
+[![Repository Size](https://img.shields.io/github/repo-size/AndroidIDE-CN/AIDE-Plus)](https://github.com/AndroidIDE-CN/AIDE-Plus)
+
+
+
+
 
 - [中文](README_zh.md)
 
 
-## Build
 
-To run tests, you can use the following command:
+
+## Build
+```shell
+chmod +x ./gradlew
+./gradlew :app:assembleRelease
+```
+> [!TIP]
+>To run tests, you can use the following command:
 `gradlew :app:installRelease`
 
 

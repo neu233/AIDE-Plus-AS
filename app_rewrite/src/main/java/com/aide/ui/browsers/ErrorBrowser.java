@@ -1,7 +1,3 @@
-/**
- * @Author ZeroAicy
- * @AIDE AIDE+
- */
 //
 // Decompiled by Jadx - 1313ms
 //

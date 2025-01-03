@@ -1,16 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<!-- Put flavor specific strings here -->
-	<string name="app_name" translatable="false">AIDE+</string>
-    
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Put flavor specific strings here -->
+    <string name="app_name"
+        translatable="false">AIDE+</string>
+
     <string name="zeroaicy_settings">ZeroAicyExtensionSettings</string>
     <string name="command_files_open_aide_termux">OpenAIDETermux</string>
-	<string name="command_run_from_gradle">RunGradle</string>
-	
-	<string name="refresh_maven_repository_tips">Tips</string>
-	<string name="refresh_maven_repository_tips_message">Are you sure you want to refresh Maven warehouse?</string>
-	
-	<string name="commit_options_menu_select_all">SelectAll</string>
-	<string name="commit_options_menu_inverse">Inverse</string>
-	
+    <string name="command_run_from_gradle">RunGradle</string>
+
+    <string name="refresh_maven_repository_tips">Tips</string>
+    <string name="refresh_maven_repository_tips_message">Are you sure you want to refresh Maven warehouse?</string>
+
+    <string name="commit_options_menu_select_all">SelectAll</string>
+    <string name="commit_options_menu_inverse">Inverse</string>
+
+
+    <string name="trainer_language"
+        translatable="false">zh</string>
+
+
+    <string name="app_string_desc_open">Open</string>
+    <string name="app_string_desc_close">Close</string>
+
+
+    <string name="menu_nav_projects">Projects</string>
+    <string name="menu_nav_settings">Settings</string>
+    <string name="menu_nav_home">Home</string>
+
+    <string name="command_tools">Tools</string>
+    <string name="activity_manifest_default_config">Default Configuration</string>
+    <string name="activity_manifest_actionBar_title">Manifest Editor</string>
+    <string name="activity_manifest_recycler_activity">Activity</string>
+    <string name="activity_manifest_recycler_activity_description">Required for software interface operation</string>
+    <string name="activity_manifest_recycler_uses_permission">Uses Permission</string>
+    <string name="activity_manifest_recycler_uses_permission_description">System permissions for users</string>
+    <string name="activity_manifest_recycler_permission">Permission</string>
+    <string name="activity_manifest_recycler_permission_description">The permissions that other software grants to the software</string>
+    <string name="activity_manifest_recycler_application">Application</string>
+    <string name="activity_manifest_recycler_application_description">Default proprties for the app</string>
+
+
+
+    <string name="projects_searchbar_hint">Project Search</string>
+    <string name="toolbar_navigation_close_description">Close</string>
+
+    <string name="fragment_projects_tab_local">Local</string>
+    <string name="fragment_projects_tab_share">Share</string>
+    <string name="project_add">Create</string>
+
+    <string name="loading_text"
+        tools:ignore="TypographyEllipsis">Loading...</string>
+
+    <string name="fragment_searchBar_textInputLayout_helperText">Local project loading path</string>
+    <string name="fragment_create_project_toolbar_title">Project Create</string>
+
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+
+    <string name="string_message">Message</string>
+    <string name="string_request">Request</string>
+
+
+    <string name="WRITE_EXTERNAL_STORAGE">Authorization required \'WRITE_EXTERNAL_STORAGE\'</string>
+    <string name="MANAGE_EXTERNAL_STORAGE">Authorization required \'MANAGE_EXTERNAL_STORAGE\'</string>
+    <string name="app_changelog">Change Log</string>
+    <string name="fragment_projects_tab_create">Create</string>
+    <string name="fragment_projects_tab_open">Open</string>
+    <string name="fragment_projects_tab_git">Clone</string>
+
+
 </resources>

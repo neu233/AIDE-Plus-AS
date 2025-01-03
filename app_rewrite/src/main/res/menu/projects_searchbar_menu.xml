@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AppCompatResource">
+
+
+    <item
+        android:id="@+id/commitMenuSettings"
+        android:icon="@drawable/ic_settings_24dp"
+        android:title="@string/command_settings"
+        app:showAsAction="ifRoom"/>
+
+
+
+</menu>

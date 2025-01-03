@@ -1,0 +1,56 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+        For shortcut.xml:
+        If applicationId in build.gradle is changed from "com.termux", then targetPackage will
+        need to be manually patched since ${applicationId} variable or resource string does not work.
+        If package name in AndroidManifest is changed from "com.termux", then targetClass will
+        need to be manually patched since dot (.) prefix does not work to automatically prefix the
+        package name.
+    -->
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_new_session"
+        android:shortcutId="new_session"
+        android:shortcutShortLabel="@string/action_new_session"
+        tools:targetApi="n_mr1">
+        <intent
+            android:name="android.shortcut.conversation"
+            android:action="android.intent.action.RUN"
+            android:targetClass="com.termux.app.TermuxActivity"
+            android:targetPackage="com.termux" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_new_session"
+        android:shortcutId="new_failsafe_session"
+        android:shortcutShortLabel="@string/action_new_session_failsafe"
+        tools:targetApi="n_mr1">
+        <intent
+            android:name="android.shortcut.conversation"
+            android:action="android.intent.action.RUN"
+            android:targetClass="com.termux.app.TermuxActivity"
+            android:targetPackage="com.termux">
+            <extra
+                android:name="com.termux.app.failsafe_session"
+                android:value="true" />
+        </intent>
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:shortcutId="settings"
+        android:shortcutShortLabel="@string/action_open_settings"
+        tools:targetApi="n_mr1">
+        <intent
+            android:name="android.shortcut.conversation"
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.termux.app.activities.SettingsActivity"
+            android:targetPackage="com.termux" />
+    </shortcut>
+
+</shortcuts>

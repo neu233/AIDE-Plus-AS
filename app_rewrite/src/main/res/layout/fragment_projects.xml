@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:clipToPadding="false"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:liftOnScroll="false"
+        app:statusBarForeground="?attr/colorSurface">
+
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/open_search_bar"
+            android:hint="@string/projects_searchbar_hint"
+            android:layout_height="wrap_content"
+            android:paddingEnd="10dp"
+            android:layout_width="match_parent"
+            tools:ignore="RtlSymmetry" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tabLayout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <FrameLayout
+        android:id="@+id/contextual_toolbar_container"
+        android:elevation="10dp"
+        android:fitsSystemWindows="false"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:visibility="gone">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/contextual_toolbar"
+            style="@style/Toolbar_WithCloseButton"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:theme="@style/Toolbar_Contextual"
+            app:titleTextAppearance="@style/Toolbar_Contextual_Title" />
+    </FrameLayout>
+
+
+    <com.google.android.material.search.SearchView
+        android:id="@+id/open_search_view"
+        android:hint="@string/projects_searchbar_hint"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        app:layout_anchor="@id/open_search_bar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/open_search_view_suggestion_container"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical" />
+
+    </com.google.android.material.search.SearchView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

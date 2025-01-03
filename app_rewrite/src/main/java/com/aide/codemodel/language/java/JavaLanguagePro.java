@@ -14,7 +14,7 @@ public class JavaLanguagePro extends JavaLanguage {
 		return we();
 	}
 
-	JavaCodeAnalyzer eclipseJavaCodeAnalyzer;
+	EclipseJavaCodeAnalyzer2 eclipseJavaCodeAnalyzer;
 
 	JavaCodeModelPro javaCodeModelPro;
 	public JavaLanguagePro(Model model, JavaCodeModelPro javaCodeModelPro) {
@@ -40,7 +40,7 @@ public class JavaLanguagePro extends JavaLanguage {
 	}
 
 	@Override
-	public JavaCodeAnalyzer getCodeAnalyzer() {
+	public EclipseJavaCodeAnalyzer2 getCodeAnalyzer() {
 		return this.eclipseJavaCodeAnalyzer;
 	}
 

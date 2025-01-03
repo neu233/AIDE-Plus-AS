@@ -116,6 +116,24 @@ public class EclipseJavaCodeAnalyzer2 extends JavaCodeAnalyzer {
 	public void v5( SyntaxTree syntaxTree ) {
 
 		// 当前文件error count
+		
+		// 语义分析
+		semanticAnalysis(syntaxTree);
+		// AIDE的语义分析
+	}
+	
+	
+	/**
+	 * 语义分析
+	 */
+	public CompilationUnitDeclaration semanticAnalysis(SyntaxTree syntaxTree) {
+		return semanticAnalysis(syntaxTree, false);
+	}
+	
+	/**
+	 * 可以强制语义分析
+	 */
+	public CompilationUnitDeclaration semanticAnalysis(SyntaxTree syntaxTree, boolean forceResolve) {
 		FileEntry fileEntry = syntaxTree.getFile();
 		Language language = syntaxTree.getLanguage();
 
@@ -130,8 +148,7 @@ public class EclipseJavaCodeAnalyzer2 extends JavaCodeAnalyzer {
 		// 必须调用 codemodel需要符号表信息
 		List<ErrorInfo> aideSemanticAnalysis = aideSemanticAnalysis(syntaxTree);
 
-
-		if ( oldVersion == nowVersion ) {
+		if (!forceResolve && oldVersion == nowVersion) {
 			// 复用解析结果
 
 			// 添加 ecj 从缓存中 
@@ -141,32 +158,37 @@ public class EclipseJavaCodeAnalyzer2 extends JavaCodeAnalyzer {
 
 			// 添加 aideSemanticAnalysis 
 			addErrorInfo(aideSemanticAnalysis, fileEntry, language);
+			return null;
 		} else {
+			
 			// 更新版本 put
-			semanticParserVersionMap.VH(fileId, nowVersion);
-
-			// 使用 ProjectEnvironment 增量分析
-			// 并保存结果以便复用
-
-			// 解析
-
-			// resolve 可能为null
-			CompilationUnitDeclaration resolveUnit = forceResolveUnit(fileEntry);
-
-			// 计算并缓存 ecj信息
-			ecjSemanticAnalysis(resolveUnit, fileEntry, language);
-
-			List<ErrorInfo> ecjSemanticAnalysis = ecjSemanticAnalysisMap.get(filePath);
-
-			// 添加 ecjSemanticAnalysis 
-			addErrorInfo(ecjSemanticAnalysis, fileEntry, language);				
-
-			// 添加 aideSemanticAnalysis 
-			addErrorInfo(aideSemanticAnalysis, fileEntry, language);
-
+			return forceSemanticAnalysis(fileId, nowVersion, fileEntry, language, filePath, aideSemanticAnalysis);
 		}
+	}
 
-		// AIDE的语义分析
+	private CompilationUnitDeclaration forceSemanticAnalysis(int fileId, long nowVersion, FileEntry fileEntry, Language language, String filePath, List<ErrorInfo> aideSemanticAnalysis) {
+		semanticParserVersionMap.VH(fileId, nowVersion);
+
+		// 使用 ProjectEnvironment 增量分析
+		// 并保存结果以便复用
+
+		// 解析
+
+		// resolve 可能为null
+		CompilationUnitDeclaration resolveUnit = forceResolveUnit(fileEntry);
+
+		// 计算并缓存 ecj信息
+		ecjSemanticAnalysis(resolveUnit, fileEntry, language);
+
+		List<ErrorInfo> ecjSemanticAnalysis = ecjSemanticAnalysisMap.get(filePath);
+
+		// 添加 ecjSemanticAnalysis 
+		addErrorInfo(ecjSemanticAnalysis, fileEntry, language);				
+
+		// 添加 aideSemanticAnalysis 
+		addErrorInfo(aideSemanticAnalysis, fileEntry, language);
+		
+		return resolveUnit;
 	}
 
 

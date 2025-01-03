@@ -164,9 +164,10 @@ public class ZeroAicyPreferencesActivity extends PreferencesActivity implements 
     public void onBackPressed() {
         if (from_main) {
             ActionBar actionbar = getActionBar();
-            if (actionbar.getSelectedTab().getTag().toString().equals(TAG_TAB_ADVANCED_SETTING)) {
-                actionbar.getTabAt(0).select();
-                return;
+            switch (actionbar.getSelectedTab().getTag().toString()) {
+                case TAG_TAB_ADVANCED_SETTING:
+                    actionbar.getTabAt(0).select();
+                    return;
             }
         }
         super.onBackPressed();
@@ -184,9 +185,10 @@ public class ZeroAicyPreferencesActivity extends PreferencesActivity implements 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
