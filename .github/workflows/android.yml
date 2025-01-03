@@ -41,18 +41,18 @@ jobs:
 
       # 重命名
     - name: Rename APK for ${{ matrix.flavor }}
-      run: mv build/app/outputs/apk/${{ matrix.flavor }}/release/app-${{ matrix.flavor }}-release.apk build/app/outputs/apk/${{ matrix.flavor }}/release/AIDE-${{ matrix.task }}.apk
+      run: mv build/app/outputs/apk/${{ matrix.flavor }}/release/app-${{ matrix.flavor }}-release.apk build/app/outputs/apk/${{ matrix.flavor }}/release/AIDE-${{ matrix.flavor }}.apk
 
     - name: Upload  APK
       uses: actions/upload-artifact@v4
       with:
         name: AIDE-${{ matrix.flavor }}.apk
-        path: build/app/outputs/apk/${{ matrix.flavor }}/release/AIDE-${{ matrix.task }}.apk
+        path: build/app/outputs/apk/${{ matrix.flavor }}/release/AIDE-${{ matrix.flavor }}.apk
     # 发布到 Release
     - name: Upload APK for ${{ matrix.flavor }} to GitHub Release
       uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ env.TAG_VERSION_NAME }}
         repository: neu233/AIDE-Plus-AS
-        files: build/app/outputs/apk/${{ matrix.flavor }}/release/AIDE-${{ matrix.task }}.apk
+        files: build/app/outputs/apk/${{ matrix.flavor }}/release/AIDE-${{ matrix.flavor }}.apk
         token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
