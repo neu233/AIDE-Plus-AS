@@ -52,6 +52,7 @@ jobs:
     - name: Upload APK for ${{ matrix.flavor }} to GitHub Release
       uses: softprops/action-gh-release@v2
       with:
+        body_path: changlog/${{ env.TAG_VERSION_NAME }}/README.md
         tag_name: ${{ env.TAG_VERSION_NAME }}
         repository: neu233/AIDE-Plus-AS
         files: build/app/outputs/apk/${{ matrix.flavor }}/release/AIDE-${{ matrix.flavor }}.apk
