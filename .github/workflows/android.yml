@@ -16,8 +16,7 @@ jobs:
     strategy:
       # 矩阵功能，为每个包构建
       matrix:
-        flavor: [ default, termux ]
-        task: [ Default, Termux ]
+        flavor: [ Default, Termux ]
 
     steps:
     - uses: actions/checkout@v4

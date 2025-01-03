@@ -66,7 +66,7 @@ android {
     flavorDimensions.add("api")
 
     productFlavors {
-        create("default") {
+        create("Default") {
 
             dimension = "api"
             versionNameSuffix = ""
@@ -88,7 +88,7 @@ android {
             }
         }
 
-        create("termux") {
+        create("Termux") {
 
             dimension = "api"
             versionNameSuffix = "-termux"

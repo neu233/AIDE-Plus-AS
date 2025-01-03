@@ -14,5 +14,5 @@ allprojects {
 }
 
 ext{
-    val TAG_VERSION_NAME = "2.3.2.9"
+    val TAG_VERSION_NAME = "v2.3.2.9"
 }
