@@ -17,12 +17,20 @@ android {
             keyPassword = "123789456"
             storePassword = "123789456"
             storeFile = file("release.jks")
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+            enableV2Signing = true
         }
         create("debug1") {
             keyAlias = "androiddebug"
             keyPassword = "123789456"
             storePassword = "123789456"
             storeFile = file("debug.jks")
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+            enableV2Signing = true
         }
     }
 
@@ -67,12 +75,12 @@ android {
 
     productFlavors {
         create("Default") {
-
+            //isDefault = true
             dimension = "api"
-            versionNameSuffix = ""
-            isDefault = true
+            versionNameSuffix = "-default"
+            //applicationId = "io.github.zeroaicy.aide"
             signingConfig = signingConfigs.getByName("debug1")
-            resourcePrefix = "default_"
+            //resourcePrefix = "default_"
 
             androidResources {
                 val publicXmlFile =
@@ -89,12 +97,12 @@ android {
         }
 
         create("Termux") {
-
             dimension = "api"
             versionNameSuffix = "-termux"
             applicationId = "io.github.zeroaicy.aide2"
-            resourcePrefix = "termux_"
             signingConfig = signingConfigs.getByName("debug1")
+            //resourcePrefix = "termux_"
+
 
             dependencies {
                 api(projects.termux.termuxApp) // termux
@@ -134,6 +142,7 @@ android {
             signingConfig = signingConfigs.getByName("debug1")
         }
     }
+
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = isRelease
@@ -232,8 +241,12 @@ configurations.all {
     exclude("net.java.dev.jna", "jna")
     exclude("net.java.dev.jna", "jna-platform")
     exclude("org.bouncycastle", "bcprov-jdk15on")
+    resolutionStrategy {
+        // 对冲突的依赖直接使用最新版本
+        //force("")
+        //failOnVersionConflict()
+    }
 }
-
 
 val isRelease: Boolean = gradle.startParameter.taskNames.any { taskName ->
     taskName.contains("Release", ignoreCase = true)
@@ -243,26 +256,15 @@ tasks.withType<Copy> {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
-
-configurations.all {
-    resolutionStrategy {
-        // 对冲突的依赖直接使用最新版本
-        //force("")
-        //failOnVersionConflict()
-
-    }
-}
-
-
-
-
 afterEvaluate {
 
     tasks.register("launchApp") {
         doLast {
             // 定义包名和Activity
             val packageName = "io.github.zeroaicy.aide"
-            val activityName = "io.github.zeroaicy.aide.activity.HomeActivity"
+//            val packageName = "io.github.zeroaicy.aide2"
+//            val activityName = "io.github.zeroaicy.aide.activity.HomeActivity"
+            val activityName = "io.github.zeroaicy.aide.activity.ZeroAicyMainActivity"
             // 执行adb命令
             exec {
                 commandLine(
@@ -350,20 +352,21 @@ afterEvaluate {
     }
 }
 
-
 fun String.camelToKebab(): String {
     val kebab = this.replace(Regex("([a-z])([A-Z])"), "$1-$2").lowercase()
     return kebab.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
 }
 
-
 fun AndroidResources.createPublicTxt(
     packageName: String,
-    publicXmlFile : File,
-    publicTxtFile : File,
+    publicXmlFile: File,
+    publicTxtFile: File,
 ) {
     // 创建父目录并确保 publicTxtFile 存在
     publicTxtFile.parentFile?.mkdirs()
+    if (publicTxtFile.exists()) {
+        publicTxtFile.delete()
+    }
     publicTxtFile.createNewFile()
 
     // 解析 public.xml 文件并将内容写入 public.txt
